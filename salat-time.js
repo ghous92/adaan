@@ -660,9 +660,6 @@ const SalatTime = props => {
       }
     });
 
-    // if (salat === 'Isha') {
-    //   props.onComplete(true);
-    // }
     if (salat) {
       setNamaz(salatTimes[salat]);
     }
