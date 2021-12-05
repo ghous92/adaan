@@ -11,10 +11,12 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		151C966F46D96B788F94760F /* libPods-adaan-adaanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ED003792A7B55DEFA4A1B0D /* libPods-adaan-adaanTests.a */; };
-		25BF06F215E251A67F350A1C /* libPods-adaan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB2E9D93EA41099FF8D548D /* libPods-adaan.a */; };
+		5E04D215DF1B167BBB64ADC3 /* libPods-adaan-adaanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0DCCF830E34625056C553D /* libPods-adaan-adaanTests.a */; };
+		7361D17F3FA4EAFD3AB911C0 /* libPods-adaan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FAC7A08387D5911152C702F /* libPods-adaan.a */; };
 		7C35719D274FAD2100E5D14C /* best-azan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C35719C274FAD2100E5D14C /* best-azan.mp3 */; };
 		7C41ACE527537439007169AF /* sound-swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41ACE427537439007169AF /* sound-swift.swift */; };
+		7C41ACE7275AB1FC007169AF /* BridgingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41ACE6275AB1FC007169AF /* BridgingFile.swift */; };
+		7C41ACEC275B66D0007169AF /* Ding-sound-effect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C41ACEB275B66D0007169AF /* Ding-sound-effect.mp3 */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -32,22 +34,24 @@
 		00E356EE1AD99517003FC87E /* adaanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = adaanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* adaanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = adaanTests.m; sourceTree = "<group>"; };
+		06F945A1766B0D15E7028C88 /* Pods-adaan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan.debug.xcconfig"; path = "Target Support Files/Pods-adaan/Pods-adaan.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* adaan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = adaan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = adaan/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = adaan/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = adaan/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = adaan/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = adaan/main.m; sourceTree = "<group>"; };
-		18FBCE6B30DC8CB20E4D9D35 /* Pods-adaan-adaanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan-adaanTests.release.xcconfig"; path = "Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests.release.xcconfig"; sourceTree = "<group>"; };
-		4F29F7F1A9A6D0040EAADE0D /* Pods-adaan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan.release.xcconfig"; path = "Target Support Files/Pods-adaan/Pods-adaan.release.xcconfig"; sourceTree = "<group>"; };
-		5A15A8CA822F2E9C4F7FC040 /* Pods-adaan-adaanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan-adaanTests.debug.xcconfig"; path = "Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5BB2E9D93EA41099FF8D548D /* libPods-adaan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-adaan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5ED003792A7B55DEFA4A1B0D /* libPods-adaan-adaanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-adaan-adaanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B2F75F73ED1EF06CC7D2FBD /* Pods-adaan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan.release.xcconfig"; path = "Target Support Files/Pods-adaan/Pods-adaan.release.xcconfig"; sourceTree = "<group>"; };
+		6F0DCCF830E34625056C553D /* libPods-adaan-adaanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-adaan-adaanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C35719C274FAD2100E5D14C /* best-azan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "best-azan.mp3"; path = "../../../../../Downloads/best-azan.mp3"; sourceTree = "<group>"; };
 		7C41ACE327537439007169AF /* adaan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "adaan-Bridging-Header.h"; sourceTree = "<group>"; };
 		7C41ACE427537439007169AF /* sound-swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "sound-swift.swift"; sourceTree = "<group>"; };
+		7C41ACE6275AB1FC007169AF /* BridgingFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgingFile.swift; sourceTree = "<group>"; };
+		7C41ACEB275B66D0007169AF /* Ding-sound-effect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Ding-sound-effect.mp3"; path = "../../../../../Downloads/ding-sound-effect/Ding-sound-effect.mp3"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = adaan/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		BA6A90EBC37C2B6D123792C7 /* Pods-adaan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan.debug.xcconfig"; path = "Target Support Files/Pods-adaan/Pods-adaan.debug.xcconfig"; sourceTree = "<group>"; };
+		8FAC7A08387D5911152C702F /* libPods-adaan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-adaan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A01E0B29B4EC069C61B2769F /* Pods-adaan-adaanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan-adaanTests.release.xcconfig"; path = "Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests.release.xcconfig"; sourceTree = "<group>"; };
+		C10887CDDEAAC6945C3FFEEC /* Pods-adaan-adaanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan-adaanTests.debug.xcconfig"; path = "Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -56,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				151C966F46D96B788F94760F /* libPods-adaan-adaanTests.a in Frameworks */,
+				5E04D215DF1B167BBB64ADC3 /* libPods-adaan-adaanTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25BF06F215E251A67F350A1C /* libPods-adaan.a in Frameworks */,
+				7361D17F3FA4EAFD3AB911C0 /* libPods-adaan.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,8 +109,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5BB2E9D93EA41099FF8D548D /* libPods-adaan.a */,
-				5ED003792A7B55DEFA4A1B0D /* libPods-adaan-adaanTests.a */,
+				8FAC7A08387D5911152C702F /* libPods-adaan.a */,
+				6F0DCCF830E34625056C553D /* libPods-adaan-adaanTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -128,6 +132,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				7C41ACEB275B66D0007169AF /* Ding-sound-effect.mp3 */,
+				7C41ACE6275AB1FC007169AF /* BridgingFile.swift */,
 				7C41ACE427537439007169AF /* sound-swift.swift */,
 				7C35719C274FAD2100E5D14C /* best-azan.mp3 */,
 				13B07FAE1A68108700A75B9A /* adaan */,
@@ -156,10 +162,10 @@
 		86CE08BA1D4AF3E4004D5372 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BA6A90EBC37C2B6D123792C7 /* Pods-adaan.debug.xcconfig */,
-				4F29F7F1A9A6D0040EAADE0D /* Pods-adaan.release.xcconfig */,
-				5A15A8CA822F2E9C4F7FC040 /* Pods-adaan-adaanTests.debug.xcconfig */,
-				18FBCE6B30DC8CB20E4D9D35 /* Pods-adaan-adaanTests.release.xcconfig */,
+				06F945A1766B0D15E7028C88 /* Pods-adaan.debug.xcconfig */,
+				4B2F75F73ED1EF06CC7D2FBD /* Pods-adaan.release.xcconfig */,
+				C10887CDDEAAC6945C3FFEEC /* Pods-adaan-adaanTests.debug.xcconfig */,
+				A01E0B29B4EC069C61B2769F /* Pods-adaan-adaanTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -171,12 +177,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "adaanTests" */;
 			buildPhases = (
-				FC58D546720C0E3041BDD035 /* [CP] Check Pods Manifest.lock */,
+				15524E35113CD630F4EE3A88 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				AE2249590C46737B8223795F /* [CP] Embed Pods Frameworks */,
-				DC80A95BBD64719B68C87CD5 /* [CP] Copy Pods Resources */,
+				8F4B3478D4FF969C5BC13151 /* [CP] Embed Pods Frameworks */,
+				5FE2F1378AF359AD6E4E8E3C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -192,14 +198,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "adaan" */;
 			buildPhases = (
-				369A57C11FD3D3485791157B /* [CP] Check Pods Manifest.lock */,
+				5007660D7D41029401C1993E /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				B307C67139C56CCB6B52AA39 /* [CP] Embed Pods Frameworks */,
-				2622B89E6DE761D29DF8FF99 /* [CP] Copy Pods Resources */,
+				679A5C3DB194214E68786465 /* [CP] Embed Pods Frameworks */,
+				CDE6EC636665E0B1F957000B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -259,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C35719D274FAD2100E5D14C /* best-azan.mp3 in Resources */,
+				7C41ACEC275B66D0007169AF /* Ding-sound-effect.mp3 in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -281,24 +288,29 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		2622B89E6DE761D29DF8FF99 /* [CP] Copy Pods Resources */ = {
+		15524E35113CD630F4EE3A88 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-adaan-adaanTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		369A57C11FD3D3485791157B /* [CP] Check Pods Manifest.lock */ = {
+		5007660D7D41029401C1993E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -320,41 +332,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AE2249590C46737B8223795F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B307C67139C56CCB6B52AA39 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DC80A95BBD64719B68C87CD5 /* [CP] Copy Pods Resources */ = {
+		5FE2F1378AF359AD6E4E8E3C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -371,26 +349,55 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FC58D546720C0E3041BDD035 /* [CP] Check Pods Manifest.lock */ = {
+		679A5C3DB194214E68786465 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-adaan-adaanTests-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F4B3478D4FF969C5BC13151 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CDE6EC636665E0B1F957000B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -430,6 +437,7 @@
 				7C41ACE527537439007169AF /* sound-swift.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				7C41ACE7275AB1FC007169AF /* BridgingFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,7 +454,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A15A8CA822F2E9C4F7FC040 /* Pods-adaan-adaanTests.debug.xcconfig */;
+			baseConfigurationReference = C10887CDDEAAC6945C3FFEEC /* Pods-adaan-adaanTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -474,7 +482,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18FBCE6B30DC8CB20E4D9D35 /* Pods-adaan-adaanTests.release.xcconfig */;
+			baseConfigurationReference = A01E0B29B4EC069C61B2769F /* Pods-adaan-adaanTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -499,7 +507,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA6A90EBC37C2B6D123792C7 /* Pods-adaan.debug.xcconfig */;
+			baseConfigurationReference = 06F945A1766B0D15E7028C88 /* Pods-adaan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -531,7 +539,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F29F7F1A9A6D0040EAADE0D /* Pods-adaan.release.xcconfig */;
+			baseConfigurationReference = 4B2F75F73ED1EF06CC7D2FBD /* Pods-adaan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

@@ -272,6 +272,8 @@ PODS:
   - React-jsinspector (0.66.3)
   - React-logger (0.66.3):
     - glog
+  - react-native-background-timer (2.4.1):
+    - React-Core
   - react-native-geolocation-service (5.3.0-beta.3):
     - React
   - React-perflogger (0.66.3)
@@ -391,6 +393,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-background-timer (from `../node_modules/react-native-background-timer`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -460,6 +463,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-background-timer:
+    :path: "../node_modules/react-native-background-timer"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
   React-perflogger:
@@ -524,6 +529,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 433a691aee158533a6a6ee9c86cb4a1684fa2853
   React-jsinspector: d9c8eb0b53f0da206fed56612b289fec84991157
   React-logger: e522e76fa3e9ec3e7d7115b49485cc065cf4ae06
+  react-native-background-timer: 117fffdc9b0d6f144444bb49029f94275a45fdb5
   react-native-geolocation-service: 32e50a2e4e4518b51b829fdfe137562a672d95d2
   React-perflogger: 73732888d37d4f5065198727b167846743232882
   React-RCTActionSheet: 96c6d774fa89b1f7c59fc460adc3245ba2d7fd79
@@ -542,6 +548,6 @@ SPEC CHECKSUMS:
   Yoga: 32a18c0e845e185f4a2a66ec76e1fd1f958f22fa
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: c401220c32a4818b86d784bf0a6df8379ba6cb93
+PODFILE CHECKSUM: ddc2f631babf652cb8cc191294f999cd7f6aa95b
 
 COCOAPODS: 1.11.2

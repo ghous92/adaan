@@ -15,38 +15,14 @@ import {
   useColorScheme,
   View,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 
-import React, {useEffect, useState} from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, {useEffect} from 'react';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import Salat from './salat';
-
-var Sound = require('react-native-sound');
-
-Sound.setCategory('Playback');
-
-var ding = new Sound('best-azan.mp3', Sound.MAIN_BUNDLE, error => {
-  if (error) {
-    console.log('failed to load the sound', error);
-    return;
-  }
-  // if loaded successfully
-  console.log(
-    'duration in seconds: ' +
-      ding.getDuration() +
-      'number of channels: ' +
-      ding.getNumberOfChannels(),
-  );
-});
 
 const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -75,42 +51,17 @@ const Section = ({children, title}) => {
 };
 
 const App = () => {
-  const [isloaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    ding.setVolume(1);
-    setIsLoaded(true);
-
-    return () => {
-      ding.release();
-    };
-  }, []);
-
-  const playPause = () => {
-    ding.play(success => {
-      if (success) {
-        console.log('successfully finished playing');
-      } else {
-        console.log('playback failed due to audio decoding errors');
-      }
-    });
-  };
-
   const isDarkMode = useColorScheme() === 'dark';
-
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  return isloaded ? (
+  return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <Salat />
-      <TouchableOpacity style={styles.playBtn} onPress={playPause}>
-        <Text>Play</Text>
-      </TouchableOpacity>
     </SafeAreaView>
-  ) : null;
+  );
 };
 
 const styles = StyleSheet.create({

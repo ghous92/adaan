@@ -8,6 +8,7 @@ import {
   View,
   FlatList,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 
 import React, {useEffect, useState} from 'react';
@@ -17,11 +18,33 @@ import Geolocation, {
 
 import moment from 'moment';
 import * as m from 'moment-timezone';
+import BackgroundTimer from 'react-native-background-timer';
+
+var Sound = require('react-native-sound');
+
+Sound.setCategory('Playback');
+
+var ding = new Sound('Ding-sound-effect.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('failed to load the sound', error);
+    return;
+  }
+  // if loaded successfully
+  console.log(
+    'duration in seconds: ' +
+      ding.getDuration() +
+      'number of channels: ' +
+      ding.getNumberOfChannels(),
+  );
+});
 
 const SalatTime = props => {
   const [isloaded, setIsLoaded] = useState(false);
   const [namaz, setNamaz] = useState(null);
+  const [isSalatTime, setIsSalatTime] = useState(false);
+  const [showPlayButton, setShowPlayButton] = useState(false);
 
+  let salatTimes = [];
   const getAsarAngle = (shadowLength, latitude, declination) => {
     const numerator =
       -Math.sin(1 / Math.atan(2 + Math.tan(latitude - declination))) -
@@ -638,15 +661,9 @@ const SalatTime = props => {
 
     const asarTime = (getAsarAngle(2, data.lat, theta) * (60 * 180)) / Math.PI;
 
-    console.log('fazr', timeString(solnoon - twilight, 2));
-    console.log('sunrise', sunrise);
-    console.log('Duhr', timeString(solnoon, 2));
-    console.log('asar', timeString(solnoon + asarTime, 2));
-    console.log('Maghrib', sunset);
-    console.log('sunset', sunset);
     console.log('Isha', timeString(solnoon + twilight, 2));
 
-    const salatTimes = {
+    salatTimes = {
       Fajr: timeString(solnoon - twilight, 2),
       Dhuhr: timeString(solnoon, 2),
       Asr: timeString(solnoon + asarTime, 2),
@@ -665,12 +682,126 @@ const SalatTime = props => {
     }
   }
 
+  function alertSalatTime() {
+    const date = getDate();
+
+    const isNamazTime = Object.values(salatTimes).find(key => {
+      const hourMinute = key.split(':');
+      // return hourMinute[0] === date.hour && hourMinute[1] === date.minute;
+      if (hourMinute[0] === '06' && hourMinute[1] === '10') {
+        return key;
+      } else {
+        return null;
+      }
+    });
+    console.log(isNamazTime);
+    play();
+    setIsSalatTime(isNamazTime);
+  }
+
+  const play = () => {
+    setShowPlayButton(false);
+
+    ding.play(success => {
+      if (success) {
+        console.log('successfully finished playing');
+        // setIsSalatTime(null);
+        // setShowPlayButton(false);
+      } else {
+        console.log('playback failed due to audio decoding errors');
+      }
+    });
+  };
+  const pause = () => {
+    ding.pause(success => {
+      setShowPlayButton(true);
+      if (success) {
+        console.log('successfully paused playing');
+      } else {
+        console.log('playback failed due to audio decoding errors');
+      }
+    });
+  };
+
   useEffect(() => {
+    ding.setVolume(1);
+
     fetchSalatDetails();
+    alertSalatTime();
     setIsLoaded(true);
+    return () => {
+      ding.release();
+    };
   }, [props.name]);
 
-  return isloaded ? <Text> {namaz}</Text> : null;
-};
+  useEffect(() => {
+    if (isSalatTime) {
+      alertSalatTime();
+    } else {
+      BackgroundTimer.stopBackgroundTimer();
+    }
+    return () => {
+      BackgroundTimer.stopBackgroundTimer();
+    };
+  }, [isSalatTime]);
 
+  return isloaded ? (
+    <>
+      <Text> {namaz}</Text>
+      {isSalatTime === namaz ? (
+        <TouchableOpacity style={styles.playBtn}>
+          {showPlayButton ? (
+            <Button
+              title="Play"
+              backgroundColor="#3b5998"
+              onPress={play}></Button>
+          ) : (
+            <Button
+              title="Pause"
+              backgroundColor="#3b5998"
+              onPress={pause}></Button>
+          )}
+        </TouchableOpacity>
+      ) : null}
+    </>
+  ) : null;
+};
+const styles = StyleSheet.create({
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  sectionDescription: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  highlight: {
+    fontWeight: '700',
+  },
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+    marginHorizontal: 16,
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+  },
+  header: {
+    fontSize: 32,
+    backgroundColor: '#fff',
+  },
+  title: {
+    fontSize: 24,
+  },
+  playBtn: {
+    padding: 20,
+  },
+});
 export default SalatTime;

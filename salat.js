@@ -8,7 +8,6 @@ import {
   useColorScheme,
   View,
   FlatList,
-  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Geolocation, {
@@ -16,33 +15,42 @@ import Geolocation, {
 } from 'react-native-geolocation-service';
 import SalatTime from './salat-time';
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
 const Salat = props => {
   const [isloaded, setIsLoaded] = useState(false);
   const [position, setPosition] = useState(null);
-  const data = [
+  const [data, setData] = useState([
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'Fajr',
+      disabled: true,
+      turnOn: false,
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
       title: 'Dhuhr',
+      disabled: false,
+      turnOn: false,
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
       title: 'Asr',
+      disabled: false,
+      turnOn: false,
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d73',
       title: 'Maghrib',
+      disabled: false,
+      turnOn: false,
     },
     {
       id: '55694a0f-3da1-471f-bd96-145571e29d73',
       title: 'Isha',
+      disabled: false,
+      turnOn: false,
     },
-  ];
+  ]);
+
   useEffect(() => {
     Geolocation.requestAuthorization('always');
     Geolocation.getCurrentPosition(
@@ -58,18 +66,14 @@ const Salat = props => {
     );
   }, []);
 
-  const Item = ({title}) => (
+  const Item = ({value}) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-      <SalatTime
-        name={title}
-        position={position}
-        onComplete={callback => setIsLoaded(!callback)}
-      />
+      <Text style={styles.title}>{value.title}</Text>
+      <SalatTime name={value.title} position={position} />
     </View>
   );
 
-  const renderItem = ({item}) => <Item title={item.title} />;
+  const renderItem = ({item}) => <Item disabled={item.disabled} value={item} />;
 
   return isloaded ? (
     <FlatList
