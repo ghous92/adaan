@@ -19,6 +19,7 @@ import Geolocation, {
 import moment from 'moment';
 import * as m from 'moment-timezone';
 import BackgroundTimer from 'react-native-background-timer';
+import {notificationManager} from './NotificationManager';
 
 var Sound = require('react-native-sound');
 
@@ -43,7 +44,6 @@ const SalatTime = props => {
   const [namaz, setNamaz] = useState(null);
   const [isSalatTime, setIsSalatTime] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(false);
-
   let salatTimes = [];
   const getAsarAngle = (shadowLength, latitude, declination) => {
     const numerator =
@@ -683,20 +683,23 @@ const SalatTime = props => {
   }
 
   function alertSalatTime() {
-    const date = getDate();
-
     const isNamazTime = Object.values(salatTimes).find(key => {
       const hourMinute = key.split(':');
       // return hourMinute[0] === date.hour && hourMinute[1] === date.minute;
-      if (hourMinute[0] === '06' && hourMinute[1] === '10') {
+      if (hourMinute[0] === '06' && hourMinute[1] === '14') {
         return key;
       } else {
         return null;
       }
     });
     console.log(isNamazTime);
-    play();
     setIsSalatTime(isNamazTime);
+  }
+
+  function backgroundPlay() {
+    BackgroundTimer.runBackgroundTimer(() => {
+      play();
+    }, 1000);
   }
 
   const play = () => {
@@ -725,7 +728,11 @@ const SalatTime = props => {
 
   useEffect(() => {
     ding.setVolume(1);
-
+    notificationManager.configure(
+      onRegister,
+      onNotification,
+      onOpenNotification,
+    );
     fetchSalatDetails();
     alertSalatTime();
     setIsLoaded(true);
@@ -736,7 +743,19 @@ const SalatTime = props => {
 
   useEffect(() => {
     if (isSalatTime) {
-      alertSalatTime();
+      // backgroundPlay();
+      const options = {
+        soundName: 'default', //'azan1.mp3',
+        playSound: true,
+        vibrate: true,
+      };
+      notificationManager.showNotification(
+        ' 1',
+        'Salat Time ',
+        'Its Time for Salat',
+        {},
+        options,
+      );
     } else {
       BackgroundTimer.stopBackgroundTimer();
     }
@@ -744,6 +763,19 @@ const SalatTime = props => {
       BackgroundTimer.stopBackgroundTimer();
     };
   }, [isSalatTime]);
+
+  function onRegister(token) {
+    console.log('[Notification] on register', token);
+  }
+
+  function onNotification(notify) {
+    console.log('[Notification] on onNotification', notify);
+  }
+
+  function onOpenNotification(notify) {
+    console.log('[Notification] on onOpenNotification', notify);
+    alert('Open Notification');
+  }
 
   return isloaded ? (
     <>

@@ -33,13 +33,12 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>NSLocationWhenInUseUsageDescription</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>NSLocationAlwaysAndWhenInUseUsageDescription</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>NSLocationAlwaysUsageDescription</string>
-
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>NSLocationWhenInUseUsageDescription</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ionicons.ttf</string>
@@ -47,6 +46,7 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
