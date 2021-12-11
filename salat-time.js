@@ -686,7 +686,7 @@ const SalatTime = props => {
     const isNamazTime = Object.values(salatTimes).find(key => {
       const hourMinute = key.split(':');
       // return hourMinute[0] === date.hour && hourMinute[1] === date.minute;
-      if (hourMinute[0] === '06' && hourMinute[1] === '14') {
+      if (hourMinute[0] === '06' && hourMinute[1] === '38') {
         return key;
       } else {
         return null;
@@ -745,7 +745,7 @@ const SalatTime = props => {
     if (isSalatTime) {
       // backgroundPlay();
       const options = {
-        soundName: 'default', //'azan1.mp3',
+        soundName: 'azan1.mp3', //'default', //
         playSound: true,
         vibrate: true,
       };

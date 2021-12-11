@@ -11,16 +11,16 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		5E04D215DF1B167BBB64ADC3 /* libPods-adaan-adaanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0DCCF830E34625056C553D /* libPods-adaan-adaanTests.a */; };
-		7361D17F3FA4EAFD3AB911C0 /* libPods-adaan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FAC7A08387D5911152C702F /* libPods-adaan.a */; };
+		18A53C979FB748B5ABEBC619 /* libPods-adaan-adaanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4175FDCD9BBF63706E049026 /* libPods-adaan-adaanTests.a */; };
 		7C35719D274FAD2100E5D14C /* best-azan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C35719C274FAD2100E5D14C /* best-azan.mp3 */; };
 		7C41ACE527537439007169AF /* sound-swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41ACE427537439007169AF /* sound-swift.swift */; };
-		7C41ACE7275AB1FC007169AF /* BridgingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41ACE6275AB1FC007169AF /* BridgingFile.swift */; };
 		7C41ACEC275B66D0007169AF /* Ding-sound-effect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C41ACEB275B66D0007169AF /* Ding-sound-effect.mp3 */; };
 		7C41AD0E275E5D68007169AF /* azan1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C41AD0D275E5D68007169AF /* azan1.mp3 */; };
-		7C41AD3C275E5F9A007169AF /* LocationPushService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41AD3B275E5F9A007169AF /* LocationPushService.swift */; };
-		7C41AD40275E5F9A007169AF /* Push Notication Service.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7C41AD39275E5F9A007169AF /* Push Notication Service.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7CC95E282764F45B004931DC /* LocationPushService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC95E272764F45B004931DC /* LocationPushService.swift */; };
+		7CC95E2C2764F45B004931DC /* Push Notification Service.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7CC95E252764F45B004931DC /* Push Notification Service.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7CCE25042764DA9C00D547C3 /* BridgingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCE25032764DA9C00D547C3 /* BridgingFile.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8A6C6414ACCF20F8ABEFAD14 /* libPods-adaan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73AD68165C58F50F35B4E0C7 /* libPods-adaan.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,12 +31,12 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = adaan;
 		};
-		7C41AD3E275E5F9A007169AF /* PBXContainerItemProxy */ = {
+		7CC95E2A2764F45B004931DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7C41AD38275E5F9A007169AF;
-			remoteInfo = "Push Notication Service";
+			remoteGlobalIDString = 7CC95E242764F45B004931DC;
+			remoteInfo = "Push Notification Service";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -47,7 +47,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				7C41AD40275E5F9A007169AF /* Push Notication Service.appex in Embed App Extensions */,
+				7CC95E2C2764F45B004931DC /* Push Notification Service.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,19 +58,20 @@
 		00E356EE1AD99517003FC87E /* adaanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = adaanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* adaanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = adaanTests.m; sourceTree = "<group>"; };
-		06F945A1766B0D15E7028C88 /* Pods-adaan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan.debug.xcconfig"; path = "Target Support Files/Pods-adaan/Pods-adaan.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* adaan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = adaan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = adaan/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = adaan/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = adaan/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = adaan/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = adaan/main.m; sourceTree = "<group>"; };
-		4B2F75F73ED1EF06CC7D2FBD /* Pods-adaan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan.release.xcconfig"; path = "Target Support Files/Pods-adaan/Pods-adaan.release.xcconfig"; sourceTree = "<group>"; };
-		6F0DCCF830E34625056C553D /* libPods-adaan-adaanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-adaan-adaanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4175FDCD9BBF63706E049026 /* libPods-adaan-adaanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-adaan-adaanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E5BFF92C54010D09A4DEDE9 /* Pods-adaan-adaanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan-adaanTests.debug.xcconfig"; path = "Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests.debug.xcconfig"; sourceTree = "<group>"; };
+		51C7A32431D70B280C3E5076 /* Pods-adaan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan.debug.xcconfig"; path = "Target Support Files/Pods-adaan/Pods-adaan.debug.xcconfig"; sourceTree = "<group>"; };
+		6F6F415BE660D66310049E87 /* Pods-adaan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan.release.xcconfig"; path = "Target Support Files/Pods-adaan/Pods-adaan.release.xcconfig"; sourceTree = "<group>"; };
+		73AD68165C58F50F35B4E0C7 /* libPods-adaan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-adaan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C35719C274FAD2100E5D14C /* best-azan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "best-azan.mp3"; path = "../../../../../Downloads/best-azan.mp3"; sourceTree = "<group>"; };
 		7C41ACE327537439007169AF /* adaan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "adaan-Bridging-Header.h"; sourceTree = "<group>"; };
 		7C41ACE427537439007169AF /* sound-swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "sound-swift.swift"; sourceTree = "<group>"; };
-		7C41ACE6275AB1FC007169AF /* BridgingFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgingFile.swift; sourceTree = "<group>"; };
 		7C41ACEB275B66D0007169AF /* Ding-sound-effect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Ding-sound-effect.mp3"; path = "../../../../../Downloads/ding-sound-effect/Ding-sound-effect.mp3"; sourceTree = "<group>"; };
 		7C41AD0D275E5D68007169AF /* azan1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = azan1.mp3; path = ../../../../../Downloads/azan1.mp3; sourceTree = "<group>"; };
 		7C41AD15275E5F17007169AF /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -80,14 +81,15 @@
 		7C41AD29275E5F5E007169AF /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		7C41AD2C275E5F5F007169AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		7C41AD2E275E5F5F007169AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C41AD39275E5F9A007169AF /* Push Notication Service.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Push Notication Service.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C41AD3B275E5F9A007169AF /* LocationPushService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPushService.swift; sourceTree = "<group>"; };
 		7C41AD3D275E5F9A007169AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C41AD44275E5FD1007169AF /* Push Notication Service.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Push Notication Service.entitlements"; sourceTree = "<group>"; };
+		7CC95E252764F45B004931DC /* Push Notification Service.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Push Notification Service.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CC95E272764F45B004931DC /* LocationPushService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPushService.swift; sourceTree = "<group>"; };
+		7CC95E292764F45B004931DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CCE25032764DA9C00D547C3 /* BridgingFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgingFile.swift; sourceTree = "<group>"; };
+		7D9ABFCE687FAAA6AFD85222 /* Pods-adaan-adaanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan-adaanTests.release.xcconfig"; path = "Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = adaan/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8FAC7A08387D5911152C702F /* libPods-adaan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-adaan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A01E0B29B4EC069C61B2769F /* Pods-adaan-adaanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan-adaanTests.release.xcconfig"; path = "Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests.release.xcconfig"; sourceTree = "<group>"; };
-		C10887CDDEAAC6945C3FFEEC /* Pods-adaan-adaanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan-adaanTests.debug.xcconfig"; path = "Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -96,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E04D215DF1B167BBB64ADC3 /* libPods-adaan-adaanTests.a in Frameworks */,
+				18A53C979FB748B5ABEBC619 /* libPods-adaan-adaanTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,11 +106,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7361D17F3FA4EAFD3AB911C0 /* libPods-adaan.a in Frameworks */,
+				8A6C6414ACCF20F8ABEFAD14 /* libPods-adaan.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C41AD36275E5F9A007169AF /* Frameworks */ = {
+		7CC95E222764F45B004931DC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -152,10 +154,10 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				8FAC7A08387D5911152C702F /* libPods-adaan.a */,
-				6F0DCCF830E34625056C553D /* libPods-adaan-adaanTests.a */,
 				7C41AD24275E5F5E007169AF /* UserNotifications.framework */,
 				7C41AD26275E5F5E007169AF /* UserNotificationsUI.framework */,
+				73AD68165C58F50F35B4E0C7 /* libPods-adaan.a */,
+				4175FDCD9BBF63706E049026 /* libPods-adaan-adaanTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -197,6 +199,15 @@
 			path = "Push Notication Service";
 			sourceTree = "<group>";
 		};
+		7CC95E262764F45B004931DC /* Push Notification Service */ = {
+			isa = PBXGroup;
+			children = (
+				7CC95E272764F45B004931DC /* LocationPushService.swift */,
+				7CC95E292764F45B004931DC /* Info.plist */,
+			);
+			path = "Push Notification Service";
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,8 +218,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				7CCE25032764DA9C00D547C3 /* BridgingFile.swift */,
 				7C41ACEB275B66D0007169AF /* Ding-sound-effect.mp3 */,
-				7C41ACE6275AB1FC007169AF /* BridgingFile.swift */,
 				7C41ACE427537439007169AF /* sound-swift.swift */,
 				7C35719C274FAD2100E5D14C /* best-azan.mp3 */,
 				13B07FAE1A68108700A75B9A /* adaan */,
@@ -217,6 +228,7 @@
 				7C41AD14275E5F17007169AF /* Push Notification */,
 				7C41AD28275E5F5E007169AF /* Push Notification 2 */,
 				7C41AD3A275E5F9A007169AF /* Push Notication Service */,
+				7CC95E262764F45B004931DC /* Push Notification Service */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				6EC05D3C0C20405EA4ADC249 /* Resources */,
@@ -233,7 +245,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* adaan.app */,
 				00E356EE1AD99517003FC87E /* adaanTests.xctest */,
-				7C41AD39275E5F9A007169AF /* Push Notication Service.appex */,
+				7CC95E252764F45B004931DC /* Push Notification Service.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -241,10 +253,10 @@
 		86CE08BA1D4AF3E4004D5372 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				06F945A1766B0D15E7028C88 /* Pods-adaan.debug.xcconfig */,
-				4B2F75F73ED1EF06CC7D2FBD /* Pods-adaan.release.xcconfig */,
-				C10887CDDEAAC6945C3FFEEC /* Pods-adaan-adaanTests.debug.xcconfig */,
-				A01E0B29B4EC069C61B2769F /* Pods-adaan-adaanTests.release.xcconfig */,
+				51C7A32431D70B280C3E5076 /* Pods-adaan.debug.xcconfig */,
+				6F6F415BE660D66310049E87 /* Pods-adaan.release.xcconfig */,
+				4E5BFF92C54010D09A4DEDE9 /* Pods-adaan-adaanTests.debug.xcconfig */,
+				7D9ABFCE687FAAA6AFD85222 /* Pods-adaan-adaanTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -256,12 +268,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "adaanTests" */;
 			buildPhases = (
-				15524E35113CD630F4EE3A88 /* [CP] Check Pods Manifest.lock */,
+				C18CB38979C2A3CF8C576C69 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				8F4B3478D4FF969C5BC13151 /* [CP] Embed Pods Frameworks */,
-				5FE2F1378AF359AD6E4E8E3C /* [CP] Copy Pods Resources */,
+				952447DC6232D598D9772B66 /* [CP] Embed Pods Frameworks */,
+				07EA102C6BE0E7C721AF48E1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -277,41 +289,41 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "adaan" */;
 			buildPhases = (
-				5007660D7D41029401C1993E /* [CP] Check Pods Manifest.lock */,
+				9D52D6D12208427BC8641767 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				679A5C3DB194214E68786465 /* [CP] Embed Pods Frameworks */,
-				CDE6EC636665E0B1F957000B /* [CP] Copy Pods Resources */,
 				7C41AD1E275E5F17007169AF /* Embed App Extensions */,
+				3FE7BF11EC6CE8E00598145E /* [CP] Embed Pods Frameworks */,
+				9AF4661572D68BB8D342A252 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7C41AD3F275E5F9A007169AF /* PBXTargetDependency */,
+				7CC95E2B2764F45B004931DC /* PBXTargetDependency */,
 			);
 			name = adaan;
 			productName = adaan;
 			productReference = 13B07F961A680F5B00A75B9A /* adaan.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7C41AD38275E5F9A007169AF /* Push Notication Service */ = {
+		7CC95E242764F45B004931DC /* Push Notification Service */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7C41AD41275E5F9A007169AF /* Build configuration list for PBXNativeTarget "Push Notication Service" */;
+			buildConfigurationList = 7CC95E2D2764F45B004931DC /* Build configuration list for PBXNativeTarget "Push Notification Service" */;
 			buildPhases = (
-				7C41AD35275E5F9A007169AF /* Sources */,
-				7C41AD36275E5F9A007169AF /* Frameworks */,
-				7C41AD37275E5F9A007169AF /* Resources */,
+				7CC95E212764F45B004931DC /* Sources */,
+				7CC95E222764F45B004931DC /* Frameworks */,
+				7CC95E232764F45B004931DC /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Push Notication Service";
-			productName = "Push Notication Service";
-			productReference = 7C41AD39275E5F9A007169AF /* Push Notication Service.appex */;
+			name = "Push Notification Service";
+			productName = "Push Notification Service";
+			productReference = 7CC95E252764F45B004931DC /* Push Notification Service.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -330,7 +342,7 @@
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1310;
 					};
-					7C41AD38275E5F9A007169AF = {
+					7CC95E242764F45B004931DC = {
 						CreatedOnToolsVersion = 13.1;
 					};
 				};
@@ -350,7 +362,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* adaan */,
 				00E356ED1AD99517003FC87E /* adaanTests */,
-				7C41AD38275E5F9A007169AF /* Push Notication Service */,
+				7CC95E242764F45B004931DC /* Push Notification Service */,
 			);
 		};
 /* End PBXProject section */
@@ -375,7 +387,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C41AD37275E5F9A007169AF /* Resources */ = {
+		7CC95E232764F45B004931DC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -399,29 +411,75 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		15524E35113CD630F4EE3A88 /* [CP] Check Pods Manifest.lock */ = {
+		07EA102C6BE0E7C721AF48E1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-adaan-adaanTests-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5007660D7D41029401C1993E /* [CP] Check Pods Manifest.lock */ = {
+		3FE7BF11EC6CE8E00598145E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		952447DC6232D598D9772B66 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9AF4661572D68BB8D342A252 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D52D6D12208427BC8641767 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -443,72 +501,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5FE2F1378AF359AD6E4E8E3C /* [CP] Copy Pods Resources */ = {
+		C18CB38979C2A3CF8C576C69 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-adaan-adaanTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		679A5C3DB194214E68786465 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8F4B3478D4FF969C5BC13151 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CDE6EC636665E0B1F957000B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-adaan/Pods-adaan-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -548,15 +560,15 @@
 				7C41ACE527537439007169AF /* sound-swift.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				7C41ACE7275AB1FC007169AF /* BridgingFile.swift in Sources */,
+				7CCE25042764DA9C00D547C3 /* BridgingFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C41AD35275E5F9A007169AF /* Sources */ = {
+		7CC95E212764F45B004931DC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C41AD3C275E5F9A007169AF /* LocationPushService.swift in Sources */,
+				7CC95E282764F45B004931DC /* LocationPushService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,10 +580,10 @@
 			target = 13B07F861A680F5B00A75B9A /* adaan */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
-		7C41AD3F275E5F9A007169AF /* PBXTargetDependency */ = {
+		7CC95E2B2764F45B004931DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7C41AD38275E5F9A007169AF /* Push Notication Service */;
-			targetProxy = 7C41AD3E275E5F9A007169AF /* PBXContainerItemProxy */;
+			target = 7CC95E242764F45B004931DC /* Push Notification Service */;
+			targetProxy = 7CC95E2A2764F45B004931DC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -589,7 +601,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C10887CDDEAAC6945C3FFEEC /* Pods-adaan-adaanTests.debug.xcconfig */;
+			baseConfigurationReference = 4E5BFF92C54010D09A4DEDE9 /* Pods-adaan-adaanTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -617,7 +629,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A01E0B29B4EC069C61B2769F /* Pods-adaan-adaanTests.release.xcconfig */;
+			baseConfigurationReference = 7D9ABFCE687FAAA6AFD85222 /* Pods-adaan-adaanTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -642,7 +654,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06F945A1766B0D15E7028C88 /* Pods-adaan.debug.xcconfig */;
+			baseConfigurationReference = 51C7A32431D70B280C3E5076 /* Pods-adaan.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -652,6 +664,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = G2GX86BD5K;
 				ENABLE_BITCODE = YES;
+				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = adaan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -675,7 +688,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B2F75F73ED1EF06CC7D2FBD /* Pods-adaan.release.xcconfig */;
+			baseConfigurationReference = 6F6F415BE660D66310049E87 /* Pods-adaan.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -684,7 +697,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = G2GX86BD5K;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = adaan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -705,7 +718,7 @@
 			};
 			name = Release;
 		};
-		7C41AD42275E5F9A007169AF /* Debug */ = {
+		7CC95E2E2764F45B004931DC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -714,16 +727,15 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "Push Notication Service/Push Notication Service.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G2GX86BD5K;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Push Notication Service/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Push Notication Service";
+				INFOPLIST_FILE = "Push Notification Service/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Push Notification Service";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -734,7 +746,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.adaan.Push-Notication-Service";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.adaan.Push-Notification-Service";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -745,7 +757,7 @@
 			};
 			name = Debug;
 		};
-		7C41AD43275E5F9A007169AF /* Release */ = {
+		7CC95E2F2764F45B004931DC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -754,7 +766,6 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "Push Notication Service/Push Notication Service.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -763,8 +774,8 @@
 				DEVELOPMENT_TEAM = G2GX86BD5K;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Push Notication Service/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Push Notication Service";
+				INFOPLIST_FILE = "Push Notification Service/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Push Notification Service";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -774,7 +785,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.adaan.Push-Notication-Service";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.adaan.Push-Notification-Service";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -817,7 +828,8 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -833,18 +845,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"\"$(SDKROOT)/usr/lib/swift\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
-					"\"$(inherited)\"",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
+				LIBRARY_SEARCH_PATHS = "";
+				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -883,7 +890,8 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -892,17 +900,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"\"$(SDKROOT)/usr/lib/swift\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
-					"\"$(inherited)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -932,11 +935,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7C41AD41275E5F9A007169AF /* Build configuration list for PBXNativeTarget "Push Notication Service" */ = {
+		7CC95E2D2764F45B004931DC /* Build configuration list for PBXNativeTarget "Push Notification Service" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7C41AD42275E5F9A007169AF /* Debug */,
-				7C41AD43275E5F9A007169AF /* Release */,
+				7CC95E2E2764F45B004931DC /* Debug */,
+				7CC95E2F2764F45B004931DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,7 +1,7 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+platform :ios, '12.1'
 
 target 'adaan' do
   config = use_native_modules!
@@ -28,9 +28,12 @@ target 'adaan' do
   # you should disable the next line.
   use_flipper!()
 
-  post_install do |installer|
+   post_install do |installer|
+    installer.pods_project.build_configurations.each do |config|
+         config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.1'
+    end
     react_native_post_install(installer)
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
   
 

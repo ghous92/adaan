@@ -2,7 +2,7 @@
 //  BridgingFile.swift
 //  adaan
 //
-//  Created by Ghous Nawaz on 04/12/21.
+//  Created by Ghous Nawaz on 11/12/21.
 //
 
 import Foundation
