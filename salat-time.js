@@ -261,7 +261,7 @@ const SalatTime = props => {
     if (z < 2299161) {
       var A = z;
     } else {
-      alpha = Math.floor((z - 1867216.25) / 36524.25);
+      var alpha = Math.floor((z - 1867216.25) / 36524.25);
       var A = z + 1 + alpha - Math.floor(alpha / 4);
     }
     var B = A + 1524;
