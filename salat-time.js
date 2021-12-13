@@ -39,31 +39,56 @@ var ding = new Sound('Ding-sound-effect.mp3', Sound.MAIN_BUNDLE, error => {
   );
 });
 
+const rad2deg = r => {
+  return (r * 180.0) / Math.PI;
+};
+
 const SalatTime = props => {
   const [isloaded, setIsLoaded] = useState(false);
   const [namaz, setNamaz] = useState(null);
   const [isSalatTime, setIsSalatTime] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(false);
   let salatTimes = [];
-  const getAsarAngle = (shadowLength, latitude, declination) => {
-    const numerator =
-      -Math.sin(1 / Math.atan(2 + Math.tan(latitude - declination))) -
-      Math.sin(latitude) * Math.sin(declination);
-    const denominator = Math.cos(latitude) * Math.cos(declination);
 
-    return (1 / 15) * Math.acos(numerator / denominator);
+  const getAsarAngle = (shadowLength, latitude, declination) => {
+    const asarElevationAngle = -radToDeg(
+      arcctg(
+        shadowLength + getTanFromDegrees(Math.abs(latitude - declination)),
+      ),
+    );
+
+    const hourAsarAngle = getHourAngle(
+      asarElevationAngle,
+      latitude,
+      declination,
+    );
+
+    return (1.0 / 15.0) * hourAsarAngle;
   };
 
-  const getTwilight = (alpha, latitude, declination) => {
+  const getHourAngle = (alpha, latitude, declination) => {
+    alpha = degToRad(alpha);
+    latitude = degToRad(latitude);
+    declination = degToRad(declination);
+
     const numerator =
       -Math.sin(alpha) - Math.sin(latitude) * Math.sin(declination);
     const denominator = Math.cos(latitude) * Math.cos(declination);
 
-    return (1 / 15) * Math.acos(numerator / denominator);
+    return Math.acos(numerator / denominator);
+  };
+
+  const getTwilight = (twilightHourAngle, latitude, declination) => {
+    const hourTwilightAngle = getHourAngle(
+      twilightHourAngle,
+      latitude,
+      declination,
+    );
+    return (1 / 15) * hourTwilightAngle;
   };
 
   const getDate = () => {
-    var zoneTime = moment.tz(new Date(), 'America/Los_Angeles');
+    var zoneTime = moment.tz(new Date(), 'GMT');
 
     return {
       year: zoneTime.year(),
@@ -81,9 +106,7 @@ const SalatTime = props => {
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
     // var tz = moment().utcOffset() / 60.0;
-    var tz = -(
-      moment.tz.zone('America/Los_Angeles').utcOffset(1388563200000) / 60.0
-    );
+    var tz = -(moment.tz.zone('GMT').utcOffset(1388563200000) / 60.0);
 
     var data = {
       year: date.year,
@@ -127,9 +150,25 @@ const SalatTime = props => {
     return output;
   }
 
+  const monthList = [
+    {name: 'January', numdays: 31, abbr: 'Jan'},
+    {name: 'February', numdays: 28, abbr: 'Feb'},
+    {name: 'March', numdays: 31, abbr: 'Mar'},
+    {name: 'April', numdays: 30, abbr: 'Apr'},
+    {name: 'May', numdays: 31, abbr: 'May'},
+    {name: 'June', numdays: 30, abbr: 'Jun'},
+    {name: 'July', numdays: 31, abbr: 'Jul'},
+    {name: 'August', numdays: 31, abbr: 'Aug'},
+    {name: 'September', numdays: 30, abbr: 'Sep'},
+    {name: 'October', numdays: 31, abbr: 'Oct'},
+    {name: 'November', numdays: 30, abbr: 'Nov'},
+    {name: 'December', numdays: 31, abbr: 'Dec'},
+  ];
+
   //--------------------------------------------------------------
   // returns a string in the form DDMMMYYYY[ next] to display prev/next rise/set
   // flag=2 for DD MMM, 3 for DD MM YYYY, 4 for DDMMYYYY next/prev
+
   function dayString(jd, next, flag) {
     if (jd < 900000 || jd > 2817000) {
       return 'error';
@@ -610,6 +649,14 @@ const SalatTime = props => {
     return julianday;
   }
 
+  function getTanFromDegrees(degrees) {
+    return Math.tan((degrees * Math.PI) / 180);
+  }
+
+  function arcctg(x) {
+    return Math.PI / 2 - Math.atan(x);
+  }
+
   /*************************************************************/
   /* end calculation functions */
   /*************************************************************/
@@ -657,11 +704,9 @@ const SalatTime = props => {
       }
     }
 
-    const twilight = (getTwilight(0, data.lat, theta) * (60 * 180)) / Math.PI;
+    const twilight = (getTwilight(18, data.lat, theta) * (60 * 180)) / Math.PI;
 
-    const asarTime = (getAsarAngle(2, data.lat, theta) * (60 * 180)) / Math.PI;
-
-    console.log('Isha', timeString(solnoon + twilight, 2));
+    const asarTime = (getAsarAngle(1, data.lat, theta) * (60 * 180)) / Math.PI;
 
     salatTimes = {
       Fajr: timeString(solnoon - twilight, 2),
@@ -686,7 +731,7 @@ const SalatTime = props => {
     const isNamazTime = Object.values(salatTimes).find(key => {
       const hourMinute = key.split(':');
       // return hourMinute[0] === date.hour && hourMinute[1] === date.minute;
-      if (hourMinute[0] === '06' && hourMinute[1] === '38') {
+      if (hourMinute[0] === '03' && hourMinute[1] === '54') {
         return key;
       } else {
         return null;
@@ -694,12 +739,6 @@ const SalatTime = props => {
     });
     console.log(isNamazTime);
     setIsSalatTime(isNamazTime);
-  }
-
-  function backgroundPlay() {
-    BackgroundTimer.runBackgroundTimer(() => {
-      play();
-    }, 1000);
   }
 
   const play = () => {
@@ -728,13 +767,8 @@ const SalatTime = props => {
 
   useEffect(() => {
     ding.setVolume(1);
-    notificationManager.configure(
-      onRegister,
-      onNotification,
-      onOpenNotification,
-    );
+
     fetchSalatDetails();
-    alertSalatTime();
     setIsLoaded(true);
     return () => {
       ding.release();
@@ -743,14 +777,20 @@ const SalatTime = props => {
 
   useEffect(() => {
     if (isSalatTime) {
-      // backgroundPlay();
+      alertSalatTime();
+
+      notificationManager.configure(
+        onRegister,
+        onNotification,
+        onOpenNotification,
+      );
       const options = {
-        soundName: 'azan1.mp3', //'default', //
+        soundName: 'default', //'azan1.mp3', //
         playSound: true,
         vibrate: true,
       };
       notificationManager.showNotification(
-        ' 1',
+        1,
         'Salat Time ',
         'Its Time for Salat',
         {},
