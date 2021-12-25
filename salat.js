@@ -21,7 +21,6 @@ import * as m from 'moment-timezone';
 import BackgroundTimer from 'react-native-background-timer';
 import {notificationManager} from './NotificationManager';
 
-import SalatTime from './salat-time';
 var Sound = require('react-native-sound');
 Sound.setCategory('Playback');
 var ding = new Sound('Ding-sound-effect.mp3', Sound.MAIN_BUNDLE, error => {
