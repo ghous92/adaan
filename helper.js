@@ -533,6 +533,15 @@ class Helper {
     return Math.PI / 2 - Math.atan(x);
   }
 
+  mergeArrayObjects(arr1, arr2) {
+    return arr1.map((item, i) => {
+      if (item.id === arr2[i].id) {
+        //merging two objects
+        return Object.assign({}, item, arr2[i]);
+      }
+    });
+  }
+
   /*************************************************************/
   /* end calculation s */
   /*************************************************************/
