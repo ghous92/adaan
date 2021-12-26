@@ -20,6 +20,7 @@ import moment from 'moment';
 import * as m from 'moment-timezone';
 import BackgroundTimer from 'react-native-background-timer';
 import {notificationManager} from './NotificationManager';
+import BackgroundFetch from 'react-native-background-fetch';
 
 var Sound = require('react-native-sound');
 Sound.setCategory('Playback');
@@ -42,8 +43,9 @@ const helper = new Helper();
 const Salat = props => {
   const [isloaded, setIsLoaded] = useState(false);
   const [position, setPosition] = useState(null);
-  const [namaz, setNamaz] = useState(null);
+  const [currentTime, setCurrentTime] = useState(null);
   const [isSalatTime, setIsSalatTime] = useState(false);
+  const [events, setEvents] = useState();
   const play = () => {
     setShowPlayButton(false);
 
@@ -290,36 +292,79 @@ const Salat = props => {
     };
   }, []);
 
-  let salatTimes = [];
+  useEffect(() => {
+    notificationManager.configure(
+      onRegister,
+      onNotification,
+      onOpenNotification,
+    );
+    const options = {
+      soundName: 'default', //'azan1.mp3', //
+      playSound: true,
+      vibrate: true,
+    };
+    notificationManager.showNotification(
+      1,
+      'Salat Time ',
+      'Its Time for Salat ${currentTime}',
+      {},
+      options,
+    );
+  }, []);
+
+  async function initBackgroundFetch() {
+    // BackgroundFetch event handler.
+
+    const onEvent = async taskId => {
+      console.log('[BackgroundFetch] task: ', taskId);
+      // Do your background work...
+      await addEvent(taskId);
+      // console.log(currentTime);
+      // IMPORTANT:  You must signal to the OS that your task is complete.
+      BackgroundFetch.finish(taskId);
+    };
+
+    // Timeout callback is executed when your Task has exceeded its allowed running-time.
+    // You must stop what you're doing immediately BackgroundFetch.finish(taskId)
+    const onTimeout = async taskId => {
+      console.warn('[BackgroundFetch] TIMEOUT task: ', taskId);
+      BackgroundFetch.finish(taskId);
+    };
+
+    // Initialize BackgroundFetch only once when component mounts.
+    let status = await BackgroundFetch.configure(
+      {minimumFetchInterval: 15},
+      onEvent,
+      onTimeout,
+    );
+
+    console.log('[BackgroundFetch] configure status: ', status);
+  }
+
+  function addEvent(taskId) {
+    // Simulate a possibly long-running asynchronous task with a Promise.
+    return new Promise((resolve, reject) => {
+      setEvents([
+        ...events,
+        {
+          taskId: taskId,
+          timestamp: new Date().toString(),
+        },
+      ]);
+      resolve();
+    });
+  }
 
   useEffect(() => {
-    if (isSalatTime) {
-      alertSalatTime();
-
-      notificationManager.configure(
-        onRegister,
-        onNotification,
-        onOpenNotification,
+    BackgroundTimer.runBackgroundTimer(() => {
+      //code that will be called every 3 seconds
+      const currentTime = helper.getDate();
+      setCurrentTime(
+        currentTime.hour + ':' + currentTime.minute + ':' + currentTime.second,
       );
-      const options = {
-        soundName: 'default', //'azan1.mp3', //
-        playSound: true,
-        vibrate: true,
-      };
-      notificationManager.showNotification(
-        1,
-        'Salat Time ',
-        'Its Time for Salat',
-        {},
-        options,
-      );
-    } else {
-      BackgroundTimer.stopBackgroundTimer();
-    }
-    return () => {
-      BackgroundTimer.stopBackgroundTimer();
-    };
-  }, [isSalatTime]);
+    }, 3000);
+    initBackgroundFetch();
+  }, []);
 
   const Item = ({value}) => (
     <View style={styles.item}>
@@ -331,11 +376,14 @@ const Salat = props => {
   const renderItem = ({item}) => <Item disabled={item.disabled} value={item} />;
 
   return isloaded ? (
-    <FlatList
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
-    />
+    <SafeAreaView>
+      <Text>{currentTime}</Text>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
+    </SafeAreaView>
   ) : null;
 };
 

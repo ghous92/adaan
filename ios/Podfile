@@ -17,6 +17,8 @@ target 'adaan' do
 
   pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
 
+  pod 'RNBackgroundFetch', :path => '../node_modules/react-native-background-fetch'
+
   target 'adaanTests' do
     inherit! :complete
     # Pods for testing
