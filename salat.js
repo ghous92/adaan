@@ -47,7 +47,7 @@ const Salat = props => {
   const [isSalatTime, setIsSalatTime] = useState(false);
   const [events, setEvents] = useState();
   const [ringAzaan, setRingAzaan] = useState(false);
-  const [countdown, setCountDown] = useState(1);
+  const [minuteLeft, setMinuteLeft] = useState(1);
 
   const play = () => {
     setShowPlayButton(false);
@@ -384,23 +384,28 @@ const Salat = props => {
     }
   }
 
+  useEffect(() => {
+    if (minuteLeft === 0) {
+      BackgroundTimer.stopBackgroundTimer();
+    }
+  }, [minuteLeft]);
+
   function startTimer(timeInterval) {
     let countdown = 1;
     BackgroundTimer.runBackgroundTimer(() => {
-      //code that will be called every 3 seconds
+      //code that will be called every 1 min
       const currentTime = helper.getDate();
       countdown++;
+      setMinuteLeft(countdown - timeInterval);
       console.log('countdown', countdown);
       console.log('timeInterval', timeInterval);
 
       if (countdown - timeInterval === 0) {
         setRingAzaan(true);
-      } else if (countdown - timeInterval > 0) {
+      } else if (countdown - timeInterval > 1) {
         setRingAzaan(false);
-        BackgroundTimer.stopBackgroundTimer();
       }
     }, 60000);
-    BackgroundTimer.stop();
   }
 
   const Item = ({value}) => (
@@ -416,6 +421,7 @@ const Salat = props => {
     <SafeAreaView>
       <View style={styles.sectionContainer}>
         <Text>{currentTime}</Text>
+        <Text>{minuteLeft}</Text>
       </View>
       <View>
         <FlatList
