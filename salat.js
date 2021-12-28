@@ -47,7 +47,7 @@ const Salat = props => {
   const [isSalatTime, setIsSalatTime] = useState(false);
   const [events, setEvents] = useState();
   const [ringAzaan, setRingAzaan] = useState(false);
-  const [minuteLeft, setMinuteLeft] = useState(1);
+  const [minuteLeft, setMinuteLeft] = useState(null);
 
   const play = () => {
     setShowPlayButton(false);
@@ -364,7 +364,6 @@ const Salat = props => {
     currentMinute,
   ) {
     const nearestSalat = updatedSalatData.find(item => {
-      console.log(item);
       let salatTime = null;
       if (item.namaz) {
         salatTime = item.namaz.split(':');
@@ -379,8 +378,10 @@ const Salat = props => {
       parseInt(nearestTime[1]) -
       (parseInt(currentHour) * 60 + parseInt(currentMinute));
     console.log(timeInterval);
-    if (timeInterval < 15) {
+    if (timeInterval <= 15 && timeInterval > 0) {
       startTimer(timeInterval);
+    } else if (timeInterval === 0) {
+      setRingAzaan(true);
     }
   }
 
@@ -440,6 +441,7 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
+    backgroundColor: '#fff',
   },
   sectionTitle: {
     fontSize: 24,
