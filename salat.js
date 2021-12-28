@@ -46,6 +46,9 @@ const Salat = props => {
   const [currentTime, setCurrentTime] = useState(null);
   const [isSalatTime, setIsSalatTime] = useState(false);
   const [events, setEvents] = useState();
+  const [ringAzaan, setRingAzaan] = useState(false);
+  const [countdown, setCountDown] = useState(1);
+
   const play = () => {
     setShowPlayButton(false);
 
@@ -69,7 +72,7 @@ const Salat = props => {
       }
     });
   };
-  const [data, setData] = useState([
+  const [salatData, setSalatData] = useState([
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'Fajr',
@@ -235,27 +238,16 @@ const Salat = props => {
     ];
 
     setSalatTimings(salatTimes);
-  }
-
-  function alertSalatTime(solnoon, twilight, asarTime, sunset) {
-    const isNamazTime = Object.values(salatTimes).find(key => {
-      const hourMinute = key.split(':');
-      // return hourMinute[0] === date.hour && hourMinute[1] === date.minute;
-      if (hourMinute[0] === '03' && hourMinute[1] === '54') {
-        return key;
-      } else {
-        return null;
-      }
-    });
-    console.log(isNamazTime);
-    setIsSalatTime(isNamazTime);
+    // const currentTime = helper.getDate();
+    // calculateNearestSalatTime(currentTime.hour, currentTime.minute);
   }
 
   function setSalatTimings(salatTimes) {
-    const updatedData = helper.mergeArrayObjects(data, salatTimes);
-    // console.log(updatedData);
-    setData(updatedData);
+    const updatedSalatData = helper.mergeArrayObjects(salatData, salatTimes);
+    // console.log(updatedSalatData);
+    setSalatData(updatedSalatData);
     setIsLoaded(true);
+    initBackgroundFetch(updatedSalatData);
   }
 
   function onRegister(token) {
@@ -303,23 +295,24 @@ const Salat = props => {
       playSound: true,
       vibrate: true,
     };
-    notificationManager.showNotification(
-      1,
-      'Salat Time ',
-      'Its Time for Salat ${currentTime}',
-      {},
-      options,
-    );
-  }, []);
+    if (ringAzaan) {
+      notificationManager.showNotification(
+        1,
+        'Salat Time ',
+        'Its Time for Salat',
+        {},
+        options,
+      );
+    }
+  }, [ringAzaan]);
 
-  async function initBackgroundFetch() {
+  async function initBackgroundFetch(updatedSalatData) {
     // BackgroundFetch event handler.
 
     const onEvent = async taskId => {
       console.log('[BackgroundFetch] task: ', taskId);
       // Do your background work...
-      await addEvent(taskId);
-      // console.log(currentTime);
+      await addEvent(taskId, updatedSalatData);
       // IMPORTANT:  You must signal to the OS that your task is complete.
       BackgroundFetch.finish(taskId);
     };
@@ -341,30 +334,74 @@ const Salat = props => {
     console.log('[BackgroundFetch] configure status: ', status);
   }
 
-  function addEvent(taskId) {
+  function addEvent(taskId, updatedSalatData) {
     // Simulate a possibly long-running asynchronous task with a Promise.
     return new Promise((resolve, reject) => {
-      setEvents([
-        ...events,
-        {
-          taskId: taskId,
-          timestamp: new Date().toString(),
-        },
-      ]);
-      resolve();
+      setTimeout(() => {
+        const currentTime = helper.getDate();
+
+        setEvents('foo');
+        setCurrentTime(
+          currentTime.hour +
+            ':' +
+            currentTime.minute +
+            ':' +
+            currentTime.second,
+        );
+        calculateNearestSalatTime(
+          updatedSalatData,
+          currentTime.hour,
+          currentTime.minute,
+        );
+        resolve('foo');
+      }, 300);
     });
   }
 
-  useEffect(() => {
+  function calculateNearestSalatTime(
+    updatedSalatData,
+    currentHour,
+    currentMinute,
+  ) {
+    const nearestSalat = updatedSalatData.find(item => {
+      console.log(item);
+      let salatTime = null;
+      if (item.namaz) {
+        salatTime = item.namaz.split(':');
+      }
+      return salatTime[0] >= currentHour;
+    });
+    const nearestTime = nearestSalat.namaz.split(':');
+    console.log(nearestTime);
+
+    const timeInterval =
+      parseInt(nearestTime[0]) * 60 +
+      parseInt(nearestTime[1]) -
+      (parseInt(currentHour) * 60 + parseInt(currentMinute));
+    console.log(timeInterval);
+    if (timeInterval < 15) {
+      startTimer(timeInterval);
+    }
+  }
+
+  function startTimer(timeInterval) {
+    let countdown = 1;
     BackgroundTimer.runBackgroundTimer(() => {
       //code that will be called every 3 seconds
       const currentTime = helper.getDate();
-      setCurrentTime(
-        currentTime.hour + ':' + currentTime.minute + ':' + currentTime.second,
-      );
-    }, 3000);
-    initBackgroundFetch();
-  }, []);
+      countdown++;
+      console.log('countdown', countdown);
+      console.log('timeInterval', timeInterval);
+
+      if (countdown - timeInterval === 0) {
+        setRingAzaan(true);
+      } else if (countdown - timeInterval > 0) {
+        setRingAzaan(false);
+        BackgroundTimer.stopBackgroundTimer();
+      }
+    }, 60000);
+    BackgroundTimer.stop();
+  }
 
   const Item = ({value}) => (
     <View style={styles.item}>
@@ -377,12 +414,16 @@ const Salat = props => {
 
   return isloaded ? (
     <SafeAreaView>
-      <Text>{currentTime}</Text>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+      <View style={styles.sectionContainer}>
+        <Text>{currentTime}</Text>
+      </View>
+      <View>
+        <FlatList
+          data={salatData}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      </View>
     </SafeAreaView>
   ) : null;
 };
