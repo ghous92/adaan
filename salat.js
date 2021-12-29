@@ -374,18 +374,21 @@ const Salat = props => {
       }
       return salatTime[0] >= currentHour;
     });
-    const nearestTime = nearestSalat.namaz.split(':');
+    const nearestTime = nearestTime ? nearestSalat.namaz.split(':') : null;
     console.log(nearestTime);
-
-    const timeInterval =
-      parseInt(nearestTime[0]) * 60 +
-      parseInt(nearestTime[1]) -
-      (parseInt(currentHour) * 60 + parseInt(currentMinute));
-    console.log(timeInterval);
-    if (timeInterval <= 15 && timeInterval > 0) {
-      startTimer(timeInterval);
-    } else if (timeInterval === 0) {
-      setRingAzaan(true);
+    if (nearestTime) {
+      const timeInterval =
+        parseInt(nearestTime[0]) * 60 +
+        parseInt(nearestTime[1]) -
+        (parseInt(currentHour) * 60 + parseInt(currentMinute));
+      console.log(timeInterval);
+      if (timeInterval <= 15 && timeInterval > 0) {
+        startTimer(timeInterval);
+      } else if (timeInterval === 0) {
+        setRingAzaan(true);
+      }
+    } else {
+      console.log('wait for the next day');
     }
   }
 
