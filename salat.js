@@ -148,8 +148,12 @@ const Salat = props => {
     var mins = date.hour * 60 + date.minute + date.second / 60.0;
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
+    console.log('lat long timezone', lat, lng, helper.getTimeZone());
     // var tz = moment().utcOffset() / 60.0;
-    var tz = -(moment.tz.zone('GMT').utcOffset(1388563200000) / 60.0);
+    var tz = -(
+      moment.tz.zone(helper.getTimeZone()).utcOffset(position.timestamp) / 60.0
+    );
+    console.log('offset', tz);
 
     var data = {
       year: date.year,

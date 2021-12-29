@@ -345,6 +345,8 @@ PODS:
     - React-Core
   - RNCPushNotificationIOS (1.10.1):
     - React-Core
+  - RNLocalize (2.1.7):
+    - React-Core
   - RNSound (0.11.1):
     - React-Core
     - RNSound/Core (= 0.11.1)
@@ -413,6 +415,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
+  - RNLocalize (from `../node_modules/react-native-localize`)
   - RNSound (from `../node_modules/react-native-sound`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -501,6 +504,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-background-fetch"
   RNCPushNotificationIOS:
     :path: "../node_modules/@react-native-community/push-notification-ios"
+  RNLocalize:
+    :path: "../node_modules/react-native-localize"
   RNSound:
     :path: "../node_modules/react-native-sound"
   RNVectorIcons:
@@ -555,6 +560,7 @@ SPEC CHECKSUMS:
   ReactCommon: 9bac022ab71596f2b0fde1268272543184c63971
   RNBackgroundFetch: 2aa0702525b0251ee7edf3c47d76b4fbe710407a
   RNCPushNotificationIOS: 089da3b657e1e3d464f38195fd2e3069608ef5af
+  RNLocalize: b8980509fc4db6895953aa95b90c8d81cb984603
   RNSound: 9253013eeaa051eab63d354fd4654f7aa67c82f0
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
   Yoga: 32a18c0e845e185f4a2a66ec76e1fd1f958f22fa

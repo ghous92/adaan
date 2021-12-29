@@ -1,10 +1,11 @@
 import moment from 'moment';
 import * as m from 'moment-timezone';
+import * as RNLocalize from 'react-native-localize';
 
 class Helper {
   getDate() {
-    var zoneTime = moment.tz(new Date(), 'GMT');
-
+    var zoneTime = moment.tz(new Date(), this.getTimeZone());
+    //  var zoneTime = moment.tz(new Date(), 'GMT');
     return {
       year: zoneTime.year(),
       month: zoneTime.month() + 1,
@@ -14,6 +15,7 @@ class Helper {
       second: zoneTime.second(),
     };
   }
+
   rad2deg(r) {
     return (r * 180.0) / Math.PI;
   }
@@ -33,6 +35,10 @@ class Helper {
     {name: 'December', numdays: 31, abbr: 'Dec'},
   ];
 
+  getTimeZone() {
+    return RNLocalize.getTimeZone();
+  }
+
   //--------------------------------------------------------------
   // returns a string in the form DDMMMYYYY[ next] to display prev/next rise/set
   // flag=2 for DD MMM, 3 for DD MM YYYY, 4 for DDMMYYYY next/prev
@@ -46,16 +52,16 @@ class Helper {
 
     if (flag == 2)
       var output =
-        this.zeroPad(date.day, 2) + ' ' + monthList[date.month - 1].abbr;
+        this.zeroPad(date.day, 2) + ' ' + this.monthList[date.month - 1].abbr;
     if (flag == 3)
       var output =
         this.zeroPad(date.day, 2) +
-        monthList[date.month - 1].abbr +
+        this.monthList[date.month - 1].abbr +
         date.year.toString();
     if (flag == 4)
       var output =
         this.zeroPad(date.day, 2) +
-        monthList[date.month - 1].abbr +
+        this.monthList[date.month - 1].abbr +
         date.year.toString() +
         (next ? ' next' : ' prev');
 
