@@ -25,7 +25,7 @@ import BackgroundFetch from 'react-native-background-fetch';
 
 var Sound = require('react-native-sound');
 Sound.setCategory('Playback');
-var ding = new Sound('Ding-sound-effect.mp3', Sound.MAIN_BUNDLE, error => {
+var ding = new Sound('best-azan.mp3', Sound.MAIN_BUNDLE, error => {
   if (error) {
     console.log('failed to load the sound', error);
     return;
@@ -49,15 +49,14 @@ const Salat = props => {
   const [events, setEvents] = useState();
   const [ringAzaan, setRingAzaan] = useState(false);
   const [minuteLeft, setMinuteLeft] = useState(null);
+  const [showPlayButton, setShowPlayButton] = useState(true);
 
   const play = () => {
     setShowPlayButton(false);
-
     ding.play(success => {
       if (success) {
         console.log('successfully finished playing');
-        // setIsSalatTime(null);
-        // setShowPlayButton(false);
+        setShowPlayButton(true);
       } else {
         console.log('playback failed due to audio decoding errors');
       }
@@ -446,6 +445,17 @@ const Salat = props => {
             keyExtractor={item => item.id}
           />
         </View>
+        <TouchableOpacity style={styles.playBtn}>
+          {showPlayButton ? (
+            <Button
+              color="#fff"
+              title="Play Azaan"
+              color="#fff"
+              onPress={play}></Button>
+          ) : (
+            <Button color="#fff" title="Pause Azaan" onPress={pause}></Button>
+          )}
+        </TouchableOpacity>
       </SafeAreaView>
     </ImageBackground>
   ) : null;
@@ -481,7 +491,7 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: 'rgba(0,0,0,0.1)',
-    padding: 30,
+    padding: 28,
     marginVertical: 5,
     flexDirection: 'row',
     width: '100%',
@@ -505,7 +515,12 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   playBtn: {
-    padding: 20,
+    padding: 10,
+    backgroundColor: 'rgb(28,187,83)',
+    width: '50%',
+    margin: 20,
+    borderRadius: 15,
+    alignSelf: 'center',
   },
   bgImage: {
     height: '100%',
