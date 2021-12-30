@@ -9,6 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   Button,
+  ImageBackground,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Geolocation, {
@@ -418,27 +419,35 @@ const Salat = props => {
 
   const Item = ({value}) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{value.title}</Text>
-      <Text> {value.namaz}</Text>
+      <View style={styles.sectionOne}>
+        <Text style={styles.title}>{value.title}</Text>
+      </View>
+      <View>
+        <Text style={styles.subTitle}> {value.namaz}</Text>
+      </View>
     </View>
   );
 
   const renderItem = ({item}) => <Item disabled={item.disabled} value={item} />;
-
   return isloaded ? (
-    <SafeAreaView>
-      <View style={styles.sectionContainer}>
-        <Text>{currentTime}</Text>
-        <Text>{minuteLeft}</Text>
-      </View>
-      <View>
-        <FlatList
-          data={salatData}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
-      </View>
-    </SafeAreaView>
+    <ImageBackground
+      source={require('../adaan/assets/images/bg.jpg')}
+      resizeMode="cover"
+      style={styles.bgImage}>
+      <SafeAreaView style={styles.sectionContainer}>
+        <View>
+          {/* <Text>{currentTime}</Text> */}
+          <Text style={styles.sectionTitle}>Salat</Text>
+        </View>
+        <View>
+          <FlatList
+            data={salatData}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   ) : null;
 };
 
@@ -446,13 +455,16 @@ Salat.propTypes = {};
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-    backgroundColor: '#fff',
+    marginTop: 15,
+    paddingHorizontal: 10,
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: '600',
+    color: '#fff',
+    marginTop: 10,
+    marginLeft: 10,
+    marginBottom: 10,
   },
   sectionDescription: {
     marginTop: 8,
@@ -468,19 +480,35 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    padding: 30,
+    marginVertical: 5,
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    borderRadius: 15,
+    filter: 'grayscale(100%)',
   },
   header: {
     fontSize: 32,
     backgroundColor: '#fff',
   },
+  sectionOne: {
+    flex: 1,
+  },
   title: {
     fontSize: 24,
+    color: '#fff',
+  },
+  subTitle: {
+    fontSize: 18,
+    color: '#fff',
   },
   playBtn: {
     padding: 20,
+  },
+  bgImage: {
+    height: '100%',
   },
 });
 export default Salat;
