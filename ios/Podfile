@@ -19,6 +19,8 @@ target 'adaan' do
 
   pod 'RNBackgroundFetch', :path => '../node_modules/react-native-background-fetch'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'adaanTests' do
     inherit! :complete
     # Pods for testing

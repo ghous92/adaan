@@ -276,6 +276,8 @@ PODS:
     - React-Core
   - react-native-geolocation-service (5.3.0-beta.3):
     - React
+  - react-native-splash-screen (3.3.0):
+    - React-Core
   - React-perflogger (0.66.3)
   - React-RCTActionSheet (0.66.3):
     - React-Core/RCTActionSheetHeaders (= 0.66.3)
@@ -401,6 +403,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-background-timer (from `../node_modules/react-native-background-timer`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -476,6 +479,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-background-timer"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -546,6 +551,7 @@ SPEC CHECKSUMS:
   React-logger: e522e76fa3e9ec3e7d7115b49485cc065cf4ae06
   react-native-background-timer: 117fffdc9b0d6f144444bb49029f94275a45fdb5
   react-native-geolocation-service: 32e50a2e4e4518b51b829fdfe137562a672d95d2
+  react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   React-perflogger: 73732888d37d4f5065198727b167846743232882
   React-RCTActionSheet: 96c6d774fa89b1f7c59fc460adc3245ba2d7fd79
   React-RCTAnimation: 8940cfd3a8640bd6f6372150dbdb83a79bcbae6c
@@ -566,6 +572,6 @@ SPEC CHECKSUMS:
   Yoga: 32a18c0e845e185f4a2a66ec76e1fd1f958f22fa
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: ce7b6a14713d1d7603bbec272b4ef1f5d71c0bc6
+PODFILE CHECKSUM: 5107c3b91f967d3ed13b1b5d8651ce131f9c3226
 
 COCOAPODS: 1.11.2

@@ -21,6 +21,7 @@ import {
 import React, {useEffect} from 'react';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import SplashScreen from 'react-native-splash-screen';
 
 import Salat from './salat';
 
@@ -53,12 +54,16 @@ const Section = ({children, title}) => {
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: Colors.darker,
   };
+
+  useEffect(() => {
+    SplashScreen.hide();
+  });
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar barStyle="dark-content" />
       <Salat />
     </SafeAreaView>
   );
