@@ -48,6 +48,7 @@ const Salat = props => {
   const [isSalatTime, setIsSalatTime] = useState(false);
   const [events, setEvents] = useState();
   const [ringAzaan, setRingAzaan] = useState(false);
+  const [currentSalatName, setCurrentSalatName] = useState('');
   const [minuteLeft, setMinuteLeft] = useState(null);
   const [showPlayButton, setShowPlayButton] = useState(true);
 
@@ -303,7 +304,7 @@ const Salat = props => {
       notificationManager.showNotification(
         1,
         'Salat Time ',
-        'Its Time for Salat',
+        `Its  ${currentSalatName} Time `,
         {},
         options,
       );
@@ -374,8 +375,9 @@ const Salat = props => {
       }
       return salatTime[0] >= currentHour;
     });
-    const nearestTime = nearestTime ? nearestSalat.namaz.split(':') : null;
-    console.log(nearestTime);
+    const nearestTime = nearestSalat ? nearestSalat.namaz.split(':') : null;
+    console.log('nearestTime', nearestTime);
+    setCurrentSalatName(nearestSalat ? nearestSalat.title : null);
     if (nearestTime) {
       const timeInterval =
         parseInt(nearestTime[0]) * 60 +
@@ -393,25 +395,24 @@ const Salat = props => {
   }
 
   useEffect(() => {
-    if (minuteLeft === 0) {
+    if (ringAzaan) {
       BackgroundTimer.stopBackgroundTimer();
     }
-  }, [minuteLeft]);
+  }, [ringAzaan]);
 
   function startTimer(timeInterval) {
-    let countdown = 1;
+    let countdown = 0;
+    setMinuteLeft(parseInt(timeInterval) - parseInt(countdown));
+
     BackgroundTimer.runBackgroundTimer(() => {
       //code that will be called every 1 min
-      const currentTime = helper.getDate();
       countdown++;
-      setMinuteLeft(countdown - timeInterval);
+      setMinuteLeft(parseInt(timeInterval) - parseInt(countdown));
       console.log('countdown', countdown);
       console.log('timeInterval', timeInterval);
-
-      if (countdown - timeInterval === 0) {
+      if (parseInt(timeInterval) - parseInt(countdown) === 0) {
         setRingAzaan(true);
-      } else if (countdown - timeInterval > 1) {
-        setRingAzaan(false);
+        countdown = 1;
       }
     }, 60000);
   }
@@ -435,7 +436,6 @@ const Salat = props => {
       style={styles.bgImage}>
       <SafeAreaView style={styles.sectionContainer}>
         <View>
-          {/* <Text>{currentTime}</Text> */}
           <Text style={styles.sectionTitle}>Salat</Text>
         </View>
         <View>
@@ -456,6 +456,11 @@ const Salat = props => {
             <Button color="#fff" title="Pause Azaan" onPress={pause}></Button>
           )}
         </TouchableOpacity>
+        {minuteLeft > 0 && currentSalatName ? (
+          <Text style={styles.info}>
+            {minuteLeft} minute to {currentSalatName} Azaan time
+          </Text>
+        ) : null}
       </SafeAreaView>
     </ImageBackground>
   ) : null;
@@ -524,6 +529,11 @@ const styles = StyleSheet.create({
   },
   bgImage: {
     height: '100%',
+  },
+  info: {
+    fontSize: 18,
+    color: '#fff',
+    alignSelf: 'center',
   },
 });
 export default Salat;
