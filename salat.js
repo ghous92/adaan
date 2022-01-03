@@ -406,15 +406,15 @@ const Salat = props => {
 
     BackgroundTimer.runBackgroundTimer(() => {
       //code that will be called every 1 min
-      countdown++;
+      countdown = countdown + 1 / 12;
       setMinuteLeft(parseInt(timeInterval) - parseInt(countdown));
       console.log('countdown', countdown);
       console.log('timeInterval', timeInterval);
       if (parseInt(timeInterval) - parseInt(countdown) === 0) {
         setRingAzaan(true);
-        countdown = 1;
+        countdown = 0;
       }
-    }, 60000);
+    }, 5000);
   }
 
   const Item = ({value}) => (
