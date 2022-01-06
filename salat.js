@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   Button,
   ImageBackground,
+  NativeModules,
+  NativeEventEmitter,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Geolocation, {
@@ -22,22 +24,8 @@ import * as m from 'moment-timezone';
 import BackgroundTimer from 'react-native-background-timer';
 import {notificationManager} from './NotificationManager';
 import BackgroundFetch from 'react-native-background-fetch';
-
-var Sound = require('react-native-sound');
-Sound.setCategory('Playback');
-var ding = new Sound('best-azan.mp3', Sound.MAIN_BUNDLE, error => {
-  if (error) {
-    console.log('failed to load the sound', error);
-    return;
-  }
-  // if loaded successfully
-  console.log(
-    'duration in seconds: ' +
-      ding.getDuration() +
-      'number of channels: ' +
-      ding.getNumberOfChannels(),
-  );
-});
+const {BGTimerModule} = NativeModules;
+const eventEmitter = new NativeEventEmitter(BGTimerModule);
 
 const helper = new Helper();
 
@@ -49,8 +37,32 @@ const Salat = props => {
   const [events, setEvents] = useState();
   const [ringAzaan, setRingAzaan] = useState(false);
   const [currentSalatName, setCurrentSalatName] = useState('');
-  const [minuteLeft, setMinuteLeft] = useState(null);
+  const [minuteLeft, setMinuteLeft] = useState(15);
   const [showPlayButton, setShowPlayButton] = useState(true);
+
+  var Sound = require('react-native-sound');
+  Sound.setCategory('Playback');
+  var ding = new Sound('best-azan.mp3', Sound.MAIN_BUNDLE, error => {
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // if loaded successfully
+    console.log(
+      'duration in seconds: ' +
+        ding.getDuration() +
+        'number of channels: ' +
+        ding.getNumberOfChannels(),
+    );
+  });
+
+  const onSalatAlert = status => {
+    console.log('class', status);
+    if (status.time === 'Done') {
+      setRingAzaan(true);
+    }
+  };
+  const subscription = eventEmitter.addListener('onSalatAlert', onSalatAlert);
 
   const play = () => {
     setShowPlayButton(false);
@@ -308,6 +320,7 @@ const Salat = props => {
         {},
         options,
       );
+      subscription.remove();
     }
   }, [ringAzaan]);
 
@@ -373,48 +386,41 @@ const Salat = props => {
       if (item.namaz) {
         salatTime = item.namaz.split(':');
       }
-      return salatTime[0] >= currentHour;
+      if (salatTime[0] > currentHour) {
+        return item;
+      } else if (salatTime[0] == currentHour && salatTime[1] >= currentMinute) {
+        return item;
+      } else {
+        return null;
+      }
     });
     const nearestTime = nearestSalat ? nearestSalat.namaz.split(':') : null;
     console.log('nearestTime', nearestTime);
     setCurrentSalatName(nearestSalat ? nearestSalat.title : null);
     if (nearestTime) {
-      const timeInterval =
-        parseInt(nearestTime[0]) * 60 +
-        parseInt(nearestTime[1]) -
-        (parseInt(currentHour) * 60 + parseInt(currentMinute));
-      console.log(timeInterval);
+      const hourDifference = parseInt(nearestTime[0]) - parseInt(currentHour);
+      const minuteDifference =
+        parseInt(nearestTime[1]) - parseInt(currentMinute);
+      const timeInterval = hourDifference * 60 + minuteDifference;
+      console.log('timeInterval', timeInterval);
+      setMinuteLeft(timeInterval);
+
       if (timeInterval <= 15 && timeInterval > 0) {
         startTimer(timeInterval);
       } else if (timeInterval === 0) {
         setRingAzaan(true);
+      } else {
+        console.log('wait for the next day');
       }
-    } else {
-      console.log('wait for the next day');
     }
   }
-
-  useEffect(() => {
-    if (ringAzaan) {
-      BackgroundTimer.stopBackgroundTimer();
-    }
-  }, [ringAzaan]);
 
   function startTimer(timeInterval) {
     let countdown = 0;
     setMinuteLeft(parseInt(timeInterval) - parseInt(countdown));
-
-    BackgroundTimer.runBackgroundTimer(() => {
-      //code that will be called every 1 min
-      countdown = countdown + 1 / 12;
-      setMinuteLeft(parseInt(timeInterval) - parseInt(countdown));
-      console.log('countdown', countdown);
-      console.log('timeInterval', timeInterval);
-      if (parseInt(timeInterval) - parseInt(countdown) === 0) {
-        setRingAzaan(true);
-        countdown = 0;
-      }
-    }, 5000);
+    BGTimerModule.createBackgroundTimer(timeInterval, eventID => {
+      console.log('callback', eventID);
+    });
   }
 
   const Item = ({value}) => (

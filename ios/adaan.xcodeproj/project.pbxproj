@@ -20,6 +20,7 @@
 		7C41AD0E275E5D68007169AF /* azan1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C41AD0D275E5D68007169AF /* azan1.mp3 */; };
 		7C831C982778FF6300376B58 /* LocationPushService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C831C972778FF6300376B58 /* LocationPushService.swift */; };
 		7C831C9C2778FF6300376B58 /* Push Notification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7C831C952778FF6200376B58 /* Push Notification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7CAB8B7227861CD40030FDCB /* RCTBGTimerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAB8B7127861CD30030FDCB /* RCTBGTimerModule.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,8 @@
 		7C831C952778FF6200376B58 /* Push Notification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Push Notification.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C831C972778FF6300376B58 /* LocationPushService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPushService.swift; sourceTree = "<group>"; };
 		7C831C992778FF6300376B58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CAB8B7027861C0E0030FDCB /* RCTBGTimerModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTBGTimerModule.h; sourceTree = "<group>"; };
+		7CAB8B7127861CD30030FDCB /* RCTBGTimerModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTBGTimerModule.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = adaan/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FAC7A08387D5911152C702F /* libPods-adaan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-adaan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A01E0B29B4EC069C61B2769F /* Pods-adaan-adaanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan-adaanTests.release.xcconfig"; path = "Target Support Files/Pods-adaan-adaanTests/Pods-adaan-adaanTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				7CAB8B7027861C0E0030FDCB /* RCTBGTimerModule.h */,
+				7CAB8B7127861CD30030FDCB /* RCTBGTimerModule.m */,
 			);
 			name = adaan;
 			sourceTree = "<group>";
@@ -560,6 +565,7 @@
 				7C41ACE527537439007169AF /* sound-swift.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				7CAB8B7227861CD40030FDCB /* RCTBGTimerModule.m in Sources */,
 				7C41ACE7275AB1FC007169AF /* BridgingFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
