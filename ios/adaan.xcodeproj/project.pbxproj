@@ -62,12 +62,13 @@
 		06F945A1766B0D15E7028C88 /* Pods-adaan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan.debug.xcconfig"; path = "Target Support Files/Pods-adaan/Pods-adaan.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* adaan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = adaan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = adaan/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = adaan/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = AppDelegate.m; path = adaan/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = adaan/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = adaan/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = adaan/main.m; sourceTree = "<group>"; };
 		4B2F75F73ED1EF06CC7D2FBD /* Pods-adaan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-adaan.release.xcconfig"; path = "Target Support Files/Pods-adaan/Pods-adaan.release.xcconfig"; sourceTree = "<group>"; };
 		6F0DCCF830E34625056C553D /* libPods-adaan-adaanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-adaan-adaanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C2E40CE278C921300E0268E /* salat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = salat.h; sourceTree = "<group>"; };
 		7C35719C274FAD2100E5D14C /* best-azan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "best-azan.mp3"; path = "../../../../../Downloads/best-azan.mp3"; sourceTree = "<group>"; };
 		7C41ACE327537439007169AF /* adaan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "adaan-Bridging-Header.h"; sourceTree = "<group>"; };
 		7C41ACE427537439007169AF /* sound-swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "sound-swift.swift"; sourceTree = "<group>"; };
@@ -151,6 +152,7 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				7CAB8B7027861C0E0030FDCB /* RCTBGTimerModule.h */,
 				7CAB8B7127861CD30030FDCB /* RCTBGTimerModule.m */,
+				7C2E40CE278C921300E0268E /* salat.h */,
 			);
 			name = adaan;
 			sourceTree = "<group>";
@@ -338,7 +340,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;

@@ -21,11 +21,9 @@ import Helper from './helper';
 
 import moment from 'moment';
 import * as m from 'moment-timezone';
-import BackgroundTimer from 'react-native-background-timer';
-import {notificationManager} from './NotificationManager';
 import BackgroundFetch from 'react-native-background-fetch';
+import {notificationManager} from './NotificationManager';
 const {BGTimerModule} = NativeModules;
-const eventEmitter = new NativeEventEmitter(BGTimerModule);
 
 const helper = new Helper();
 
@@ -55,14 +53,6 @@ const Salat = props => {
         ding.getNumberOfChannels(),
     );
   });
-
-  const onSalatAlert = status => {
-    console.log('class', status);
-    if (status.time === 'Done') {
-      setRingAzaan(true);
-    }
-  };
-  const subscription = eventEmitter.addListener('onSalatAlert', onSalatAlert);
 
   const play = () => {
     setShowPlayButton(false);
@@ -255,8 +245,6 @@ const Salat = props => {
     ];
 
     setSalatTimings(salatTimes);
-    // const currentTime = helper.getDate();
-    // calculateNearestSalatTime(currentTime.hour, currentTime.minute);
   }
 
   function setSalatTimings(salatTimes) {
@@ -282,7 +270,6 @@ const Salat = props => {
 
   useEffect(() => {
     ding.setVolume(1);
-
     Geolocation.requestAuthorization('always');
     Geolocation.getCurrentPosition(
       position => {
@@ -397,30 +384,19 @@ const Salat = props => {
     const nearestTime = nearestSalat ? nearestSalat.namaz.split(':') : null;
     console.log('nearestTime', nearestTime);
     setCurrentSalatName(nearestSalat ? nearestSalat.title : null);
-    if (nearestTime) {
+    if (nearestSalat) {
       const hourDifference = parseInt(nearestTime[0]) - parseInt(currentHour);
       const minuteDifference =
         parseInt(nearestTime[1]) - parseInt(currentMinute);
       const timeInterval = hourDifference * 60 + minuteDifference;
       console.log('timeInterval', timeInterval);
       setMinuteLeft(timeInterval);
-
-      if (timeInterval <= 15 && timeInterval > 0) {
-        startTimer(timeInterval);
-      } else if (timeInterval === 0) {
-        setRingAzaan(true);
-      } else {
-        console.log('wait for the next day');
-      }
+      startTimer(nearestSalat);
     }
   }
 
-  function startTimer(timeInterval) {
-    let countdown = 0;
-    setMinuteLeft(parseInt(timeInterval) - parseInt(countdown));
-    BGTimerModule.createBackgroundTimer(timeInterval, eventID => {
-      console.log('callback', eventID);
-    });
+  function startTimer(nearestSalat) {
+    BGTimerModule.createBackgroundTimer(nearestSalat);
   }
 
   const Item = ({value}) => (
@@ -462,7 +438,7 @@ const Salat = props => {
             <Button color="#fff" title="Pause Azaan" onPress={pause}></Button>
           )}
         </TouchableOpacity>
-        {minuteLeft > 0 && currentSalatName ? (
+        {minuteLeft > 0 && minuteLeft <= 15 && currentSalatName ? (
           <Text style={styles.info}>
             {minuteLeft} minute to {currentSalatName} Azaan time
           </Text>

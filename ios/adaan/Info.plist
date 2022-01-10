@@ -4,7 +4,9 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
+		<string>com.adaan.salat_time</string>
 		<string>com.transistorsoft.fetch</string>
+		<string>com.adaan.salat_alert</string>
 	</array>
 	<key>CFBundleDisplayName</key>
 	<string>Adaan</string>

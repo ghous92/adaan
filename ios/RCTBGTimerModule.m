@@ -10,64 +10,110 @@
 // RCTCalendarModule.m
 #import "RCTBGTimerModule.h"
 #import <React/RCTLog.h>
+#import <BackgroundTasks/BackgroundTasks.h>
+#import <UserNotifications/UNUserNotificationCenter.h>
+#import <UserNotifications/UNNotificationContent.h>
+#import <UserNotifications/UNNotificationTrigger.h>
+#import <UserNotifications/UNNotificationSound.h>
+#import <UserNotifications/UNNotificationRequest.h>
+#import <UIKIt/UIKit.h>
+#import "salat.h"
 
 
-
-
+bool isGrantedNotificationAccess;
 @implementation RCTBGTimerModule
-{
-  bool hasListeners;
+
+
+
+-(void) registerNotification {
+  
+  isGrantedNotificationAccess = false;
+  
+  UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+ 
+  
+  
+  //NSDate *todaySehri = [calendar dateFromComponents:components]; //unused
+  UNAuthorizationOptions options = UNAuthorizationOptionAlert + UNAuthorizationOptionSound;
+  [center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
+    NSLog(@"check access %id",granted);
+    isGrantedNotificationAccess = granted;
+    [self showNotification];
+  }];
+  
+}
+
+-(void) didReceiveMemoryWarning {
+  //[super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 
-- (NSArray<NSString *> *)supportedEvents {
-    return @[@"onSalatAlert"];
-}
+-(void) showNotification {
+  NSLog(@"Hi I am into my method");
+  if (isGrantedNotificationAccess){
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    
+    NSString *subTitle = [NSString stringWithFormat: @"%@ %s", _nearestSalat[@"title"], " Salat Time Starts"];
+    NSString *body = [NSString stringWithFormat: @"%@ %s", _nearestSalat[@"namaz"], ""];
+    NSLog(@"Hi I am into my method");
+    content.title = @"Adaan";
+    content.subtitle = subTitle;
+    content.body= body;
+    content.sound = [UNNotificationSound defaultSound];
+    
+   // NSDate *now = [NSDate date];
+    // NSLog(@"NSDate--before:%@",now);
+    // now = [now dateByAddingTimeInterval:60];
+   
+    //NSDate *now = _nearestSalat.namaz;
 
+    //NSLog(@"NSDate:%@",now);
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
+    NSString * salatTime= _nearestSalat[@"namaz"];
+    NSDate *date = [NSDate date]; // your NSDate object
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    NSString *str = [NSString stringWithFormat: @"%@ %@", dateString, salatTime];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm"];
+   // [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    NSLog(@"%@",[dateFormatter dateFromString:str]);
+    NSDate *now = [dateFormatter dateFromString:str];
+
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+
+    [calendar setTimeZone:[NSTimeZone localTimeZone]];
+
+   /* NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond|NSCalendarUnitTimeZone fromDate:now];*/
+    NSDateComponents *components = [calendar components:NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitTimeZone fromDate:now];
+    
+    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:NO];
+
+ 
+    /// 4. update application icon badge number
+   // content.badge = @([[UIApplication sharedApplication] applicationIconBadgeNumber] + 1);
+    
+    //UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger
+                                                  //triggerWithTimeInterval:60 //repeats:YES];
+    // setting up the request for notification
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"com.adaan.salat_alert"
+          content:content trigger:trigger];
+    [center addNotificationRequest:request withCompletionHandler:nil];
+  }
+}
 // To export a module named RCTCalendarModule
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(createBackgroundTimer:(float)timeInterval callback: (RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(createBackgroundTimer:(NSDictionary*)nearestSalat)
 {
   
   /* callback(@[@(counter)]);*/
- RCTLogInfo(@"Pretending to create an event %f ", timeInterval);
-  _timeInterval = timeInterval;
+  RCTLogInfo(@"JS to Native call %@ ", nearestSalat);
+  [self registerNotification];
   
-  callback(@[@(_stopTimer)]);
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(methodToRun:) userInfo:nil repeats:YES];
-   
-  });
-}
-
-// Will be called when this module's first listener is added.
--(void)startObserving {
-    hasListeners = YES;
-}
-
-// Will be called when this module's last listener is removed, or on dealloc.
--(void)stopObserving {
-    hasListeners = NO;
-}
-
-- (void) methodToRun:(NSTimer*)t {
-  // Code here
-  // NSInteger counter =  0;
-  _counter = _counter + 1;
-  RCTLogInfo(@"Pretending to create an event %@ at %ld", t,_counter);
-  if(_counter == _timeInterval){
-    _stopTimer = true;
-   //  timeGap timeDiff = _timeInterval - _counter;
-    if (hasListeners) { // Only send events if anyone is listening
-      [self sendEventWithName:@"onSalatAlert" body:@{@"time": @"Done"}];
-      }
-    [t invalidate];
-  }else {
-    _stopTimer = false;
-    
-  }
-  
+  _nearestSalat = nearestSalat;
 }
 
 

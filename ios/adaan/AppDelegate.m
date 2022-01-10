@@ -32,6 +32,16 @@ static void InitializeFlipper(UIApplication *application) {
 @implementation AppDelegate
 
 
+/*- (void)userNotificationCenter: (UNUserNotificationCenter *)center willPresentNotification: (UNNotification *)
+notification withCompletionHandler: (void (^) (UNNotificationPresentationOptions))completionHandler{
+
+UNNotificationPresentationOptions presentationOptions=UNNotificationPresentationOptionAlert +
+UNNotificationPresentationOptionSound;
+
+completionHandler(presentationOptions);
+
+}*/
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
@@ -58,8 +68,8 @@ static void InitializeFlipper(UIApplication *application) {
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
-  
-   // [REQUIRED] Register BackgroundFetch
+
+    // [REQUIRED] Register BackgroundFetch
    [[TSBackgroundFetch sharedInstance] didFinishLaunching];
   
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
@@ -115,11 +125,11 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 }
 
 
-//Called when a notification is delivered to a foreground app.
--(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
+// Called when a notification is delivered to a foreground app.
+/*-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
 {
   completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
-}
+}*/
 
 //Called when a user taps on a notification in the foreground
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center

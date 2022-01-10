@@ -10,14 +10,17 @@
 //  RCTCalendarModule.h
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
+#import <UserNotifications/UNUserNotificationCenter.h>
+#import <UIKIt/UIKit.h>
+
+#import "salat.h"
 
 
+@interface RCTBGTimerModule : NSObject <RCTBridgeModule>
 
-@interface RCTBGTimerModule : RCTEventEmitter <RCTBridgeModule>
+@property NSDictionary* nearestSalat;
 
-@property NSInteger counter;
-@property NSInteger timeInterval;
-@property BOOL stopTimer;
+
 @end
 
 
