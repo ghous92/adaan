@@ -26,6 +26,21 @@ import {notificationManager} from './NotificationManager';
 const {BGTimerModule} = NativeModules;
 
 const helper = new Helper();
+var Sound = require('react-native-sound');
+Sound.setCategory('Playback');
+var ding = new Sound('best-azan.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('failed to load the sound', error);
+    return;
+  }
+  // if loaded successfully
+  console.log(
+    'duration in seconds: ' +
+      ding.getDuration() +
+      'number of channels: ' +
+      ding.getNumberOfChannels(),
+  );
+});
 
 const Salat = props => {
   const [isloaded, setIsLoaded] = useState(false);
@@ -37,22 +52,6 @@ const Salat = props => {
   const [currentSalatName, setCurrentSalatName] = useState('');
   const [minuteLeft, setMinuteLeft] = useState(15);
   const [showPlayButton, setShowPlayButton] = useState(true);
-
-  var Sound = require('react-native-sound');
-  Sound.setCategory('Playback');
-  var ding = new Sound('best-azan.mp3', Sound.MAIN_BUNDLE, error => {
-    if (error) {
-      console.log('failed to load the sound', error);
-      return;
-    }
-    // if loaded successfully
-    console.log(
-      'duration in seconds: ' +
-        ding.getDuration() +
-        'number of channels: ' +
-        ding.getNumberOfChannels(),
-    );
-  });
 
   const play = () => {
     setShowPlayButton(false);
@@ -68,6 +67,7 @@ const Salat = props => {
   const pause = () => {
     ding.pause(success => {
       setShowPlayButton(true);
+
       if (success) {
         console.log('successfully paused playing');
       } else {
@@ -75,6 +75,7 @@ const Salat = props => {
       }
     });
   };
+
   const [salatData, setSalatData] = useState([
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
