@@ -331,7 +331,7 @@ const Salat = props => {
 
     // Initialize BackgroundFetch only once when component mounts.
     let status = await BackgroundFetch.configure(
-      {minimumFetchInterval: 15},
+      {minimumFetchInterval: 60},
       onEvent,
       onTimeout,
     );
