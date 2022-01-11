@@ -438,7 +438,7 @@ const Salat = props => {
             <Button color="#fff" title="Pause Azaan" onPress={pause}></Button>
           )}
         </TouchableOpacity>
-        {minuteLeft > 0 && minuteLeft <= 15 && currentSalatName ? (
+        {minuteLeft > 0 && currentSalatName ? (
           <Text style={styles.info}>
             {minuteLeft} minute to {currentSalatName} Azaan time
           </Text>

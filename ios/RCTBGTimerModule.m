@@ -63,22 +63,18 @@ bool isGrantedNotificationAccess;
     content.body= body;
     content.sound = [UNNotificationSound defaultSound];
     
-   // NSDate *now = [NSDate date];
-    // NSLog(@"NSDate--before:%@",now);
-    // now = [now dateByAddingTimeInterval:60];
-   
-    //NSDate *now = _nearestSalat.namaz;
-
-    //NSLog(@"NSDate:%@",now);
-    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     dateFormatter.dateFormat = @"yyyy-MM-dd";
     NSString * salatTime= _nearestSalat[@"namaz"];
+    NSLog(@"salat time %@ ", salatTime);
     NSDate *date = [NSDate date]; // your NSDate object
     NSString *dateString = [dateFormatter stringFromDate:date];
+  
     NSString *str = [NSString stringWithFormat: @"%@ %@", dateString, salatTime];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm"];
+    NSLog(@"date stringl %@ ", str);
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
    // [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    NSLog(@"entery 7 %@",[dateFormatter dateFromString:str]);
     NSLog(@"%@",[dateFormatter dateFromString:str]);
     NSDate *now = [dateFormatter dateFromString:str];
 
