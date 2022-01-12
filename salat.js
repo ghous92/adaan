@@ -1,17 +1,14 @@
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
   FlatList,
   TouchableOpacity,
   Button,
   ImageBackground,
   NativeModules,
-  NativeEventEmitter,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Geolocation, {
@@ -441,7 +438,7 @@ const Salat = props => {
         </TouchableOpacity>
         {minuteLeft > 0 && currentSalatName ? (
           <Text style={styles.info}>
-            {minuteLeft} minute to {currentSalatName} Azaan time
+            {/* {minuteLeft} minute to {currentSalatName} Azaan time */}
           </Text>
         ) : null}
       </SafeAreaView>
