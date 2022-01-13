@@ -11,15 +11,12 @@ import {
   NativeModules,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import Geolocation, {
-  hasLocationPermission,
-} from 'react-native-geolocation-service';
+import Geolocation from 'react-native-geolocation-service';
 import Helper from './helper';
 
 import moment from 'moment';
 import * as m from 'moment-timezone';
 import BackgroundFetch from 'react-native-background-fetch';
-import {notificationManager} from './NotificationManager';
 const {BGTimerModule} = NativeModules;
 
 const helper = new Helper();
@@ -49,6 +46,7 @@ const Salat = props => {
   const [currentSalatName, setCurrentSalatName] = useState('');
   const [minuteLeft, setMinuteLeft] = useState(15);
   const [showPlayButton, setShowPlayButton] = useState(true);
+  const [hasLocationPermission, setHasLocationPermission] = useState(false);
 
   const play = () => {
     setShowPlayButton(false);
@@ -219,7 +217,7 @@ const Salat = props => {
 
     const asarTime = (getAsarAngle(1, data.lat, theta) * (60 * 180)) / Math.PI;
 
-    salatTimes = [
+    const salatTimes = [
       {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
         namaz: helper.timeString(solnoon - twilight, 2),
@@ -266,9 +264,7 @@ const Salat = props => {
     alert('Open Notification');
   }
 
-  useEffect(() => {
-    ding.setVolume(1);
-    Geolocation.requestAuthorization('always');
+  function getCurrentPosition() {
     Geolocation.getCurrentPosition(
       position => {
         setPosition(position);
@@ -280,35 +276,23 @@ const Salat = props => {
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
+  }
+
+  useEffect(() => {
+    ding.setVolume(1);
+    Geolocation.requestAuthorization('always').then(value => {
+      if (value === 'granted') {
+        setHasLocationPermission(true);
+        getCurrentPosition();
+      }
+    });
+    if (hasLocationPermission) {
+    }
 
     return () => {
       ding.release();
     };
   }, []);
-
-  useEffect(() => {
-    notificationManager.configure(
-      onRegister,
-      onNotification,
-      onOpenNotification,
-    );
-    const options = {
-      soundName: 'default', //'azan1.mp3', //
-      playSound: true,
-      vibrate: true,
-    };
-    if (ringAzaan) {
-      notificationManager.showNotification(
-        1,
-        'Salat Time ',
-        `Its  ${currentSalatName} Time `,
-        {},
-        options,
-      );
-      subscription.remove();
-    }
-  }, [ringAzaan]);
-
   async function initBackgroundFetch(updatedSalatData) {
     // BackgroundFetch event handler.
 
