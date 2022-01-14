@@ -450,7 +450,7 @@ const Salat = props => {
         </TouchableOpacity>
         {minuteLeft > 0 && currentSalatName ? (
           <Text style={styles.info}>
-            // {minuteLeft} minute to {currentSalatName} Azaan time
+            {/* {minuteLeft} minute to {currentSalatName} Azaan time */}
           </Text>
         ) : null}
       </SafeAreaView>
