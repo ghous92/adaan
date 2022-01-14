@@ -17,6 +17,7 @@ import Helper from './helper';
 import moment from 'moment';
 import * as m from 'moment-timezone';
 import BackgroundFetch from 'react-native-background-fetch';
+import {notificationManager} from './NotificationManager';
 const {BGTimerModule} = NativeModules;
 
 const helper = new Helper();
@@ -291,6 +292,19 @@ const Salat = props => {
 
     return () => {
       ding.release();
+    };
+  }, []);
+
+  useEffect(() => {
+    notificationManager.configure(
+      onRegister,
+      onNotification,
+      onOpenNotification,
+    );
+    const options = {
+      soundName: 'default', //'azan1.mp3', //
+      playSound: true,
+      vibrate: true,
     };
   }, []);
   async function initBackgroundFetch(updatedSalatData) {
