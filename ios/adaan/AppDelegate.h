@@ -1,5 +1,4 @@
 #import <React/RCTBridgeDelegate.h>
-#import <UIKit/UIKit.h>
 #import <TSBackgroundFetch/TSBackgroundFetch.h>
 
 #import <UserNotifications/UNUserNotificationCenter.h>

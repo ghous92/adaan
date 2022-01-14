@@ -3,7 +3,6 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import <TSBackgroundFetch/TSBackgroundFetch.h>
 #import "RNSplashScreen.h"
 #import <UserNotifications/UNUserNotificationCenter.h>
 #import <RNCPushNotificationIOS.h>
@@ -46,6 +45,9 @@ completionHandler(presentationOptions);
 {
   NSURL *jsCodeLocation;
 
+  
+  // [REQUIRED] Register BackgroundFetch
+   [[TSBackgroundFetch sharedInstance] didFinishLaunching];
    // Loading JavaScript code
    #if DEBUG
      // For Debug build load from development server. Start the server from the repository root:
@@ -69,8 +71,6 @@ completionHandler(presentationOptions);
   InitializeFlipper(application);
 #endif
 
-    // [REQUIRED] Register BackgroundFetch
-   [[TSBackgroundFetch sharedInstance] didFinishLaunching];
   
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
