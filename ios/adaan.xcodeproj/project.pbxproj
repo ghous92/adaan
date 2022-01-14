@@ -69,14 +69,7 @@
 		7C41AD17275E5F17007169AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C41AD24275E5F5E007169AF /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		7C41AD26275E5F5E007169AF /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
-		7C41AD29275E5F5E007169AF /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
-		7C41AD2C275E5F5F007169AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		7C41AD2E275E5F5F007169AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C41AD3B275E5F9A007169AF /* LocationPushService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPushService.swift; sourceTree = "<group>"; };
-		7C41AD3D275E5F9A007169AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C41AD44275E5FD1007169AF /* Push Notication Service.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Push Notication Service.entitlements"; sourceTree = "<group>"; };
-		7C831C972778FF6300376B58 /* LocationPushService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPushService.swift; sourceTree = "<group>"; };
-		7C831C992778FF6300376B58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C938ADB2791AC2800323B9D /* adaan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = adaan.entitlements; path = adaan/adaan.entitlements; sourceTree = "<group>"; };
 		7CAB8B7027861C0E0030FDCB /* RCTBGTimerModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTBGTimerModule.h; sourceTree = "<group>"; };
 		7CAB8B7127861CD30030FDCB /* RCTBGTimerModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTBGTimerModule.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = adaan/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -126,6 +119,7 @@
 		13B07FAE1A68108700A75B9A /* adaan */ = {
 			isa = PBXGroup;
 			children = (
+				7C938ADB2791AC2800323B9D /* adaan.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -168,35 +162,6 @@
 			path = "Push Notification";
 			sourceTree = "<group>";
 		};
-		7C41AD28275E5F5E007169AF /* Push Notification 2 */ = {
-			isa = PBXGroup;
-			children = (
-				7C41AD29275E5F5E007169AF /* NotificationViewController.swift */,
-				7C41AD2B275E5F5E007169AF /* MainInterface.storyboard */,
-				7C41AD2E275E5F5F007169AF /* Info.plist */,
-			);
-			path = "Push Notification 2";
-			sourceTree = "<group>";
-		};
-		7C41AD3A275E5F9A007169AF /* Push Notication Service */ = {
-			isa = PBXGroup;
-			children = (
-				7C41AD44275E5FD1007169AF /* Push Notication Service.entitlements */,
-				7C41AD3B275E5F9A007169AF /* LocationPushService.swift */,
-				7C41AD3D275E5F9A007169AF /* Info.plist */,
-			);
-			path = "Push Notication Service";
-			sourceTree = "<group>";
-		};
-		7C831C962778FF6300376B58 /* Push Notification */ = {
-			isa = PBXGroup;
-			children = (
-				7C831C972778FF6300376B58 /* LocationPushService.swift */,
-				7C831C992778FF6300376B58 /* Info.plist */,
-			);
-			path = "Push Notification";
-			sourceTree = "<group>";
-		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,9 +180,6 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* adaanTests */,
 				7C41AD14275E5F17007169AF /* Push Notification */,
-				7C41AD28275E5F5E007169AF /* Push Notification 2 */,
-				7C41AD3A275E5F9A007169AF /* Push Notication Service */,
-				7C831C962778FF6300376B58 /* Push Notification */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				6EC05D3C0C20405EA4ADC249 /* Resources */,
@@ -534,17 +496,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		7C41AD2B275E5F5E007169AF /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7C41AD2C275E5F5F007169AF /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -610,6 +561,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = adaan/adaan.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -644,6 +596,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = adaan/adaan.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
