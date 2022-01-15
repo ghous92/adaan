@@ -76,35 +76,30 @@ const Salat = props => {
       title: 'Fajr',
       disabled: true,
       turnOn: false,
-      namaz: null,
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
       title: 'Dhuhr',
       disabled: false,
       turnOn: false,
-      namaz: null,
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
       title: 'Asr',
       disabled: false,
       turnOn: false,
-      namaz: null,
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d73',
       title: 'Maghrib',
       disabled: false,
       turnOn: false,
-      namaz: null,
     },
     {
       id: '55694a0f-3da1-471g-bd96-145571e29d73',
       title: 'Isha',
       disabled: false,
       turnOn: false,
-      namaz: null,
     },
   ]);
 
@@ -224,7 +219,7 @@ const Salat = props => {
     const salatTimes = [
       {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        namaz: helper.timeString(solnoon - twilight, 2),
+        namaz: '13:45',
       },
       {
         id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
@@ -252,11 +247,7 @@ const Salat = props => {
     // console.log(updatedSalatData);
     setSalatData(updatedSalatData);
     setIsLoaded(true);
-    const currentTime = helper.getDate();
-    setCurrentTime(
-      currentTime.hour + ':' + currentTime.minute + ':' + currentTime.second,
-    );
-    calculateNearestSalatTime(salatData, currentTime.hour, currentTime.minute);
+    initBackgroundFetch(updatedSalatData);
   }
 
   function onRegister(token) {
@@ -287,11 +278,6 @@ const Salat = props => {
   }
 
   useEffect(() => {
-    // Initialize BackgroundFetch ONLY ONCE when component mounts.
-    initBackgroundFetch();
-  });
-
-  useEffect(() => {
     ding.setVolume(1);
     Geolocation.requestAuthorization('always').then(value => {
       if (value === 'granted') {
@@ -317,14 +303,13 @@ const Salat = props => {
       vibrate: true,
     };
   }, []);
-
-  async function initBackgroundFetch() {
+  async function initBackgroundFetch(updatedSalatData) {
     // BackgroundFetch event handler.
 
     const onEvent = async taskId => {
       console.log('[BackgroundFetch] task: ', taskId);
       // Do your background work...
-      await addEvent(taskId);
+      await addEvent(taskId, updatedSalatData);
       // IMPORTANT:  You must signal to the OS that your task is complete.
       BackgroundFetch.finish(taskId);
     };
@@ -338,7 +323,7 @@ const Salat = props => {
 
     // Initialize BackgroundFetch only once when component mounts.
     let status = await BackgroundFetch.configure(
-      {minimumFetchInterval: 30},
+      {minimumFetchInterval: 15},
       onEvent,
       onTimeout,
     );
@@ -346,7 +331,7 @@ const Salat = props => {
     console.log('[BackgroundFetch] configure status: ', status);
   }
 
-  function addEvent(taskId) {
+  function addEvent(taskId, updatedSalatData) {
     // Simulate a possibly long-running asynchronous task with a Promise.
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -361,12 +346,12 @@ const Salat = props => {
             currentTime.second,
         );
         calculateNearestSalatTime(
-          salatData,
+          updatedSalatData,
           currentTime.hour,
           currentTime.minute,
         );
         resolve('foo');
-      }, 300);
+      }, 3000);
     });
   }
 
@@ -379,16 +364,13 @@ const Salat = props => {
       let salatTime = null;
       if (item.namaz) {
         salatTime = item.namaz.split(':');
-        if (salatTime[0] > currentHour) {
-          return item;
-        } else if (
-          salatTime[0] == currentHour &&
-          salatTime[1] >= currentMinute
-        ) {
-          return item;
-        } else {
-          return null;
-        }
+      }
+      if (salatTime[0] > currentHour) {
+        return item;
+      } else if (salatTime[0] == currentHour && salatTime[1] >= currentMinute) {
+        return item;
+      } else {
+        return null;
       }
     });
     const nearestTime = nearestSalat ? nearestSalat.namaz.split(':') : null;
@@ -450,7 +432,7 @@ const Salat = props => {
         </TouchableOpacity>
         {minuteLeft > 0 && currentSalatName ? (
           <Text style={styles.info}>
-            {/* {minuteLeft} minute to {currentSalatName} Azaan time */}
+            {minuteLeft} minute to {currentSalatName} Azaan time
           </Text>
         ) : null}
       </SafeAreaView>
