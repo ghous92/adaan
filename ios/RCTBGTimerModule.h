@@ -13,10 +13,9 @@
 #import <UserNotifications/UNUserNotificationCenter.h>
 #import <UIKIt/UIKit.h>
 
-#import "salat.h"
 
 
-@interface RCTBGTimerModule : NSObject <RCTBridgeModule>
+@interface RCTBGTimerModule : RCTEventEmitter <RCTBridgeModule>
 
 @property NSDictionary* nearestSalat;
 

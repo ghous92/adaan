@@ -17,12 +17,33 @@
 #import <UserNotifications/UNNotificationSound.h>
 #import <UserNotifications/UNNotificationRequest.h>
 #import <UIKIt/UIKit.h>
-#import "salat.h"
 
 
 bool isGrantedNotificationAccess;
-@implementation RCTBGTimerModule
 
+
+@implementation RCTBGTimerModule
+{
+  bool hasListeners;
+}
+
+
+- (NSArray<NSString *> *)supportedEvents {
+    return @[@"onSalatAlert"];
+}
+
+// To export a module named RCTCalendarModule
+RCT_EXPORT_MODULE();
+
+RCT_EXPORT_METHOD(createBackgroundTimer:(NSDictionary*)nearestSalat)
+{
+  _nearestSalat = nearestSalat;
+  /* callback(@[@(counter)]);*/
+  RCTLogInfo(@"JS to Native call %@ ", nearestSalat);
+
+  [self registerNotification];
+  
+}
 
 
 -(void) registerNotification {
@@ -30,8 +51,6 @@ bool isGrantedNotificationAccess;
   isGrantedNotificationAccess = false;
   
   UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
- 
-  
   
   //NSDate *todaySehri = [calendar dateFromComponents:components]; //unused
   UNAuthorizationOptions options = UNAuthorizationOptionAlert + UNAuthorizationOptionSound;
@@ -41,6 +60,16 @@ bool isGrantedNotificationAccess;
     [self showNotification];
   }];
   
+}
+
+// Will be called when this module's first listener is added.
+-(void)startObserving {
+    hasListeners = YES;
+}
+
+// Will be called when this module's last listener is removed, or on dealloc.
+-(void)stopObserving {
+    hasListeners = NO;
 }
 
 -(void) didReceiveMemoryWarning {
@@ -98,18 +127,6 @@ bool isGrantedNotificationAccess;
           content:content trigger:trigger];
     [center addNotificationRequest:request withCompletionHandler:nil];
   }
-}
-// To export a module named RCTCalendarModule
-RCT_EXPORT_MODULE();
-
-RCT_EXPORT_METHOD(createBackgroundTimer:(NSDictionary*)nearestSalat)
-{
-  
-  /* callback(@[@(counter)]);*/
-  RCTLogInfo(@"JS to Native call %@ ", nearestSalat);
-  [self registerNotification];
-  
-  _nearestSalat = nearestSalat;
 }
 
 

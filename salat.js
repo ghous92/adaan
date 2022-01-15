@@ -9,6 +9,7 @@ import {
   Button,
   ImageBackground,
   NativeModules,
+  NativeEventEmitter,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Geolocation from 'react-native-geolocation-service';
@@ -19,6 +20,7 @@ import * as m from 'moment-timezone';
 import BackgroundFetch from 'react-native-background-fetch';
 import {notificationManager} from './NotificationManager';
 const {BGTimerModule} = NativeModules;
+const eventEmitter = new NativeEventEmitter(BGTimerModule);
 
 const helper = new Helper();
 var Sound = require('react-native-sound');
@@ -46,6 +48,15 @@ const Salat = props => {
   const [minuteLeft, setMinuteLeft] = useState(15);
   const [showPlayButton, setShowPlayButton] = useState(true);
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
+  const [ringAzaan, setRingAzaan] = useState(false);
+
+  const onSalatAlert = status => {
+    console.log('class', status);
+    if (status.time === 'Done') {
+      setRingAzaan(true);
+    }
+  };
+  const subscription = eventEmitter.addListener('onSalatAlert', onSalatAlert);
 
   const play = () => {
     setShowPlayButton(false);
@@ -219,7 +230,7 @@ const Salat = props => {
     const salatTimes = [
       {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        namaz: '13:45',
+        namaz: helper.timeString(solnoon - twilight, 2),
       },
       {
         id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
@@ -302,7 +313,18 @@ const Salat = props => {
       playSound: true,
       vibrate: true,
     };
-  }, []);
+    if (ringAzaan) {
+      notificationManager.showNotification(
+        1,
+        'Salat Time ',
+        `Its  ${currentSalatName} Time `,
+        {},
+        options,
+      );
+      subscription.remove();
+    }
+  }, [ringAzaan]);
+
   async function initBackgroundFetch(updatedSalatData) {
     // BackgroundFetch event handler.
 
@@ -351,7 +373,7 @@ const Salat = props => {
           currentTime.minute,
         );
         resolve('foo');
-      }, 3000);
+      }, 300);
     });
   }
 
@@ -432,9 +454,14 @@ const Salat = props => {
         </TouchableOpacity>
         {minuteLeft > 0 && currentSalatName ? (
           <Text style={styles.info}>
-            {minuteLeft} minute to {currentSalatName} Azaan time
+            {/* {minuteLeft} minute to {currentSalatName} Azaan time */}
           </Text>
         ) : null}
+        {/* {events === 'foo' ? (
+          <Text style={styles.info}>Test App Available</Text>
+        ) : (
+          <Text style={styles.info}>Test App Not Working</Text>
+        )} */}
       </SafeAreaView>
     </ImageBackground>
   ) : null;
