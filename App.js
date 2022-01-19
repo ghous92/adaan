@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 
 import React, {useEffect} from 'react';
+import messaging from '@react-native-firebase/messaging';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
@@ -60,6 +61,19 @@ const App = () => {
   useEffect(() => {
     SplashScreen.hide();
   });
+
+  messaging().setBackgroundMessageHandler(async remoteMessage => {
+    console.log('Message handled in the background!', remoteMessage);
+  });
+
+  function HeadlessCheck({isHeadless}) {
+    if (isHeadless) {
+      // App has been launched in the background by iOS, ignore
+      return null;
+    }
+
+    return <App />;
+  }
 
   return (
     <SafeAreaView style={backgroundStyle}>

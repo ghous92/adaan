@@ -11,16 +11,22 @@ import {
   NativeModules,
   NativeEventEmitter,
 } from 'react-native';
+import firebase from '@react-native-firebase/app';
+import messaging from '@react-native-firebase/messaging';
+
 import React, {useEffect, useState} from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import Helper from './helper';
+import * as axios from 'axios';
 
 import moment from 'moment';
 import * as m from 'moment-timezone';
 import BackgroundFetch from 'react-native-background-fetch';
 import {notificationManager} from './NotificationManager';
+import PushNotification from 'react-native-push-notification';
 const {BGTimerModule} = NativeModules;
 const eventEmitter = new NativeEventEmitter(BGTimerModule);
+const api = axios.create({baseURL: 'http://localhost:3000/'});
 
 const helper = new Helper();
 var Sound = require('react-native-sound');
@@ -42,13 +48,60 @@ var ding = new Sound('best-azan.mp3', Sound.MAIN_BUNDLE, error => {
 const Salat = props => {
   const [isloaded, setIsLoaded] = useState(false);
   const [position, setPosition] = useState(null);
-  const [currentTime, setCurrentTime] = useState(null);
   const [events, setEvents] = useState();
   const [currentSalatName, setCurrentSalatName] = useState('');
   const [minuteLeft, setMinuteLeft] = useState(15);
   const [showPlayButton, setShowPlayButton] = useState(true);
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
   const [ringAzaan, setRingAzaan] = useState(false);
+
+  const messaging = firebase.messaging();
+
+  requestUserPermission()
+    .then(enabled => {
+      if (enabled) {
+        messaging
+          .getToken()
+          .then(token => {
+            console.log('firebase token', token);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
+  async function requestUserPermission() {
+    const authStatus = await messaging.requestPermission();
+    console.log(authStatus);
+    const enabled =
+      authStatus === 1 ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+    }
+    return enabled;
+  }
+
+  useEffect(() => {
+    const unsubscribe = messaging.onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+
+    return unsubscribe;
+  }, []);
+
+  // firebase.notification().onNotification(notification => {
+  //   const {title, body} = notification;
+  //   PushNotification.localNotification({
+  //     title: title,
+  //     message: body,
+  //   });
+  // });
 
   const onSalatAlert = status => {
     console.log('class', status);
@@ -258,7 +311,9 @@ const Salat = props => {
     // console.log(updatedSalatData);
     setSalatData(updatedSalatData);
     setIsLoaded(true);
-    initBackgroundFetch(updatedSalatData);
+    syncSalatDetails();
+
+    //initBackgroundFetch(updatedSalatData);
   }
 
   function onRegister(token) {
@@ -333,6 +388,7 @@ const Salat = props => {
       // Do your background work...
       await addEvent(taskId, updatedSalatData);
       // IMPORTANT:  You must signal to the OS that your task is complete.
+      setEvents('bar');
       BackgroundFetch.finish(taskId);
     };
 
@@ -345,7 +401,12 @@ const Salat = props => {
 
     // Initialize BackgroundFetch only once when component mounts.
     let status = await BackgroundFetch.configure(
-      {minimumFetchInterval: 15},
+      {
+        minimumFetchInterval: 15,
+        stopOnTerminate: false,
+        enableHeadless: true,
+        startOnBoot: true,
+      },
       onEvent,
       onTimeout,
     );
@@ -358,15 +419,7 @@ const Salat = props => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const currentTime = helper.getDate();
-
         setEvents('foo');
-        setCurrentTime(
-          currentTime.hour +
-            ':' +
-            currentTime.minute +
-            ':' +
-            currentTime.second,
-        );
         calculateNearestSalatTime(
           updatedSalatData,
           currentTime.hour,
@@ -405,12 +458,21 @@ const Salat = props => {
       const timeInterval = hourDifference * 60 + minuteDifference;
       console.log('timeInterval', timeInterval);
       setMinuteLeft(timeInterval);
-      startTimer(nearestSalat);
+      //startTimer(nearestSalat);
     }
   }
 
-  function startTimer(nearestSalat) {
-    BGTimerModule.createBackgroundTimer(nearestSalat);
+  function syncSalatDetails(nearestSalat) {
+    api
+      .post('/positions', {
+        position: position,
+      })
+      .then(function (response) {
+        console.log('RN', response);
+      })
+      .catch(function (error) {
+        console.log('RN', error);
+      });
   }
 
   const Item = ({value}) => (
@@ -454,14 +516,14 @@ const Salat = props => {
         </TouchableOpacity>
         {minuteLeft > 0 && currentSalatName ? (
           <Text style={styles.info}>
-            {/* {minuteLeft} minute to {currentSalatName} Azaan time */}
+            {minuteLeft} minute to {currentSalatName} Azaan time
           </Text>
         ) : null}
-        {/* {events === 'foo' ? (
-          <Text style={styles.info}>Test App Available</Text>
-        ) : (
-          <Text style={styles.info}>Test App Not Working</Text>
-        )} */}
+        {events === 'foo' ? (
+          <Text style={styles.info}>Background Task Started</Text>
+        ) : events === 'bar' ? (
+          <Text style={styles.info}>Background Task Finished</Text>
+        ) : null}
       </SafeAreaView>
     </ImageBackground>
   ) : null;

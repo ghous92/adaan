@@ -1,12 +1,12 @@
 #import "AppDelegate.h"
-
+#import "RNFBMessagingModule.h"
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
 #import <UserNotifications/UNUserNotificationCenter.h>
 #import <RNCPushNotificationIOS.h>
-
+#import <Firebase.h>
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -44,7 +44,13 @@ completionHandler(presentationOptions);
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
+  
+  // Register Firebase
+  [FIRApp configure];
+  
+ 
 
+ 
   
   // [REQUIRED] Register BackgroundFetch
    [[TSBackgroundFetch sharedInstance] didFinishLaunching];
@@ -71,12 +77,14 @@ completionHandler(presentationOptions);
   InitializeFlipper(application);
 #endif
 
+  NSDictionary *appProperties = [RNFBMessagingModule addCustomPropsToUserProps:nil withLaunchOptions:launchOptions];
   
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"adaan"
-                                            initialProperties:nil];
+                                            initialProperties:appProperties];
 
+  
   if (@available(iOS 13.0, *)) {
       rootView.backgroundColor = [UIColor systemBackgroundColor];
   } else {

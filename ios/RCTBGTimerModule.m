@@ -79,7 +79,7 @@ RCT_EXPORT_METHOD(createBackgroundTimer:(NSDictionary*)nearestSalat)
 
 
 -(void) showNotification {
-  NSLog(@"Hi I am into my method");
+  NSLog(@"Hi I am waiting for permission my method");
   if (isGrantedNotificationAccess){
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
@@ -116,7 +116,10 @@ RCT_EXPORT_METHOD(createBackgroundTimer:(NSDictionary*)nearestSalat)
     
     UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:NO];
 
- 
+    //NSLog(@"Has listeners Bool value %@", hasListeners ? @"YES" : @"NO");
+    //if (hasListeners) { // Only send events if anyone is listening
+      //[self sendEventWithName:@"onSalatAlert" body:@{@"time": @"Done"}];
+    //}
     /// 4. update application icon badge number
    // content.badge = @([[UIApplication sharedApplication] applicationIconBadgeNumber] + 1);
     
