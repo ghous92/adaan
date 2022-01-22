@@ -257,7 +257,6 @@ const Salat = props => {
     const updatedSalatData = helper.mergeArrayObjects(salatData, salatTimes);
     // console.log(updatedSalatData);
     setSalatData(updatedSalatData);
-    setIsLoaded(true);
     initBackgroundFetch(updatedSalatData);
   }
 
@@ -282,6 +281,7 @@ const Salat = props => {
       },
       error => {
         // See error code charts below.
+        setHasLocationPermission(false);
         console.log(error.code, error.message);
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
@@ -290,10 +290,14 @@ const Salat = props => {
 
   useEffect(() => {
     ding.setVolume(1);
+    setIsLoaded(true);
+
     Geolocation.requestAuthorization('always').then(value => {
       if (value === 'granted') {
         setHasLocationPermission(true);
         getCurrentPosition();
+      } else {
+        setHasLocationPermission(false);
       }
     });
 
@@ -419,7 +423,9 @@ const Salat = props => {
         <Text style={styles.title}>{value.title}</Text>
       </View>
       <View>
-        <Text style={styles.subTitle}> {value.namaz}</Text>
+        {value.namaz ? (
+          <Text style={styles.subTitle}> {value.namaz}</Text>
+        ) : null}
       </View>
     </View>
   );
@@ -452,16 +458,12 @@ const Salat = props => {
             <Button color="#fff" title="Pause Azaan" onPress={pause}></Button>
           )}
         </TouchableOpacity>
-        {minuteLeft > 0 && currentSalatName ? (
+        {!hasLocationPermission ? (
           <Text style={styles.info}>
-            {/* {minuteLeft} minute to {currentSalatName} Azaan time */}
+            To see local prayer(salah) times allow Adaan to find your location
+            and reload the app
           </Text>
         ) : null}
-        {/* {events === 'foo' ? (
-          <Text style={styles.info}>Test App Available</Text>
-        ) : (
-          <Text style={styles.info}>Test App Not Working</Text>
-        )} */}
       </SafeAreaView>
     </ImageBackground>
   ) : null;
@@ -535,6 +537,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff',
     alignSelf: 'center',
+    justifyContent: 'center',
+    display: 'flex',
   },
 });
 export default Salat;
