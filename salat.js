@@ -48,6 +48,8 @@ const Salat = props => {
   const [minuteLeft, setMinuteLeft] = useState(15);
   const [showPlayButton, setShowPlayButton] = useState(true);
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
+  const [hasFetchLocation, setHasFetchLocation] = useState(false);
+
   const [ringAzaan, setRingAzaan] = useState(false);
 
   const onSalatAlert = status => {
@@ -276,6 +278,7 @@ const Salat = props => {
   function getCurrentPosition() {
     Geolocation.getCurrentPosition(
       position => {
+        setHasFetchLocation(true);
         setPosition(position);
         fetchSalatDetails(position);
       },
@@ -459,10 +462,17 @@ const Salat = props => {
           )}
         </TouchableOpacity>
         {!hasLocationPermission ? (
-          <Text style={styles.info}>
-            To see local prayer(salah) times allow Adaan to find your location
-            and reload the app
-          </Text>
+          <>
+            <Text style={styles.info}>Unable to get location</Text>
+            <Text style={styles.info}>
+              Turning on location and reload app ensures accurate prayer times
+            </Text>
+          </>
+        ) : null}
+        {hasLocationPermission && !hasFetchLocation ? (
+          <>
+            <Text style={styles.info}>Fetching Location ...</Text>
+          </>
         ) : null}
       </SafeAreaView>
     </ImageBackground>
@@ -537,8 +547,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff',
     alignSelf: 'center',
-    justifyContent: 'center',
-    display: 'flex',
+    textAlign: 'center',
   },
 });
 export default Salat;
