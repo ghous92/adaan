@@ -53,6 +53,8 @@ const Salat = props => {
   const [minuteLeft, setMinuteLeft] = useState(15);
   const [showPlayButton, setShowPlayButton] = useState(true);
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
+  const [hasFetchLocation, setHasFetchLocation] = useState(false);
+
   const [ringAzaan, setRingAzaan] = useState(false);
 
   const messaging = firebase.messaging();
@@ -310,10 +312,7 @@ const Salat = props => {
     const updatedSalatData = helper.mergeArrayObjects(salatData, salatTimes);
     // console.log(updatedSalatData);
     setSalatData(updatedSalatData);
-    setIsLoaded(true);
-    syncSalatDetails();
-
-    //initBackgroundFetch(updatedSalatData);
+    initBackgroundFetch(updatedSalatData);
   }
 
   function onRegister(token) {
@@ -332,11 +331,13 @@ const Salat = props => {
   function getCurrentPosition() {
     Geolocation.getCurrentPosition(
       position => {
+        setHasFetchLocation(true);
         setPosition(position);
         fetchSalatDetails(position);
       },
       error => {
         // See error code charts below.
+        setHasLocationPermission(false);
         console.log(error.code, error.message);
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
@@ -345,10 +346,14 @@ const Salat = props => {
 
   useEffect(() => {
     ding.setVolume(1);
+    setIsLoaded(true);
+
     Geolocation.requestAuthorization('always').then(value => {
       if (value === 'granted') {
         setHasLocationPermission(true);
         getCurrentPosition();
+      } else {
+        setHasLocationPermission(false);
       }
     });
 
@@ -481,7 +486,9 @@ const Salat = props => {
         <Text style={styles.title}>{value.title}</Text>
       </View>
       <View>
-        <Text style={styles.subTitle}> {value.namaz}</Text>
+        {value.namaz ? (
+          <Text style={styles.subTitle}> {value.namaz}</Text>
+        ) : null}
       </View>
     </View>
   );
@@ -514,15 +521,18 @@ const Salat = props => {
             <Button color="#fff" title="Pause Azaan" onPress={pause}></Button>
           )}
         </TouchableOpacity>
-        {minuteLeft > 0 && currentSalatName ? (
-          <Text style={styles.info}>
-            {minuteLeft} minute to {currentSalatName} Azaan time
-          </Text>
+        {!hasLocationPermission ? (
+          <>
+            <Text style={styles.info}>Unable to get location</Text>
+            <Text style={styles.info}>
+              Turning on location and reload app ensures accurate prayer times
+            </Text>
+          </>
         ) : null}
-        {events === 'foo' ? (
-          <Text style={styles.info}>Background Task Started</Text>
-        ) : events === 'bar' ? (
-          <Text style={styles.info}>Background Task Finished</Text>
+        {hasLocationPermission && !hasFetchLocation ? (
+          <>
+            <Text style={styles.info}>Fetching Location ...</Text>
+          </>
         ) : null}
       </SafeAreaView>
     </ImageBackground>
@@ -597,6 +607,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff',
     alignSelf: 'center',
+    textAlign: 'center',
   },
 });
 export default Salat;
