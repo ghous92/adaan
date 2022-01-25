@@ -37,10 +37,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>To see local prayer(salah) times allow Adaan to find your location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>NSLocationAlwaysUsageDescription</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To see local prayer(salah) times allow Adaan to find your location</string>
 	<key>UIAppFonts</key>
@@ -50,7 +46,6 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
-		<string>location</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

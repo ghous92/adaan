@@ -41,7 +41,18 @@ var ding = new Sound('best-azan.mp3', Sound.MAIN_BUNDLE, error => {
 
 const Salat = props => {
   const [isloaded, setIsLoaded] = useState(false);
-  const [position, setPosition] = useState(null);
+  const [position, setPosition] = useState({
+    coords: {
+      accuracy: 25.541419948202723,
+      altitude: 205.17584991455078,
+      altitudeAccuracy: 16.47088623046875,
+      heading: -1,
+      latitude: 28.564209691838993,
+      longitude: 77.39850825521523,
+      speed: -1,
+    },
+    timestamp: 1643142451560.493,
+  });
   const [currentTime, setCurrentTime] = useState(null);
   const [events, setEvents] = useState();
   const [currentSalatName, setCurrentSalatName] = useState('');
@@ -285,6 +296,7 @@ const Salat = props => {
       error => {
         // See error code charts below.
         setHasLocationPermission(false);
+        fetchSalatDetails(position);
         console.log(error.code, error.message);
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
@@ -295,11 +307,12 @@ const Salat = props => {
     ding.setVolume(1);
     setIsLoaded(true);
 
-    Geolocation.requestAuthorization('always').then(value => {
+    Geolocation.requestAuthorization('whenInUse').then(value => {
       if (value === 'granted') {
         setHasLocationPermission(true);
         getCurrentPosition();
       } else {
+        getCurrentPosition();
         setHasLocationPermission(false);
       }
     });
@@ -463,9 +476,9 @@ const Salat = props => {
         </TouchableOpacity>
         {!hasLocationPermission ? (
           <>
-            <Text style={styles.info}>Unable to get location</Text>
             <Text style={styles.info}>
-              Turning on location and reload app ensures accurate prayer times
+              Turning on location and reloading app ensures accurate prayer
+              times
             </Text>
           </>
         ) : null}
@@ -509,7 +522,7 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: 'rgba(0,0,0,0.1)',
-    padding: 28,
+    padding: '7vh 15%',
     marginVertical: 5,
     flexDirection: 'row',
     width: '100%',
