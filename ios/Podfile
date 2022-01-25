@@ -33,6 +33,8 @@ target 'adaan' do
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
 
+  pod 'RNFBFirestore', :path => '../node_modules/@react-native-firebase/firestore'
+
   target 'adaanTests' do
     inherit! :complete
     # Pods for testing

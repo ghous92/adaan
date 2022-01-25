@@ -13,12 +13,23 @@ class Helper {
       hour: zoneTime.hour(),
       minute: zoneTime.minute(),
       second: zoneTime.second(),
+      weekday: zoneTime.day(),
     };
   }
 
   rad2deg(r) {
     return (r * 180.0) / Math.PI;
   }
+
+  weekday = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
 
   monthList = [
     {name: 'January', numdays: 31, abbr: 'Jan'},

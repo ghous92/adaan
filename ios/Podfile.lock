@@ -843,6 +843,10 @@ PODS:
   - RNFBApp (14.2.2):
     - Firebase/CoreOnly (= 8.10.0)
     - React-Core
+  - RNFBFirestore (14.2.4):
+    - Firebase/Firestore (= 8.10.0)
+    - React-Core
+    - RNFBApp
   - RNFBMessaging (14.2.2):
     - Firebase/Messaging (= 8.10.0)
     - React-Core
@@ -923,6 +927,7 @@ DEPENDENCIES:
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNSound (from `../node_modules/react-native-sound`)
@@ -1034,6 +1039,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/push-notification-ios"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
+  RNFBFirestore:
+    :path: "../node_modules/@react-native-firebase/firestore"
   RNFBMessaging:
     :path: "../node_modules/@react-native-firebase/messaging"
   RNLocalize:
@@ -1112,6 +1119,7 @@ SPEC CHECKSUMS:
   RNBackgroundFetch: 2aa0702525b0251ee7edf3c47d76b4fbe710407a
   RNCPushNotificationIOS: 089da3b657e1e3d464f38195fd2e3069608ef5af
   RNFBApp: 78d0446e8b28dc30616c134a9e4d8d4b01f9f966
+  RNFBFirestore: 40d8bdb40bfd32167b21fca428eb2a85684884c5
   RNFBMessaging: 79910a2eb2fa5955f38259367b14431bd78bef19
   RNLocalize: b8980509fc4db6895953aa95b90c8d81cb984603
   RNSound: 9253013eeaa051eab63d354fd4654f7aa67c82f0
@@ -1119,6 +1127,6 @@ SPEC CHECKSUMS:
   Yoga: 32a18c0e845e185f4a2a66ec76e1fd1f958f22fa
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 083637c5d1bf59159a9c777ced54632f9a9ec5fe
+PODFILE CHECKSUM: f122f13d3d9c293d8b4ad0abe06136dea48d8020
 
 COCOAPODS: 1.11.2

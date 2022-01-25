@@ -12,6 +12,7 @@ import {
   NativeEventEmitter,
 } from 'react-native';
 import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 import messaging from '@react-native-firebase/messaging';
 
 import React, {useEffect, useState} from 'react';
@@ -235,8 +236,8 @@ const Salat = props => {
     return data;
   };
 
-  function fetchSalatDetails(position) {
-    var data = get_input_data(position);
+  function fetchSalatDetails(pos) {
+    var data = get_input_data(pos);
     var jday = helper.getJD(data.year, data.month, data.day);
     var total = jday + data.time_local / 1440.0 - data.tz / 24.0;
     var T = helper.calcTimeJulianCent(total);
@@ -312,7 +313,62 @@ const Salat = props => {
     const updatedSalatData = helper.mergeArrayObjects(salatData, salatTimes);
     // console.log(updatedSalatData);
     setSalatData(updatedSalatData);
+    updateStore(salatTimes);
     initBackgroundFetch(updatedSalatData);
+  }
+
+  function updateStore(salatTimes) {
+    let currentDay = helper.getDate();
+    let weekDay = helper.weekday[currentDay.weekday];
+    let month = helper.monthList[currentDay.month - 1].abbr;
+    var tz = -(
+      moment.tz.zone(helper.getTimeZone()).utcOffset(position.timestamp) / 60.0
+    );
+    salatTimes.map(prayer => {
+      console.log(
+        new Date(
+          weekDay +
+            ' ' +
+            month +
+            ' ' +
+            currentDay.day +
+            ' ' +
+            currentDay.year +
+            ' ' +
+            prayer.namaz +
+            ' GMT+' +
+            tz,
+        ),
+      );
+      firestore()
+        .collection('tasks')
+        .doc(
+          position.coords.latitude.toFixed(2) +
+            ':' +
+            position.coords.longitude.toFixed(2),
+        )
+        .set({
+          worker: 'makeSalatNotification',
+          status: 'scheduled',
+          performAt: new Date(
+            weekDay +
+              ' ' +
+              month +
+              ' ' +
+              currentDay.day +
+              ' ' +
+              currentDay.year +
+              ' ' +
+              prayer.namaz +
+              ' GMT' +
+              tz,
+          ),
+        })
+        .then(() => {
+          console.log('task added!');
+        })
+        .catch(error => console.log(error));
+    });
   }
 
   function onRegister(token) {
