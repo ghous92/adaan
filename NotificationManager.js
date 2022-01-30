@@ -4,8 +4,8 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 class NotificationManger {
   configure = (nRegister, onNotification, onOpenNotification) => {
     PushNotification.configure({
-      onRegister: function (token) {
-        console.log('NotificationManger TOKEN:', token);
+      onRegister: function (tokenNotify) {
+        console.log('NotificationManger TOKEN:', tokenNotify);
       },
       onNotification: function (notification) {
         console.log('NotificationManger NOTIFICATION:', notification);

@@ -10,6 +10,7 @@ import {
   ImageBackground,
   NativeModules,
   NativeEventEmitter,
+  Platform,
 } from 'react-native';
 import firebase from '@react-native-firebase/app';
 import firestore from '@react-native-firebase/firestore';
@@ -28,6 +29,8 @@ import PushNotification from 'react-native-push-notification';
 const {BGTimerModule} = NativeModules;
 const eventEmitter = new NativeEventEmitter(BGTimerModule);
 const api = axios.create({baseURL: 'http://localhost:3000/'});
+
+const db = firestore();
 
 const helper = new Helper();
 var Sound = require('react-native-sound');
@@ -69,32 +72,14 @@ const Salat = props => {
   const [hasFetchLocation, setHasFetchLocation] = useState(false);
 
   const [ringAzaan, setRingAzaan] = useState(false);
+  const [token, setToken] = useState(null);
 
   const messaging = firebase.messaging();
-
-  requestUserPermission()
-    .then(enabled => {
-      if (enabled) {
-        messaging
-          .getToken()
-          .then(token => {
-            console.log('firebase token', token);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
-    })
-    .catch(error => {
-      console.log(error);
-    });
 
   async function requestUserPermission() {
     const authStatus = await messaging.requestPermission();
     console.log(authStatus);
-    const enabled =
-      authStatus === 1 ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    const enabled = authStatus === 1 || authStatus === 0;
 
     if (enabled) {
       console.log('Authorization status:', authStatus);
@@ -325,8 +310,48 @@ const Salat = props => {
     const updatedSalatData = helper.mergeArrayObjects(salatData, salatTimes);
     // console.log(updatedSalatData);
     setSalatData(updatedSalatData);
-    updateStore(salatTimes);
-    initBackgroundFetch(updatedSalatData);
+    // initBackgroundFetch(updatedSalatData);
+    requestUserPermission()
+      .then(enabled => {
+        if (enabled) {
+          if (Platform.OS == 'ios') {
+            messaging
+              .getAPNSToken()
+              .then(_token => {
+                console.log('firebase token', _token);
+                setToken(_token);
+                if (token) {
+                  updateStore(salatTimes);
+                }
+              })
+              .catch(error => {
+                console.log(error);
+              });
+          }
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  async function saveTokenToDatabase(token, userId) {
+    // Add the token to the tasks datastore
+    await firestore()
+      .collection('tasks')
+      .doc(userId)
+      .update({
+        tokens: firestore.FieldValue.arrayUnion(token),
+      });
+  }
+
+  function updateUserInfo(id) {
+    const userRef = db
+      .collection('userInfo')
+      .doc(id)
+      .update({
+        tokens: firestore.FieldValue.arrayUnion(token),
+      });
   }
 
   function updateStore(salatTimes) {
@@ -336,29 +361,23 @@ const Salat = props => {
     var tz = -(
       moment.tz.zone(helper.getTimeZone()).utcOffset(position.timestamp) / 60.0
     );
-    salatTimes.map(prayer => {
-      console.log(
-        new Date(
-          weekDay +
-            ' ' +
-            month +
-            ' ' +
-            currentDay.day +
-            ' ' +
-            currentDay.year +
-            ' ' +
-            prayer.namaz +
-            ' GMT+' +
-            tz,
-        ),
-      );
-      firestore()
-        .collection('tasks')
-        .doc(
-          position.coords.latitude.toFixed(2) +
-            ':' +
-            position.coords.longitude.toFixed(2),
-        )
+    const id =
+      position.coords.latitude.toFixed(2) +
+      ':' +
+      position.coords.longitude.toFixed(2);
+
+    updateUserInfo(id);
+
+    salatTimes.forEach(prayer => {
+      const userId =
+        position.coords.latitude.toFixed(2) +
+        ':' +
+        position.coords.longitude.toFixed(2) +
+        ':' +
+        prayer.id;
+
+      db.collection('tasks')
+        .doc(userId)
         .set({
           worker: 'makeSalatNotification',
           status: 'scheduled',
@@ -372,12 +391,14 @@ const Salat = props => {
               currentDay.year +
               ' ' +
               prayer.namaz +
-              ' GMT' +
+              ' GMT+' +
               tz,
           ),
+          options: {id: userId},
         })
         .then(() => {
           console.log('task added!');
+          // saveTokenToDatabase(token, userId);
         })
         .catch(error => console.log(error));
     });
