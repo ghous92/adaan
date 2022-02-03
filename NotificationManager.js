@@ -7,21 +7,22 @@ class NotificationManger {
       onRegister: function (tokenNotify) {
         console.log('NotificationManger TOKEN:', tokenNotify);
       },
+      onOpenNotification: function (notification) {
+        Platform.OS === 'ios' ? notification : notification;
+      },
       onNotification: function (notification) {
         console.log('[LocalNotificationService] onNotification:', notification);
         if (!notification?.data) {
           return;
         }
         notification.userInteraction = true;
-        onOpenNotification(
-          Platform.OS === 'ios' ? notification.data.item : notification.data,
-        );
 
         if (Platform.OS === 'ios') {
           // (required) Called when a remote is received or opened, or local notification is opened
           notification.finish(PushNotificationIOS.FetchResult.NoData);
         }
       },
+
       // IOS ONLY (optional): default: all - Permissions to register.
       permissions: {
         alert: true,

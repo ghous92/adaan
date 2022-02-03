@@ -70,7 +70,6 @@ const Salat = props => {
   const [hasFetchLocation, setHasFetchLocation] = useState(false);
 
   const [ringAzaan, setRingAzaan] = useState(false);
-  const [token, setToken] = useState(null);
 
   const messaging = firebase.messaging();
 
@@ -298,13 +297,10 @@ const Salat = props => {
         if (enabled) {
           if (Platform.OS == 'ios') {
             messaging
-              .getAPNSToken()
+              .getToken()
               .then(_token => {
                 console.log('firebase token', _token);
-                setToken(_token);
-                if (token) {
-                  updateStore(salatTimes);
-                }
+                updateStore(salatTimes, _token);
               })
               .catch(error => {
                 console.log(error);
@@ -317,7 +313,7 @@ const Salat = props => {
       });
   }
 
-  function updateUserInfo(id) {
+  function updateUserInfo(id, token) {
     const userRef = db
       .collection('userInfo')
       .doc(id)
@@ -326,7 +322,8 @@ const Salat = props => {
       });
   }
 
-  function updateStore(salatTimes) {
+  function updateStore(salatTimes, token) {
+    console.log('reached to update store');
     let currentDay = helper.getDate();
     let weekDay = helper.weekday[currentDay.weekday];
     let month = helper.monthList[currentDay.month - 1].abbr;
@@ -338,7 +335,7 @@ const Salat = props => {
       ':' +
       position.coords.longitude.toFixed(2);
 
-    updateUserInfo(id);
+    updateUserInfo(id, token);
 
     salatTimes.forEach(prayer => {
       const userId =
@@ -347,32 +344,63 @@ const Salat = props => {
         position.coords.longitude.toFixed(2) +
         ':' +
         prayer.id;
+      const temp = prayer.namaz.split(':');
+      const tempTimeZone = tz.toString().split('.');
+      const timeZone = tempTimeZone[0] + ':' + tempTimeZone[1];
 
-      db.collection('tasks')
-        .doc(userId)
-        .set({
-          worker: 'makeSalatNotification',
-          status: 'scheduled',
-          performAt: new Date(
-            weekDay +
-              ' ' +
-              month +
+      let addTask = false;
+      if (temp[0] > currentDay.hour) {
+        addTask = true;
+      } else if (temp[0] == currentDay.hour) {
+        if (temp[1] > currentDay.minute) {
+          addTask = true;
+        }
+      }
+      if (addTask) {
+        console.log(
+          weekDay,
+          month,
+          currentDay.day,
+          currentDay.year,
+          prayer.namaz,
+          tz,
+        );
+        console.log(
+          new Date(
+            month +
               ' ' +
               currentDay.day +
-              ' ' +
+              ', ' +
               currentDay.year +
               ' ' +
               prayer.namaz +
               ' GMT+' +
-              tz,
+              timeZone,
           ),
-          options: {userId: userId},
-        })
-        .then(() => {
-          console.log('task added!');
-          // saveTokenToDatabase(token, userId);
-        })
-        .catch(error => console.log(error));
+        );
+
+        db.collection('tasks')
+          .doc(userId)
+          .set({
+            worker: 'makeSalatNotification',
+            status: 'scheduled',
+            performAt: new Date(
+              month +
+                ' ' +
+                currentDay.day +
+                ', ' +
+                currentDay.year +
+                ' ' +
+                prayer.namaz +
+                ' GMT+5:5',
+            ),
+            options: {userId: userId},
+          })
+          .then(() => {
+            console.log('task added!');
+          })
+          .catch(error => console.log(error));
+      }
     });
   }
 
@@ -406,6 +434,8 @@ const Salat = props => {
         setHasLocationPermission(false);
       }
     });
+
+    // getCurrentPosition();
 
     return () => {
       ding.release();
