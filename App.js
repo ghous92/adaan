@@ -67,7 +67,7 @@ const App = () => {
     backgroundColor: Colors.darker,
   };
   useEffect(() => {
-    fcmService.registerAppWithFCM();
+    // fcmService.registerAppWithFCM();
     fcmService.register(onRegister, onNotification, onOpenNotification);
     notificationManager.configure(onOpenNotification);
 
@@ -80,18 +80,17 @@ const App = () => {
       const options = {
         soundName: 'default',
         playSound: true, //,
-        soundName: 'default',
         userInteraction: false,
         vibrate: true,
         // largeIcon: 'ic_launcher', // add icon large for Android (Link: app/src/main/mipmap)
         // smallIcon: 'ic_launcher' // add icon small for Android (Link: app/src/main/mipmap)
       };
-      notificationManager.showNotification(0, notify.body, notify, options);
+      notificationManager.showNotification(1, notify.body, {}, options);
     }
 
     function onOpenNotification(notify) {
       console.log('[App] onOpenNotification: ', notify);
-      alert('Adaan : ' + notify.message);
+      // alert('Adaan : ' + notify.message);x`
     }
     return () => {
       console.log('[App] unRegister');

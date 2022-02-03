@@ -193,9 +193,8 @@ const Salat = props => {
     var lng = position.coords.longitude;
     console.log('lat long timezone', lat, lng, helper.getTimeZone());
     // var tz = moment().utcOffset() / 60.0;
-    var tz = -(
-      moment.tz.zone(helper.getTimeZone()).utcOffset(position.timestamp) / 60.0
-    );
+    var tz =
+      moment.tz.zone(helper.getTimeZone()).utcOffset(position.timestamp) / 60.0;
     console.log('offset', tz);
 
     var data = {
@@ -208,7 +207,7 @@ const Salat = props => {
       time_local: mins,
       lat: lat,
       lon: lng,
-      tz: tz,
+      tz: -tz,
     };
 
     return data;
@@ -327,16 +326,22 @@ const Salat = props => {
     let currentDay = helper.getDate();
     let weekDay = helper.weekday[currentDay.weekday];
     let month = helper.monthList[currentDay.month - 1].abbr;
-    var tz = -(
-      moment.tz.zone(helper.getTimeZone()).utcOffset(position.timestamp) / 60.0
-    );
+    var tz =
+      moment.tz.zone(helper.getTimeZone()).utcOffset(position.timestamp) / 60.0;
     const id =
       position.coords.latitude.toFixed(2) +
       ':' +
       position.coords.longitude.toFixed(2);
 
     updateUserInfo(id, token);
-
+    const tempTimeZone = tz.toString().split('.');
+    const timeZone =
+      (Math.sign(tempTimeZone[0]) === -1 ? '+' : '-') +
+      Math.abs(tempTimeZone[0]).toString() +
+      (':' + tempTimeZone[1] * 6 !== '60'
+        ? (tempTimeZone[1] * 6).toString()
+        : '00');
+    console.log(timeZone);
     salatTimes.forEach(prayer => {
       const userId =
         position.coords.latitude.toFixed(2) +
@@ -345,8 +350,6 @@ const Salat = props => {
         ':' +
         prayer.id;
       const temp = prayer.namaz.split(':');
-      const tempTimeZone = tz.toString().split('.');
-      const timeZone = tempTimeZone[0] + ':' + tempTimeZone[1];
 
       let addTask = false;
       if (temp[0] > currentDay.hour) {
@@ -358,14 +361,6 @@ const Salat = props => {
       }
       if (addTask) {
         console.log(
-          weekDay,
-          month,
-          currentDay.day,
-          currentDay.year,
-          prayer.namaz,
-          tz,
-        );
-        console.log(
           new Date(
             month +
               ' ' +
@@ -374,7 +369,7 @@ const Salat = props => {
               currentDay.year +
               ' ' +
               prayer.namaz +
-              ' GMT+' +
+              ' GMT' +
               timeZone,
           ),
         );
@@ -392,7 +387,8 @@ const Salat = props => {
                 currentDay.year +
                 ' ' +
                 prayer.namaz +
-                ' GMT+5:5',
+                ' GMT' +
+                timeZone,
             ),
             options: {userId: userId},
           })
@@ -443,11 +439,6 @@ const Salat = props => {
   }, []);
 
   useEffect(() => {
-    const options = {
-      soundName: 'default', //'azan1.mp3', //
-      playSound: true,
-      vibrate: true,
-    };
     if (ringAzaan) {
       subscription.remove();
     }
