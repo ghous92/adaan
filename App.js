@@ -85,7 +85,13 @@ const App = () => {
         // largeIcon: 'ic_launcher', // add icon large for Android (Link: app/src/main/mipmap)
         // smallIcon: 'ic_launcher' // add icon small for Android (Link: app/src/main/mipmap)
       };
-      notificationManager.showNotification(1, notify.body, {}, options);
+      notificationManager.showNotification(
+        1,
+        notify.title,
+        notify.body,
+        {},
+        options,
+      );
     }
 
     function onOpenNotification(notify) {
