@@ -24,8 +24,6 @@ import * as axios from 'axios';
 import moment from 'moment';
 import * as m from 'moment-timezone';
 import BackgroundFetch from 'react-native-background-fetch';
-import {notificationManager} from './NotificationManager';
-import PushNotification from 'react-native-push-notification';
 const {BGTimerModule} = NativeModules;
 const eventEmitter = new NativeEventEmitter(BGTimerModule);
 const api = axios.create({baseURL: 'http://localhost:3000/'});
@@ -86,22 +84,6 @@ const Salat = props => {
     }
     return enabled;
   }
-
-  useEffect(() => {
-    const unsubscribe = messaging.onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    });
-
-    return unsubscribe;
-  }, []);
-
-  // firebase.notification().onNotification(notification => {
-  //   const {title, body} = notification;
-  //   PushNotification.localNotification({
-  //     title: title,
-  //     message: body,
-  //   });
-  // });
 
   const onSalatAlert = status => {
     console.log('class', status);
@@ -335,16 +317,6 @@ const Salat = props => {
       });
   }
 
-  async function saveTokenToDatabase(token, userId) {
-    // Add the token to the tasks datastore
-    await firestore()
-      .collection('tasks')
-      .doc(userId)
-      .update({
-        tokens: firestore.FieldValue.arrayUnion(token),
-      });
-  }
-
   function updateUserInfo(id) {
     const userRef = db
       .collection('userInfo')
@@ -394,7 +366,7 @@ const Salat = props => {
               ' GMT+' +
               tz,
           ),
-          options: {id: userId},
+          options: {userId: userId},
         })
         .then(() => {
           console.log('task added!');
@@ -402,19 +374,6 @@ const Salat = props => {
         })
         .catch(error => console.log(error));
     });
-  }
-
-  function onRegister(token) {
-    console.log('[Notification] on register', token);
-  }
-
-  function onNotification(notify) {
-    console.log('[Notification] on onNotification', notify);
-  }
-
-  function onOpenNotification(notify) {
-    console.log('[Notification] on onOpenNotification', notify);
-    alert('Open Notification');
   }
 
   function getCurrentPosition() {
@@ -454,122 +413,15 @@ const Salat = props => {
   }, []);
 
   useEffect(() => {
-    notificationManager.configure(
-      onRegister,
-      onNotification,
-      onOpenNotification,
-    );
     const options = {
       soundName: 'default', //'azan1.mp3', //
       playSound: true,
       vibrate: true,
     };
     if (ringAzaan) {
-      notificationManager.showNotification(
-        1,
-        'Salat Time ',
-        `Its  ${currentSalatName} Time `,
-        {},
-        options,
-      );
       subscription.remove();
     }
   }, [ringAzaan]);
-
-  async function initBackgroundFetch(updatedSalatData) {
-    // BackgroundFetch event handler.
-
-    const onEvent = async taskId => {
-      console.log('[BackgroundFetch] task: ', taskId);
-      // Do your background work...
-      await addEvent(taskId, updatedSalatData);
-      // IMPORTANT:  You must signal to the OS that your task is complete.
-      setEvents('bar');
-      BackgroundFetch.finish(taskId);
-    };
-
-    // Timeout callback is executed when your Task has exceeded its allowed running-time.
-    // You must stop what you're doing immediately BackgroundFetch.finish(taskId)
-    const onTimeout = async taskId => {
-      console.warn('[BackgroundFetch] TIMEOUT task: ', taskId);
-      BackgroundFetch.finish(taskId);
-    };
-
-    // Initialize BackgroundFetch only once when component mounts.
-    let status = await BackgroundFetch.configure(
-      {
-        minimumFetchInterval: 15,
-        stopOnTerminate: false,
-        enableHeadless: true,
-        startOnBoot: true,
-      },
-      onEvent,
-      onTimeout,
-    );
-
-    console.log('[BackgroundFetch] configure status: ', status);
-  }
-
-  function addEvent(taskId, updatedSalatData) {
-    // Simulate a possibly long-running asynchronous task with a Promise.
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const currentTime = helper.getDate();
-        setEvents('foo');
-        calculateNearestSalatTime(
-          updatedSalatData,
-          currentTime.hour,
-          currentTime.minute,
-        );
-        resolve('foo');
-      }, 300);
-    });
-  }
-
-  function calculateNearestSalatTime(
-    updatedSalatData,
-    currentHour,
-    currentMinute,
-  ) {
-    const nearestSalat = updatedSalatData.find(item => {
-      let salatTime = null;
-      if (item.namaz) {
-        salatTime = item.namaz.split(':');
-      }
-      if (salatTime[0] > currentHour) {
-        return item;
-      } else if (salatTime[0] == currentHour && salatTime[1] >= currentMinute) {
-        return item;
-      } else {
-        return null;
-      }
-    });
-    const nearestTime = nearestSalat ? nearestSalat.namaz.split(':') : null;
-    console.log('nearestTime', nearestTime);
-    setCurrentSalatName(nearestSalat ? nearestSalat.title : null);
-    if (nearestSalat) {
-      const hourDifference = parseInt(nearestTime[0]) - parseInt(currentHour);
-      const minuteDifference =
-        parseInt(nearestTime[1]) - parseInt(currentMinute);
-      const timeInterval = hourDifference * 60 + minuteDifference;
-      console.log('timeInterval', timeInterval);
-      setMinuteLeft(timeInterval);
-      //startTimer(nearestSalat);
-    }
-  }
-
-  function syncSalatDetails(nearestSalat) {
-    api
-      .post('/positions', {
-        position: position,
-      })
-      .then(function (response) {
-        console.log('RN', response);
-      })
-      .catch(function (error) {
-        console.log('RN', error);
-      });
-  }
 
   const Item = ({value}) => (
     <View style={styles.item}>

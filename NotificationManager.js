@@ -8,24 +8,39 @@ class NotificationManger {
         console.log('NotificationManger TOKEN:', tokenNotify);
       },
       onNotification: function (notification) {
-        console.log('NotificationManger NOTIFICATION:', notification);
-        if (notification.data.openedInForeground) {
-          notification.userInteraction = true;
+        console.log('[LocalNotificationService] onNotification:', notification);
+        if (!notification?.data) {
+          return;
         }
-        if (notification.userInteraction) {
-          onOpenNotification(notification);
-        } else {
-          this.onNotification(notification);
-        }
-        // process the notification
+        notification.userInteraction = true;
+        onOpenNotification(
+          Platform.OS === 'ios' ? notification.data.item : notification.data,
+        );
 
-        // (required) Called when a remote is received or opened, or local notification is opened
-        if (!notification.data.openedInForeground) {
-          notification.finish(PushNotificationIOS.FetchResult.NoData);
-        } else {
+        if (Platform.OS === 'ios') {
+          // (required) Called when a remote is received or opened, or local notification is opened
           notification.finish(PushNotificationIOS.FetchResult.NoData);
         }
       },
+      // IOS ONLY (optional): default: all - Permissions to register.
+      permissions: {
+        alert: true,
+        badge: true,
+        sound: true,
+      },
+
+      // Should the initial notification be popped automatically
+      // default: true
+      popInitialNotification: true,
+
+      /**
+       * (optional) default: true
+       * - Specified if permissions (ios) and token (android and ios) will requested or not,
+       * - if not, you must call PushNotificationsHandler.requestPermissions() later
+       * - if you are not using remote notification or do not have Firebase installed, use this:
+       *     requestPermissions: Platform.OS === 'ios'
+       */
+      requestPermissions: true,
     });
   };
 

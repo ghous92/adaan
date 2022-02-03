@@ -7,14 +7,12 @@
  */
 
 import {
-  SafeAreaView,
-  ScrollView,
   StatusBar,
+  SafeAreaView,
   StyleSheet,
   Text,
   useColorScheme,
   View,
-  TouchableOpacity,
   Button,
 } from 'react-native';
 
@@ -25,6 +23,8 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
 
 import Salat from './salat';
+import {fcmService} from './FCMService';
+import {notificationManager} from './NotificationManager';
 
 const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -52,28 +52,57 @@ const Section = ({children, title}) => {
   );
 };
 
+const HeadlessCheck = ({isHeadless}) => {
+  if (isHeadless) {
+    // App has been launched in the background by iOS, ignore
+    return null;
+  }
+
+  return <App />;
+};
+
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: Colors.darker,
   };
+  useEffect(() => {
+    fcmService.registerAppWithFCM();
+    fcmService.register(onRegister, onNotification, onOpenNotification);
+    notificationManager.configure(onOpenNotification);
+
+    function onRegister(token) {
+      console.log('[App] onRegister: ', token);
+    }
+
+    function onNotification(notify) {
+      console.log('[App] onNotification: ', notify);
+      const options = {
+        soundName: 'default',
+        playSound: true, //,
+        soundName: 'default',
+        userInteraction: false,
+        vibrate: true,
+        // largeIcon: 'ic_launcher', // add icon large for Android (Link: app/src/main/mipmap)
+        // smallIcon: 'ic_launcher' // add icon small for Android (Link: app/src/main/mipmap)
+      };
+      notificationManager.showNotification(0, notify.body, notify, options);
+    }
+
+    function onOpenNotification(notify) {
+      console.log('[App] onOpenNotification: ', notify);
+      alert('Adaan : ' + notify.message);
+    }
+    return () => {
+      console.log('[App] unRegister');
+      fcmService.unRegister();
+      notificationManager.unregister();
+    };
+  }, []);
 
   useEffect(() => {
     SplashScreen.hide();
   });
-
-  messaging().setBackgroundMessageHandler(async remoteMessage => {
-    console.log('Message handled in the background!', remoteMessage);
-  });
-
-  function HeadlessCheck({isHeadless}) {
-    if (isHeadless) {
-      // App has been launched in the background by iOS, ignore
-      return null;
-    }
-
-    return <App />;
-  }
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -122,4 +151,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default HeadlessCheck;
