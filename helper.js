@@ -1,6 +1,5 @@
 import moment from 'moment';
 import * as m from 'moment-timezone';
-import * as RNLocalize from 'react-native-localize';
 
 class Helper {
   getDate() {
@@ -47,7 +46,7 @@ class Helper {
   ];
 
   getTimeZone() {
-    return RNLocalize.getTimeZone();
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
   }
 
   //--------------------------------------------------------------

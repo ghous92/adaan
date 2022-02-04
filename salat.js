@@ -318,6 +318,20 @@ const Salat = props => {
       .update({
         tokens: firestore.FieldValue.arrayUnion(token),
       });
+    userRef
+      .then(val => {
+        console.log('token updated');
+      })
+      .catch(error => {
+        console.log(error);
+        if (error.code === 'firestore/not-found') {
+          db.collection('userInfo')
+            .doc(id)
+            .set({
+              tokens: firestore.FieldValue.arrayUnion(token),
+            });
+        }
+      });
   }
 
   function updateStore(salatTimes, token) {
