@@ -335,13 +335,18 @@ const Salat = props => {
 
     updateUserInfo(id, token);
     const tempTimeZone = tz.toString().split('.');
-    const timeZone =
-      (Math.sign(tempTimeZone[0]) === -1 ? '+' : '-') +
-      Math.abs(tempTimeZone[0]).toString() +
-      (':' + tempTimeZone[1] * 6 !== '60'
-        ? (tempTimeZone[1] * 6).toString()
-        : '00');
-    console.log(timeZone);
+    let timeZone = null;
+    if (tempTimeZone[1]) {
+      timeZone =
+        (Math.sign(tempTimeZone[0]) === -1 ? '+' : '-') +
+        Math.abs(tempTimeZone[0]).toString() +
+        (':' + tempTimeZone[1] && tempTimeZone[1] * 6 !== '60'
+          ? (tempTimeZone[1] * 6).toString()
+          : '00');
+      console.log(timeZone);
+    } else {
+      timeZone = 0;
+    }
     salatTimes.forEach(prayer => {
       const userId =
         position.coords.latitude.toFixed(2) +

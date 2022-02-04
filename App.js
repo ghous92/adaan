@@ -78,12 +78,9 @@ const App = () => {
     function onNotification(notify) {
       console.log('[App] onNotification: ', notify);
       const options = {
-        soundName: 'default',
-        playSound: true, //,
-        userInteraction: false,
+        soundName: 'default', //'azan1.mp3', //
+        playSound: true,
         vibrate: true,
-        // largeIcon: 'ic_launcher', // add icon large for Android (Link: app/src/main/mipmap)
-        // smallIcon: 'ic_launcher' // add icon small for Android (Link: app/src/main/mipmap)
       };
       notificationManager.showNotification(
         1,

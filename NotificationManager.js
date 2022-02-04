@@ -2,7 +2,7 @@ import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 class NotificationManger {
-  configure = (nRegister, onNotification, onOpenNotification) => {
+  configure = (onRegister, onNotification, onOpenNotification) => {
     PushNotification.configure({
       onRegister: function (tokenNotify) {
         console.log('NotificationManger TOKEN:', tokenNotify);
@@ -45,7 +45,7 @@ class NotificationManger {
     });
   };
 
-  _buildIOSNotification = (id, title, mesage, data = {}, options = {}) => {
+  _buildIOSNotification = (id, title, message, data = {}, options = {}) => {
     return {
       alertAction: options.alertAction || 'view',
       category: options.category || '',
