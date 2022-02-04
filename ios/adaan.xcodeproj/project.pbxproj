@@ -19,6 +19,7 @@
 		7C41ACE7275AB1FC007169AF /* BridgingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41ACE6275AB1FC007169AF /* BridgingFile.swift */; };
 		7C41ACEC275B66D0007169AF /* Ding-sound-effect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C41ACEB275B66D0007169AF /* Ding-sound-effect.mp3 */; };
 		7C41AD0E275E5D68007169AF /* azan1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C41AD0D275E5D68007169AF /* azan1.mp3 */; };
+		7C4D7D9827ADD8B000FA6D5D /* azan1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C4D7D9727ADD8AF00FA6D5D /* azan1.mp3 */; };
 		7CAB8B7227861CD40030FDCB /* RCTBGTimerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAB8B7127861CD30030FDCB /* RCTBGTimerModule.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 		7C41AD17275E5F17007169AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C41AD24275E5F5E007169AF /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		7C41AD26275E5F5E007169AF /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		7C4D7D9727ADD8AF00FA6D5D /* azan1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = azan1.mp3; path = ../../../../../Downloads/azan1.mp3; sourceTree = "<group>"; };
 		7C938ADB2791AC2800323B9D /* adaan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = adaan.entitlements; path = adaan/adaan.entitlements; sourceTree = "<group>"; };
 		7CAB8B7027861C0E0030FDCB /* RCTBGTimerModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTBGTimerModule.h; sourceTree = "<group>"; };
 		7CAB8B7127861CD30030FDCB /* RCTBGTimerModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTBGTimerModule.m; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				7C4D7D9727ADD8AF00FA6D5D /* azan1.mp3 */,
 				7C41ACEB275B66D0007169AF /* Ding-sound-effect.mp3 */,
 				7C41ACE6275AB1FC007169AF /* BridgingFile.swift */,
 				7C41ACE427537439007169AF /* sound-swift.swift */,
@@ -315,6 +318,7 @@
 				7C41ACEC275B66D0007169AF /* Ding-sound-effect.mp3 in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				7C41AD0E275E5D68007169AF /* azan1.mp3 in Resources */,
+				7C4D7D9827ADD8B000FA6D5D /* azan1.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				7C194C7E2796008400AF5C3B /* GoogleService-Info.plist in Resources */,
 			);
