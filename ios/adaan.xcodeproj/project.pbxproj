@@ -14,12 +14,10 @@
 		5E04D215DF1B167BBB64ADC3 /* libPods-adaan-adaanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0DCCF830E34625056C553D /* libPods-adaan-adaanTests.a */; };
 		7361D17F3FA4EAFD3AB911C0 /* libPods-adaan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FAC7A08387D5911152C702F /* libPods-adaan.a */; };
 		7C194C7E2796008400AF5C3B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C194C7D2796008400AF5C3B /* GoogleService-Info.plist */; };
-		7C35719D274FAD2100E5D14C /* best-azan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C35719C274FAD2100E5D14C /* best-azan.mp3 */; };
+		7C4171BF27B017CE002AC090 /* azan.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7C4171BE27B017CE002AC090 /* azan.m4a */; };
 		7C41ACE527537439007169AF /* sound-swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41ACE427537439007169AF /* sound-swift.swift */; };
 		7C41ACE7275AB1FC007169AF /* BridgingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41ACE6275AB1FC007169AF /* BridgingFile.swift */; };
 		7C41ACEC275B66D0007169AF /* Ding-sound-effect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C41ACEB275B66D0007169AF /* Ding-sound-effect.mp3 */; };
-		7C41AD0E275E5D68007169AF /* azan1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C41AD0D275E5D68007169AF /* azan1.mp3 */; };
-		7C4D7D9827ADD8B000FA6D5D /* azan1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C4D7D9727ADD8AF00FA6D5D /* azan1.mp3 */; };
 		7CAB8B7227861CD40030FDCB /* RCTBGTimerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAB8B7127861CD30030FDCB /* RCTBGTimerModule.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -62,17 +60,15 @@
 		6F0DCCF830E34625056C553D /* libPods-adaan-adaanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-adaan-adaanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C194C7D2796008400AF5C3B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C2E40CE278C921300E0268E /* salat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = salat.h; sourceTree = "<group>"; };
-		7C35719C274FAD2100E5D14C /* best-azan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "best-azan.mp3"; path = "../../../../../Downloads/best-azan.mp3"; sourceTree = "<group>"; };
+		7C4171BE27B017CE002AC090 /* azan.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = azan.m4a; path = ../../../../../Downloads/azan.m4a; sourceTree = "<group>"; };
 		7C41ACE327537439007169AF /* adaan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "adaan-Bridging-Header.h"; sourceTree = "<group>"; };
 		7C41ACE427537439007169AF /* sound-swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "sound-swift.swift"; sourceTree = "<group>"; };
 		7C41ACE6275AB1FC007169AF /* BridgingFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgingFile.swift; sourceTree = "<group>"; };
 		7C41ACEB275B66D0007169AF /* Ding-sound-effect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Ding-sound-effect.mp3"; path = "../../../../../Downloads/ding-sound-effect/Ding-sound-effect.mp3"; sourceTree = "<group>"; };
-		7C41AD0D275E5D68007169AF /* azan1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = azan1.mp3; path = ../../../../../Downloads/azan1.mp3; sourceTree = "<group>"; };
 		7C41AD15275E5F17007169AF /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		7C41AD17275E5F17007169AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C41AD24275E5F5E007169AF /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		7C41AD26275E5F5E007169AF /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
-		7C4D7D9727ADD8AF00FA6D5D /* azan1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = azan1.mp3; path = ../../../../../Downloads/azan1.mp3; sourceTree = "<group>"; };
 		7C938ADB2791AC2800323B9D /* adaan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = adaan.entitlements; path = adaan/adaan.entitlements; sourceTree = "<group>"; };
 		7CAB8B7027861C0E0030FDCB /* RCTBGTimerModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTBGTimerModule.h; sourceTree = "<group>"; };
 		7CAB8B7127861CD30030FDCB /* RCTBGTimerModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTBGTimerModule.m; sourceTree = "<group>"; };
@@ -153,7 +149,6 @@
 		6EC05D3C0C20405EA4ADC249 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7C41AD0D275E5D68007169AF /* azan1.mp3 */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -177,11 +172,10 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				7C4D7D9727ADD8AF00FA6D5D /* azan1.mp3 */,
+				7C4171BE27B017CE002AC090 /* azan.m4a */,
 				7C41ACEB275B66D0007169AF /* Ding-sound-effect.mp3 */,
 				7C41ACE6275AB1FC007169AF /* BridgingFile.swift */,
 				7C41ACE427537439007169AF /* sound-swift.swift */,
-				7C35719C274FAD2100E5D14C /* best-azan.mp3 */,
 				13B07FAE1A68108700A75B9A /* adaan */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* adaanTests */,
@@ -314,11 +308,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C35719D274FAD2100E5D14C /* best-azan.mp3 in Resources */,
+				7C4171BF27B017CE002AC090 /* azan.m4a in Resources */,
 				7C41ACEC275B66D0007169AF /* Ding-sound-effect.mp3 in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				7C41AD0E275E5D68007169AF /* azan1.mp3 in Resources */,
-				7C4D7D9827ADD8B000FA6D5D /* azan1.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				7C194C7E2796008400AF5C3B /* GoogleService-Info.plist in Resources */,
 			);
@@ -586,7 +578,7 @@
 				CODE_SIGN_ENTITLEMENTS = adaan/adaan.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = G2GX86BD5K;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = adaan/Info.plist;
@@ -594,7 +586,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 1.1.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -621,7 +613,7 @@
 				CODE_SIGN_ENTITLEMENTS = adaan/adaan.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = G2GX86BD5K;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = adaan/Info.plist;
@@ -629,7 +621,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 1.1.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
