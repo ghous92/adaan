@@ -24,6 +24,7 @@ import * as axios from 'axios';
 import moment from 'moment';
 import * as m from 'moment-timezone';
 import BackgroundFetch from 'react-native-background-fetch';
+import {eventManager} from './event-emitter';
 const {BGTimerModule} = NativeModules;
 const eventEmitter = new NativeEventEmitter(BGTimerModule);
 
@@ -71,6 +72,40 @@ const Salat = props => {
   const [ringAzaan, setRingAzaan] = useState(false);
 
   const messaging = firebase.messaging();
+
+  useEffect(() => {
+    let unsubscribe = eventManager.subscribe(
+      'notificationToken',
+      data => {
+        console.log('Notification token', data);
+        if (data.tokenNotify) {
+          requestUserPermission()
+            .then(enabled => {
+              if (enabled) {
+                if (Platform.OS == 'ios') {
+                  messaging
+                    .getToken()
+                    .then(_token => {
+                      console.log('firebase token', _token);
+                      updateStore(salatData, _token);
+                    })
+                    .catch(error => {
+                      console.log(error);
+                    });
+                }
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+        return () => {
+          unsubscribe();
+        };
+      },
+      [salatData],
+    );
+  });
 
   async function requestUserPermission() {
     const authStatus = await messaging.requestPermission();
@@ -290,25 +325,6 @@ const Salat = props => {
     // console.log(updatedSalatData);
     setSalatData(updatedSalatData);
     // initBackgroundFetch(updatedSalatData);
-    requestUserPermission()
-      .then(enabled => {
-        if (enabled) {
-          if (Platform.OS == 'ios') {
-            messaging
-              .getToken()
-              .then(_token => {
-                console.log('firebase token', _token);
-                updateStore(salatTimes, _token);
-              })
-              .catch(error => {
-                console.log(error);
-              });
-          }
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
   }
 
   function updateUserInfo(id, token) {
@@ -367,7 +383,8 @@ const Salat = props => {
         position.coords.longitude.toFixed(2) +
         ':' +
         prayer.id;
-      const temp = prayer.namaz.split(':');
+
+      const temp = prayer.namaz ? prayer.namaz.split(':') : [];
 
       let addTask = false;
       if (temp[0] > currentDay.hour) {
@@ -378,20 +395,6 @@ const Salat = props => {
         }
       }
       if (addTask) {
-        console.log(
-          new Date(
-            month +
-              ' ' +
-              currentDay.day +
-              ', ' +
-              currentDay.year +
-              ' ' +
-              prayer.namaz +
-              ' GMT' +
-              timeZone,
-          ),
-        );
-
         db.collection('tasks')
           .doc(userId)
           .set({

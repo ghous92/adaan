@@ -67,7 +67,7 @@ const App = () => {
     backgroundColor: Colors.darker,
   };
   useEffect(() => {
-    // fcmService.registerAppWithFCM();
+    fcmService.registerAppWithFCM();
     fcmService.register(onRegister, onNotification, onOpenNotification);
     notificationManager.configure(onOpenNotification);
 
