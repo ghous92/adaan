@@ -33,7 +33,7 @@ const db = firestore();
 const helper = new Helper();
 var Sound = require('react-native-sound');
 Sound.setCategory('Playback');
-var ding = new Sound('azan1.mp3', Sound.MAIN_BUNDLE, error => {
+var ding = new Sound('azan.m4a', Sound.MAIN_BUNDLE, error => {
   if (error) {
     console.log('failed to load the sound', error);
     return;
