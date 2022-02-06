@@ -62,7 +62,6 @@ const Salat = props => {
     timestamp: 1643142451560.493,
   });
   const [currentTime, setCurrentTime] = useState(null);
-  const [events, setEvents] = useState();
   const [currentSalatName, setCurrentSalatName] = useState('');
   const [minuteLeft, setMinuteLeft] = useState(15);
   const [showPlayButton, setShowPlayButton] = useState(true);
@@ -73,31 +72,76 @@ const Salat = props => {
 
   const messaging = firebase.messaging();
 
+  // background refresh
+
+  async function initBackgroundFetch() {
+    // BackgroundFetch event handler.
+
+    const onEvent = async taskId => {
+      console.log('[BackgroundFetch] task: ', taskId);
+      // Do your background work...
+      await addEvent(taskId);
+      // IMPORTANT:  You must signal to the OS that your task is complete.
+      BackgroundFetch.finish(taskId);
+    };
+
+    // Timeout callback is executed when your Task has exceeded its allowed running-time.
+    // You must stop what you're doing immediately BackgroundFetch.finish(taskId)
+    const onTimeout = async taskId => {
+      console.warn('[BackgroundFetch] TIMEOUT task: ', taskId);
+      BackgroundFetch.finish(taskId);
+    };
+
+    // Initialize BackgroundFetch only once when component mounts.
+    let status = await BackgroundFetch.configure(
+      {minimumFetchInterval: 300},
+      onEvent,
+      onTimeout,
+    );
+
+    console.log('[BackgroundFetch] configure status: ', status);
+  }
+
+  function addEvent(taskId, updatedSalatData) {
+    // Simulate a possibly long-running asynchronous task with a Promise.
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        setHasLocationPermission(true);
+        getCurrentPosition(true);
+        resolve('foo');
+      }, 300);
+    });
+  }
+
+  function getMessagingPermission(salatData) {
+    requestUserPermission()
+      .then(enabled => {
+        if (enabled) {
+          if (Platform.OS == 'ios') {
+            messaging
+              .getToken()
+              .then(_token => {
+                console.log('firebase token', _token);
+                updateStore(salatData, _token);
+              })
+              .catch(error => {
+                console.log(error);
+              });
+          }
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   useEffect(() => {
     let unsubscribe = eventManager.subscribe(
       'notificationToken',
       data => {
         console.log('Notification token', data);
         if (data.tokenNotify) {
-          requestUserPermission()
-            .then(enabled => {
-              if (enabled) {
-                if (Platform.OS == 'ios') {
-                  messaging
-                    .getToken()
-                    .then(_token => {
-                      console.log('firebase token', _token);
-                      updateStore(salatData, _token);
-                    })
-                    .catch(error => {
-                      console.log(error);
-                    });
-                }
-              }
-            })
-            .catch(error => {
-              console.log(error);
-            });
+          getMessagingPermission(salatData);
         }
         return () => {
           unsubscribe();
@@ -247,7 +291,7 @@ const Salat = props => {
     return data;
   };
 
-  function fetchSalatDetails(pos) {
+  function fetchSalatDetails(pos, isBackgroundRefresh) {
     var data = get_input_data(pos);
     var jday = helper.getJD(data.year, data.month, data.day);
     var total = jday + data.time_local / 1440.0 - data.tz / 24.0;
@@ -317,13 +361,16 @@ const Salat = props => {
       },
     ];
 
-    setSalatTimings(salatTimes);
+    setSalatTimings(salatTimes, isBackgroundRefresh);
   }
 
-  function setSalatTimings(salatTimes) {
+  function setSalatTimings(salatTimes, isBackgroundRefresh) {
     const updatedSalatData = helper.mergeArrayObjects(salatData, salatTimes);
     // console.log(updatedSalatData);
     setSalatData(updatedSalatData);
+    if (isBackgroundRefresh) {
+      getMessagingPermission(updatedSalatData);
+    }
     // initBackgroundFetch(updatedSalatData);
   }
 
@@ -421,17 +468,17 @@ const Salat = props => {
     });
   }
 
-  function getCurrentPosition() {
+  function getCurrentPosition(isBackgroundRefresh) {
     Geolocation.getCurrentPosition(
       position => {
         setHasFetchLocation(true);
         setPosition(position);
-        fetchSalatDetails(position);
+        fetchSalatDetails(position, isBackgroundRefresh);
       },
       error => {
         // See error code charts below.
         setHasLocationPermission(false);
-        fetchSalatDetails(position);
+        fetchSalatDetails(position, isBackgroundRefresh);
         console.log(error.code, error.message);
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
@@ -440,14 +487,15 @@ const Salat = props => {
 
   useEffect(() => {
     ding.setVolume(1);
+    initBackgroundFetch();
     setIsLoaded(true);
 
     Geolocation.requestAuthorization('whenInUse').then(value => {
       if (value === 'granted') {
         setHasLocationPermission(true);
-        getCurrentPosition();
+        getCurrentPosition(false);
       } else {
-        getCurrentPosition();
+        getCurrentPosition(false);
         setHasLocationPermission(false);
       }
     });
