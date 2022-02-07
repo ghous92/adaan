@@ -61,9 +61,6 @@ const Salat = props => {
     },
     timestamp: 1643142451560.493,
   });
-  const [currentTime, setCurrentTime] = useState(null);
-  const [currentSalatName, setCurrentSalatName] = useState('');
-  const [minuteLeft, setMinuteLeft] = useState(15);
   const [showPlayButton, setShowPlayButton] = useState(true);
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
   const [hasFetchLocation, setHasFetchLocation] = useState(false);
@@ -113,7 +110,7 @@ const Salat = props => {
     });
   }
 
-  function getMessagingPermission(salatData) {
+  function getMessagingPermission(salatDetails) {
     requestUserPermission()
       .then(enabled => {
         if (enabled) {
@@ -122,7 +119,7 @@ const Salat = props => {
               .getToken()
               .then(_token => {
                 console.log('firebase token', _token);
-                updateStore(salatData, _token);
+                updateStore(salatDetails, _token);
               })
               .catch(error => {
                 console.log(error);
@@ -140,8 +137,8 @@ const Salat = props => {
       'notificationToken',
       data => {
         console.log('Notification token', data);
-        if (data.tokenNotify) {
-          getMessagingPermission(salatData);
+        if (data.tokenNotify && hasLocationPermission) {
+          fetchSalatDetails(position, false, true, true);
         }
         return () => {
           unsubscribe();
@@ -291,7 +288,12 @@ const Salat = props => {
     return data;
   };
 
-  function fetchSalatDetails(pos, isBackgroundRefresh) {
+  function fetchSalatDetails(
+    pos,
+    isBackgroundRefresh,
+    isStaticData,
+    isNotificationEnabled,
+  ) {
     var data = get_input_data(pos);
     var jday = helper.getJD(data.year, data.month, data.day);
     var total = jday + data.time_local / 1440.0 - data.tz / 24.0;
@@ -361,17 +363,28 @@ const Salat = props => {
       },
     ];
 
-    setSalatTimings(salatTimes, isBackgroundRefresh);
+    setSalatTimings(
+      salatTimes,
+      isBackgroundRefresh,
+      isStaticData,
+      isNotificationEnabled,
+    );
   }
 
-  function setSalatTimings(salatTimes, isBackgroundRefresh) {
+  function setSalatTimings(
+    salatTimes,
+    isBackgroundRefresh,
+    isStaticData,
+    isNotificationEnabled,
+  ) {
     const updatedSalatData = helper.mergeArrayObjects(salatData, salatTimes);
     // console.log(updatedSalatData);
     setSalatData(updatedSalatData);
-    if (isBackgroundRefresh) {
+    if (isBackgroundRefresh && !isStaticData) {
+      getMessagingPermission(updatedSalatData);
+    } else if (isNotificationEnabled) {
       getMessagingPermission(updatedSalatData);
     }
-    // initBackgroundFetch(updatedSalatData);
   }
 
   function updateUserInfo(id, token) {
@@ -473,13 +486,17 @@ const Salat = props => {
       position => {
         setHasFetchLocation(true);
         setPosition(position);
-        fetchSalatDetails(position, isBackgroundRefresh);
+        fetchSalatDetails(position, isBackgroundRefresh, false, false);
       },
       error => {
         // See error code charts below.
         setHasLocationPermission(false);
-        fetchSalatDetails(position, isBackgroundRefresh);
-        console.log(error.code, error.message);
+        fetchSalatDetails(position, isBackgroundRefresh, true, false);
+        console.log(
+          'location access was not given yet ',
+          error.code,
+          error.message,
+        );
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
@@ -499,8 +516,6 @@ const Salat = props => {
         setHasLocationPermission(false);
       }
     });
-
-    // getCurrentPosition();
 
     return () => {
       ding.release();
