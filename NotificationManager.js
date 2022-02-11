@@ -1,13 +1,13 @@
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import {eventManager} from './event-emitter';
+import EventEmitter from './event-emitter';
 
 class NotificationManger {
   configure = (onRegister, onNotification, onOpenNotification) => {
     PushNotification.configure({
       onRegister: function (tokenNotify) {
         console.log('NotificationManger TOKEN:', tokenNotify);
-        eventManager.emit('notificationToken', {tokenNotify: tokenNotify});
+        EventEmitter.emit('notificationToken', {tokenNotify: tokenNotify});
       },
       onOpenNotification: function (notification) {
         Platform.OS === 'ios' ? notification : notification;

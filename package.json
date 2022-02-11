@@ -15,6 +15,7 @@
     "@react-native-firebase/firestore": "14.2.4",
     "@react-native-firebase/messaging": "^14.2.2",
     "axios": "^0.25.0",
+    "fbemitter": "^3.0.0",
     "firebase": "^9.6.3",
     "moment": "2.29.1",
     "moment-timezone": "0.5.34",

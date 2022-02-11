@@ -24,9 +24,9 @@ import * as axios from 'axios';
 import moment from 'moment';
 import * as m from 'moment-timezone';
 import BackgroundFetch from 'react-native-background-fetch';
-import {eventManager} from './event-emitter';
+import EventEmitter from './event-emitter';
 const {BGTimerModule} = NativeModules;
-const eventEmitter = new NativeEventEmitter(BGTimerModule);
+const eventEmitterNative = new NativeEventEmitter(BGTimerModule);
 
 const db = firestore();
 
@@ -110,7 +110,7 @@ const Salat = props => {
     });
   }
 
-  function getMessagingPermission(salatDetails) {
+  function getMessagingPermission(salatDetails, pos) {
     requestUserPermission()
       .then(enabled => {
         if (enabled) {
@@ -119,7 +119,7 @@ const Salat = props => {
               .getToken()
               .then(_token => {
                 console.log('firebase token', _token);
-                updateStore(salatDetails, _token);
+                updateStore(salatDetails, _token, pos);
               })
               .catch(error => {
                 console.log(error);
@@ -133,20 +133,19 @@ const Salat = props => {
   }
 
   useEffect(() => {
-    let unsubscribe = eventManager.subscribe(
-      'notificationToken',
-      data => {
-        console.log('Notification token', data);
-        if (data.tokenNotify && hasLocationPermission) {
-          fetchSalatDetails(position, false, true, true);
-        }
-        return () => {
-          unsubscribe();
-        };
-      },
-      [salatData],
-    );
-  });
+    const onToken = eventData => {
+      console.log('Notification token', eventData);
+      if (eventData.tokenNotify.token) {
+        // fetchSalatDetails(position, false, true, true);
+        getUserLocationPermission();
+      }
+    };
+    const listener = EventEmitter.addListener('notificationToken', onToken);
+
+    return () => {
+      listener.remove();
+    };
+  }, []);
 
   async function requestUserPermission() {
     const authStatus = await messaging.requestPermission();
@@ -165,7 +164,10 @@ const Salat = props => {
       setRingAzaan(true);
     }
   };
-  const subscription = eventEmitter.addListener('onSalatAlert', onSalatAlert);
+  const subscription = eventEmitterNative.addListener(
+    'onSalatAlert',
+    onSalatAlert,
+  );
 
   const play = () => {
     setShowPlayButton(false);
@@ -364,6 +366,7 @@ const Salat = props => {
     ];
 
     setSalatTimings(
+      pos,
       salatTimes,
       isBackgroundRefresh,
       isStaticData,
@@ -372,6 +375,7 @@ const Salat = props => {
   }
 
   function setSalatTimings(
+    pos,
     salatTimes,
     isBackgroundRefresh,
     isStaticData,
@@ -381,13 +385,13 @@ const Salat = props => {
     // console.log(updatedSalatData);
     setSalatData(updatedSalatData);
     if (isBackgroundRefresh && !isStaticData) {
-      getMessagingPermission(updatedSalatData);
+      getMessagingPermission(updatedSalatData, pos);
     } else if (isNotificationEnabled) {
-      getMessagingPermission(updatedSalatData);
+      getMessagingPermission(updatedSalatData, pos);
     }
   }
 
-  function updateUserInfo(id, token) {
+  function updateUserInfo(id, token, salatTimes, position) {
     const userRef = db
       .collection('userInfo')
       .doc(id)
@@ -397,32 +401,57 @@ const Salat = props => {
     userRef
       .then(val => {
         console.log('token updated');
+        updateUserSalatTime(salatTimes, position);
+        db.collection('logs').add({
+          token: val ? val : null,
+          datetime: new Date(),
+          isSameZone: true,
+        });
       })
       .catch(error => {
         console.log(error);
+        db.collection('logs').add({
+          error: error,
+          datetime: new Date(),
+          isSameZone: true,
+        });
+
         if (error.code === 'firestore/not-found') {
-          db.collection('userInfo')
+          const userAdd = db
+            .collection('userInfo')
             .doc(id)
             .set({
               tokens: firestore.FieldValue.arrayUnion(token),
+            });
+          userAdd
+            .then(val => {
+              console.log('token added');
+              updateUserSalatTime(salatTimes, position);
+
+              db.collection('logs').add({
+                token: val ? val : null,
+                datetime: new Date(),
+                isSameZone: false,
+              });
+            })
+            .catch(error => {
+              console.log('error happen');
+              db.collection('logs').add({
+                error: error,
+                datetime: new Date(),
+                isSameZone: false,
+              });
             });
         }
       });
   }
 
-  function updateStore(salatTimes, token) {
-    console.log('reached to update store');
+  function updateUserSalatTime(salatTimes, position) {
     let currentDay = helper.getDate();
     let weekDay = helper.weekday[currentDay.weekday];
     let month = helper.monthList[currentDay.month - 1].abbr;
     var tz =
       moment.tz.zone(helper.getTimeZone()).utcOffset(position.timestamp) / 60.0;
-    const id =
-      position.coords.latitude.toFixed(2) +
-      ':' +
-      position.coords.longitude.toFixed(2);
-
-    updateUserInfo(id, token);
     const tempTimeZone = tz.toString().split('.');
     let timeZone = null;
     if (tempTimeZone[1]) {
@@ -481,12 +510,23 @@ const Salat = props => {
     });
   }
 
+  function updateStore(salatTimes, token, position) {
+    console.log('reached to update store');
+
+    const id =
+      position.coords.latitude.toFixed(2) +
+      ':' +
+      position.coords.longitude.toFixed(2);
+
+    updateUserInfo(id, token, salatTimes, position);
+  }
+
   function getCurrentPosition(isBackgroundRefresh) {
     Geolocation.getCurrentPosition(
       position => {
         setHasFetchLocation(true);
         setPosition(position);
-        fetchSalatDetails(position, isBackgroundRefresh, false, false);
+        fetchSalatDetails(position, isBackgroundRefresh, false, true);
       },
       error => {
         // See error code charts below.
@@ -502,11 +542,7 @@ const Salat = props => {
     );
   }
 
-  useEffect(() => {
-    ding.setVolume(1);
-    initBackgroundFetch();
-    setIsLoaded(true);
-
+  function getUserLocationPermission() {
     Geolocation.requestAuthorization('whenInUse').then(value => {
       if (value === 'granted') {
         setHasLocationPermission(true);
@@ -516,7 +552,11 @@ const Salat = props => {
         setHasLocationPermission(false);
       }
     });
-
+  }
+  useEffect(() => {
+    ding.setVolume(1);
+    initBackgroundFetch();
+    setIsLoaded(true);
     return () => {
       ding.release();
     };
