@@ -48,6 +48,7 @@ var ding = new Sound('azan.m4a', Sound.MAIN_BUNDLE, error => {
 });
 
 const Salat = props => {
+  let count = 0;
   const [isloaded, setIsLoaded] = useState(false);
   const [position, setPosition] = useState({
     coords: {
@@ -401,7 +402,7 @@ const Salat = props => {
     userRef
       .then(val => {
         console.log('token updated');
-        updateUserSalatTime(salatTimes, position);
+        updateUserSalatTime(salatTimes, position, 0);
         db.collection('logs').add({
           token: val ? val : null,
           datetime: new Date(),
@@ -426,7 +427,9 @@ const Salat = props => {
           userAdd
             .then(val => {
               console.log('token added');
-              updateUserSalatTime(salatTimes, position);
+              for (let index = 1; index <= 2; index++) {
+                updateUserSalatTime(salatTimes, position, 0);
+              }
 
               db.collection('logs').add({
                 token: val ? val : null,
@@ -446,7 +449,10 @@ const Salat = props => {
       });
   }
 
-  function updateUserSalatTime(salatTimes, position) {
+  function updateUserSalatTime(salatTimes, position, numberOfNextDays) {
+    if (numberOfNextDays > 1) {
+      return;
+    }
     let currentDay = helper.getDate();
     let weekDay = helper.weekday[currentDay.weekday];
     let month = helper.monthList[currentDay.month - 1].abbr;
@@ -465,13 +471,18 @@ const Salat = props => {
     } else {
       timeZone = 0;
     }
+    if (numberOfNextDays > 0) {
+      currentDay.day = currentDay.day + 1;
+    }
     salatTimes.forEach(prayer => {
       const userId =
-        position.coords.latitude.toFixed(2) +
+        position.coords.latitude.toFixed(1) +
         ':' +
-        position.coords.longitude.toFixed(2) +
+        position.coords.longitude.toFixed(1) +
         ':' +
-        prayer.id;
+        prayer.id +
+        ':' +
+        numberOfNextDays;
 
       const temp = prayer.namaz ? prayer.namaz.split(':') : [];
 
@@ -483,6 +494,7 @@ const Salat = props => {
           addTask = true;
         }
       }
+
       if (addTask) {
         db.collection('tasks')
           .doc(userId)
@@ -504,6 +516,7 @@ const Salat = props => {
           })
           .then(() => {
             console.log('task added!');
+            updateUserSalatTime(salatTimes, position, ++count);
           })
           .catch(error => console.log(error));
       }
@@ -514,9 +527,9 @@ const Salat = props => {
     console.log('reached to update store');
 
     const id =
-      position.coords.latitude.toFixed(2) +
+      position.coords.latitude.toFixed(1) +
       ':' +
-      position.coords.longitude.toFixed(2);
+      position.coords.longitude.toFixed(1);
 
     updateUserInfo(id, token, salatTimes, position);
   }
