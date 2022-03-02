@@ -65,6 +65,7 @@ const Salat = props => {
   const [showPlayButton, setShowPlayButton] = useState(true);
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
   const [hasFetchLocation, setHasFetchLocation] = useState(false);
+  const [address, setAddress] = useState(null);
 
   const [ringAzaan, setRingAzaan] = useState(false);
 
@@ -450,7 +451,7 @@ const Salat = props => {
   }
 
   function updateUserSalatTime(salatTimes, position, numberOfNextDays) {
-    if (numberOfNextDays > 1) {
+    if (numberOfNextDays > 3) {
       return;
     }
     let currentDay = helper.getDate();
@@ -472,7 +473,7 @@ const Salat = props => {
       timeZone = 0;
     }
     if (numberOfNextDays > 0) {
-      currentDay.day = currentDay.day + 1;
+      currentDay.day = currentDay.day + numberOfNextDays;
     }
     salatTimes.forEach(prayer => {
       const userId =
@@ -495,31 +496,32 @@ const Salat = props => {
         }
       }
 
-      if (addTask) {
-        db.collection('tasks')
-          .doc(userId)
-          .set({
-            worker: 'makeSalatNotification',
-            status: 'scheduled',
-            performAt: new Date(
-              month +
-                ' ' +
-                currentDay.day +
-                ', ' +
-                currentDay.year +
-                ' ' +
-                prayer.namaz +
-                ' GMT' +
-                timeZone,
-            ),
-            options: {userId: userId},
-          })
-          .then(() => {
-            console.log('task added!');
-            updateUserSalatTime(salatTimes, position, ++count);
-          })
-          .catch(error => console.log(error));
+      if (!addTask && numberOfNextDays === 0) {
+        return;
       }
+      db.collection('tasks')
+        .doc(userId)
+        .set({
+          worker: 'makeSalatNotification',
+          status: 'scheduled',
+          performAt: new Date(
+            month +
+              ' ' +
+              currentDay.day +
+              ', ' +
+              currentDay.year +
+              ' ' +
+              prayer.namaz +
+              ' GMT' +
+              timeZone,
+          ),
+          options: {userId: userId},
+        })
+        .then(() => {
+          console.log('task added!');
+          updateUserSalatTime(salatTimes, position, ++count);
+        })
+        .catch(error => console.log(error));
     });
   }
 
@@ -534,11 +536,27 @@ const Salat = props => {
     updateUserInfo(id, token, salatTimes, position);
   }
 
+  function getLocationDetails(pos) {
+    const googleMapApiKey = 'AIzaSyCZJLDE9bxYzifFTyu1IN6rnjupzDDeNmo';
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.coords.latitude},${pos.coords.longitude}&key=${googleMapApiKey}`;
+    axios
+      .get(url)
+      .then(response => {
+        setAddress(
+          response.data.results[0].address_components[2].long_name +
+            ' ' +
+            response.data.results[0].address_components[3].long_name,
+        );
+      })
+      .catch(error => console.log(error));
+  }
+
   function getCurrentPosition(isBackgroundRefresh) {
     Geolocation.getCurrentPosition(
       position => {
         setHasFetchLocation(true);
         setPosition(position);
+        getLocationDetails(position);
         fetchSalatDetails(position, isBackgroundRefresh, false, true);
       },
       error => {
@@ -603,6 +621,7 @@ const Salat = props => {
       <SafeAreaView style={styles.sectionContainer}>
         <View>
           <Text style={styles.sectionTitle}>Salat</Text>
+          <Text style={styles.sectionAddress}>{address ? address : ''}</Text>
         </View>
         <View>
           <FlatList
@@ -652,6 +671,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#fff',
     marginTop: 10,
+    marginLeft: 10,
+    marginBottom: 5,
+  },
+  sectionAddress: {
+    fontSize: 18,
+    fontWeight: '400',
+    color: '#fff',
+    marginTop: 0,
     marginLeft: 10,
     marginBottom: 10,
   },
