@@ -393,7 +393,30 @@ const Salat = props => {
     }
   }
 
+  async function checkIfTokenExistsInAnotherDocument(id, token) {
+    const usersInfoRef = db.collection('userInfo');
+    const snapshot = await usersInfoRef.get();
+    snapshot.forEach(doc => {
+      console.log(doc.id, '=>', doc.data());
+      if (doc.id !== id) {
+        doc.data().tokens.forEach(existingToken => {
+          if (existingToken === token) {
+            var index = doc.data().tokens.indexOf(token);
+            if (index !== -1) {
+              doc.data().tokens.splice(index, 1);
+              db.collection('userInfo').doc(doc.id).update({
+                tokens: doc.data().tokens,
+              });
+            }
+          }
+        });
+      }
+    });
+  }
+
   function updateUserInfo(id, token, salatTimes, position) {
+    checkIfTokenExistsInAnotherDocument(id, token);
+
     const userRef = db
       .collection('userInfo')
       .doc(id)
