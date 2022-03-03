@@ -11,6 +11,7 @@ import {
   NativeModules,
   NativeEventEmitter,
   Platform,
+  RefreshControl,
 } from 'react-native';
 import firebase from '@react-native-firebase/app';
 import firestore from '@react-native-firebase/firestore';
@@ -66,12 +67,23 @@ const Salat = props => {
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
   const [hasFetchLocation, setHasFetchLocation] = useState(false);
   const [address, setAddress] = useState(null);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const [ringAzaan, setRingAzaan] = useState(false);
 
   const messaging = firebase.messaging();
 
   // background refresh
+
+  const wait = timeout => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    getCurrentPosition(false);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   async function initBackgroundFetch() {
     // BackgroundFetch event handler.
@@ -474,9 +486,6 @@ const Salat = props => {
   }
 
   function updateUserSalatTime(salatTimes, position, numberOfNextDays) {
-    if (numberOfNextDays > 3) {
-      return;
-    }
     let currentDay = helper.getDate();
     let weekDay = helper.weekday[currentDay.weekday];
     let month = helper.monthList[currentDay.month - 1].abbr;
@@ -542,7 +551,11 @@ const Salat = props => {
         })
         .then(() => {
           console.log('task added!');
-          updateUserSalatTime(salatTimes, position, ++count);
+          if (count <= 14) {
+            updateUserSalatTime(salatTimes, position, ++count);
+          } else if (count > 14) {
+            return;
+          }
         })
         .catch(error => console.log(error));
     });
@@ -651,6 +664,9 @@ const Salat = props => {
             data={salatData}
             renderItem={renderItem}
             keyExtractor={item => item.id}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
         </View>
         <TouchableOpacity style={styles.playBtn}>
