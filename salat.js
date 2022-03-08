@@ -354,7 +354,7 @@ const Salat = props => {
 
     const twilight = (getTwilight(18, data.lat, theta) * (60 * 180)) / Math.PI;
 
-    const asarTime = (getAsarAngle(1, data.lat, theta) * (60 * 180)) / Math.PI;
+    const asarTime = (getAsarAngle(2, data.lat, theta) * (60 * 180)) / Math.PI;
 
     const salatTimes = [
       {
